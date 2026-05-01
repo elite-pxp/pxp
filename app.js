@@ -15,16 +15,34 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileButtonLabelMediaQuery = window.matchMedia('(max-width: 560px)');
     const videoCards = document.querySelectorAll('.video-card');
     const videosContainer = document.querySelector('.videos-container');
+    const primaryVideoGrid = document.querySelector('.videos-container > .video-grid:not(.video-grid-extra)');
+    const extraVideoGrid = document.querySelector('.video-grid-extra');
     const videoExpandToggle = document.querySelector('.video-expand-toggle');
     const videoSearchInput = document.querySelector('.video-search-input');
     const videoSearchEmpty = document.querySelector('.video-search-empty');
-    const defaultStudyNotesDownloadUrl = 'https://drive.google.com/uc?export=download&id=1LyHUPEO-xrRe6R-xDYBQ5IZMPZiYJdc4';
-    const studyNotesLinksByVideoId = {
-        'video-2': 'https://drive.google.com/uc?export=download&id=1lAzRUtpEwzuzxansQvQ9jzd30T5f77WO',
-        'video-3': 'https://drive.google.com/uc?export=download&id=1zPRkUQ0n7cMzWsPFbulv_HBXnrCEOw0j',
-        'video-4': 'https://drive.google.com/uc?export=download&id=1jbeVO3QWQnGbQYloVurRSL0gTU-pLndp',
+    const studyNotesFolderUrl = 'https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing';
+    const studyNotesDownloadLinksByYouTubeId = {
+        Hu5gbtZsbcg: 'https://drive.google.com/uc?export=download&id=1I5AvwxAb0mNBzNNh4hiTCE29BLIAvkrb',
+        jSADhcPqGpQ: 'https://drive.google.com/uc?export=download&id=1GBv-a-P-rjiCHT0pmwAdJ5MzwHELHnl3',
+        PlCeqAbGN9U: 'https://drive.google.com/uc?export=download&id=1pe_Aclxwe8HvvZAz_I9jZZ4ir0wKi3vr',
+        mYiw0rO3qSo: 'https://drive.google.com/uc?export=download&id=1gK87AXffTQoEjW0TPSH_7O9hGktPhoH4',
     };
-    const activeVideoIds = new Set(['video-1', 'video-2', 'video-3', 'video-4']);
+    const unavailableStudyNotesYouTubeIds = new Set([
+        'I7DZerTI9hg',
+        'CGpM9zMOX50',
+        '7zyTup1sU2U',
+        'aDlh_6UYVWY',
+    ]);
+    const unavailableStudyNotesLabel = 'Study Notes Not Available';
+    const uploadDateLabelsByYouTubeId = {
+        '-O99Y4kILG8': 'Uploaded: January 6, 2026',
+        '1oi5xAgYyu4': 'Uploaded: January 13, 2026',
+        'MlWYBkHROXc': 'Uploaded: January 20, 2026',
+        'frqOolLffs8': 'Uploaded: January 27, 2026',
+    };
+    const activeVideoIds = new Set(Array.from({ length: 17 }, function (_, index) {
+        return `video-${index + 1}`;
+    }));
     const youtubeApiKey =
         window.YOUTUBE_API_KEY ||
         document.querySelector('meta[name="youtube-api-key"]')?.getAttribute('content')?.trim() ||
@@ -39,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const heroYouTubeUsername = 'PoweredXPrayers';
     const heroYouTubeChannelId = 'UC1qFfHXbdgzy188ILJFw68Q';
     const heroUploadsPlaylistId = `UU${heroYouTubeChannelId.slice(2)}`;
+    const youtubeRssEntriesCache = new Map();
 
     const setShareButtonFeedback = function (message, timeoutMs) {
         if (!shareButton) {
@@ -87,6 +106,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }).format(parsedDate);
     };
 
+    const formatUploadDateLabel = function (isoDate) {
+        const formattedDate = formatPostedDate(isoDate);
+        return formattedDate ? `Uploaded: ${formattedDate}` : '';
+    };
+
     const normalizeYouTubeDescription = function (descriptionText) {
         if (!descriptionText) {
             return '';
@@ -99,8 +123,63 @@ document.addEventListener('DOMContentLoaded', function () {
         return (text || '').toLowerCase().replace(/\s+/g, ' ').trim();
     };
 
+    const parseVideoCardDate = function (card) {
+        const dateText = card.querySelector('.video-date')?.textContent || '';
+        const dateMatch = dateText.match(/Uploaded:\s*(.+)$/i);
+        if (!dateMatch) {
+            return 0;
+        }
+
+        const parsedDate = new Date(dateMatch[1]);
+        return Number.isNaN(parsedDate.getTime()) ? 0 : parsedDate.getTime();
+    };
+
+    const sortVideoCardsNewestFirst = function () {
+        if (!primaryVideoGrid || !extraVideoGrid) {
+            return;
+        }
+
+        const sortedCards = Array.from(videoCards).sort(function (firstCard, secondCard) {
+            return parseVideoCardDate(secondCard) - parseVideoCardDate(firstCard);
+        });
+
+        sortedCards.forEach(function (card, index) {
+            const targetGrid = index < 8 ? primaryVideoGrid : extraVideoGrid;
+            targetGrid.appendChild(card);
+        });
+    };
+
     const isPlaceholderVideoCard = function (card, embeddedYouTubeVideoId) {
         return !embeddedYouTubeVideoId;
+    };
+
+    const syncStudyNotesLink = function (button, url, shouldDownload, videoId) {
+        button.href = url;
+
+        if (shouldDownload) {
+            button.setAttribute('download', `${videoId}-study-notes.pdf`);
+            button.setAttribute('target', '_self');
+            button.removeAttribute('rel');
+            return;
+        }
+
+        button.removeAttribute('download');
+        button.setAttribute('target', '_blank');
+        button.setAttribute('rel', 'noopener noreferrer');
+    };
+
+    const syncUnavailableStudyNotesButton = function (button) {
+        button.href = '#';
+        button.removeAttribute('download');
+        button.removeAttribute('target');
+        button.removeAttribute('rel');
+        button.dataset.studyNotesUnavailable = 'true';
+    };
+
+    const getEmbeddedYouTubeVideoId = function (card) {
+        const iframe = card.querySelector('.video-embed iframe');
+        const iframeVideoId = extractYouTubeVideoId(iframe?.getAttribute('src') || '');
+        return iframeVideoId || card.dataset.youtubeId || card.querySelector('.video-preview-link')?.dataset.youtubeId || '';
     };
 
     const applyVideoSearchFilter = function () {
@@ -115,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const title = card.querySelector('.video-title')?.textContent || '';
             const date = card.querySelector('.video-date')?.textContent || '';
             const description = card.querySelector('.video-description')?.textContent || '';
-            const embedName = card.querySelector('.video-embed iframe')?.getAttribute('title') || '';
+            const embedName = card.querySelector('.video-embed iframe')?.getAttribute('title') || card.querySelector('.video-preview-link')?.getAttribute('aria-label') || '';
             const videoName = card.dataset.videoId || '';
             const searchableText = normalizeSearchText(`${title} ${date} ${description} ${embedName} ${videoName}`);
             const isMatch = !query || searchableText.includes(query);
@@ -148,11 +227,74 @@ document.addEventListener('DOMContentLoaded', function () {
         const useCompactLabel = mobileButtonLabelMediaQuery.matches || document.body.classList.contains('force-mobile-view');
         const label = useCompactLabel ? 'Study Notes' : 'Download Study Notes';
         document.querySelectorAll('.download-button').forEach(function (button) {
+            if (button.dataset.studyNotesUnavailableClicked === 'true') {
+                button.textContent = unavailableStudyNotesLabel;
+                return;
+            }
+
             button.textContent = label;
         });
     };
 
-    const fetchYouTubeMetadata = async function (videoId) {
+    const fetchYouTubeRssEntries = async function (channelId) {
+        if (!channelId) {
+            return [];
+        }
+
+        if (youtubeRssEntriesCache.has(channelId)) {
+            return youtubeRssEntriesCache.get(channelId);
+        }
+
+        const entriesPromise = (async function () {
+            try {
+                const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(channelId)}`;
+                const response = await fetch(rssUrl);
+                if (!response.ok) {
+                    return [];
+                }
+
+                const xmlText = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, 'application/xml');
+
+                return Array.from(xmlDoc.getElementsByTagName('entry')).map(function (entry) {
+                    return {
+                        videoId: entry.getElementsByTagName('yt:videoId')[0]?.textContent?.trim() || '',
+                        title: entry.getElementsByTagName('title')[0]?.textContent?.trim() || '',
+                        description: entry.getElementsByTagName('media:description')[0]?.textContent?.trim() || '',
+                        publishedAt: entry.getElementsByTagName('published')[0]?.textContent?.trim() || '',
+                    };
+                }).filter(function (entry) {
+                    return Boolean(entry.videoId);
+                });
+            } catch (error) {
+                return [];
+            }
+        })();
+
+        youtubeRssEntriesCache.set(channelId, entriesPromise);
+        return entriesPromise;
+    };
+
+    const fetchYouTubeRssMetadata = async function (videoId, channelId) {
+        const rssEntries = await fetchYouTubeRssEntries(channelId);
+        const matchingEntry = rssEntries.find(function (entry) {
+            return entry.videoId === videoId;
+        });
+
+        if (!matchingEntry) {
+            return null;
+        }
+
+        return {
+            title: matchingEntry.title || '',
+            description: matchingEntry.description || '',
+            channelId: channelId || '',
+            publishedAt: matchingEntry.publishedAt || '',
+        };
+    };
+
+    const fetchYouTubeMetadata = async function (videoId, fallbackChannelId = heroYouTubeChannelId) {
         if (!videoId) {
             return null;
         }
@@ -163,20 +305,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const metadataPromise = (async function () {
             if (!youtubeApiKey) {
-                return null;
+                return fetchYouTubeRssMetadata(videoId, fallbackChannelId);
             }
 
             try {
                 const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${youtubeApiKey}`;
                 const response = await fetch(apiUrl);
                 if (!response.ok) {
-                    return null;
+                    return fetchYouTubeRssMetadata(videoId, fallbackChannelId);
                 }
 
                 const payload = await response.json();
                 const item = payload?.items?.[0];
                 if (!item?.snippet) {
-                    return null;
+                    return fetchYouTubeRssMetadata(videoId, fallbackChannelId);
                 }
 
                 return {
@@ -186,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     publishedAt: item.snippet.publishedAt || '',
                 };
             } catch (error) {
-                return null;
+                return fetchYouTubeRssMetadata(videoId, fallbackChannelId);
             }
         })();
 
@@ -362,8 +504,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const metadata = await fetchYouTubeMetadata(currentHeroVideoId);
-        const formattedDate = formatPostedDate(metadata?.publishedAt || '');
-        heroFeaturedDate.textContent = formattedDate ? `Uploaded ${formattedDate}` : '';
+        heroFeaturedDate.textContent = formatUploadDateLabel(metadata?.publishedAt || '');
     };
 
     const attachHeroVideoFromFeed = async function () {
@@ -377,8 +518,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const latestFromRssByUserOnly = await getLatestVideoIdFromYouTubeRssByUser(normalizedUsername);
             if (latestFromRssByUserOnly?.videoId) {
                 heroFeaturedIframe.src = `https://www.youtube.com/embed/${latestFromRssByUserOnly.videoId}`;
-                const fallbackDate = formatPostedDate(latestFromRssByUserOnly.publishedAt);
-                heroFeaturedDate.textContent = fallbackDate ? `Uploaded ${fallbackDate}` : '';
+                heroFeaturedDate.textContent = formatUploadDateLabel(latestFromRssByUserOnly.publishedAt);
                 return;
             }
             await syncHeroFeaturedDateFromIframe();
@@ -394,13 +534,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const latestFromRssByUserOnly = await getLatestVideoIdFromYouTubeRssByUser(normalizedUsername);
             if (latestFromRssByUserOnly?.videoId) {
                 heroFeaturedIframe.src = `https://www.youtube.com/embed/${latestFromRssByUserOnly.videoId}`;
-                const fallbackDate = formatPostedDate(latestFromRssByUserOnly.publishedAt);
-                heroFeaturedDate.textContent = fallbackDate ? `Uploaded ${fallbackDate}` : '';
+                heroFeaturedDate.textContent = formatUploadDateLabel(latestFromRssByUserOnly.publishedAt);
                 return;
             }
 
             if (heroUploadsPlaylistId) {
-                heroFeaturedIframe.src = `https://www.youtube.com/embed?listType=playlist&list=${encodeURIComponent(heroUploadsPlaylistId)}`;
+                heroFeaturedIframe.src = `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(heroUploadsPlaylistId)}`;
             }
             heroFeaturedDate.textContent = '';
             return;
@@ -409,8 +548,7 @@ document.addEventListener('DOMContentLoaded', function () {
         heroFeaturedIframe.src = `https://www.youtube.com/embed/${latestVideo.videoId}`;
 
         if (heroFeaturedDate) {
-            const formattedDate = formatPostedDate(latestVideo.publishedAt);
-            heroFeaturedDate.textContent = formattedDate ? `Uploaded ${formattedDate}` : '';
+            heroFeaturedDate.textContent = formatUploadDateLabel(latestVideo.publishedAt);
         }
 
         if (!latestVideo.publishedAt) {
@@ -462,9 +600,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const videoId = card.dataset.videoId;
-        const resolvedDownloadUrl = studyNotesLinksByVideoId[videoId] || defaultStudyNotesDownloadUrl;
-        const iframe = card.querySelector('.video-embed iframe');
-        const embeddedYouTubeVideoId = extractYouTubeVideoId(iframe?.getAttribute('src') || '');
+        const embeddedYouTubeVideoId = getEmbeddedYouTubeVideoId(card);
+        const studyNotesUnavailable = unavailableStudyNotesYouTubeIds.has(embeddedYouTubeVideoId);
+        const resolvedDownloadUrl = studyNotesDownloadLinksByYouTubeId[embeddedYouTubeVideoId] || studyNotesFolderUrl;
+        const shouldDownloadStudyNotes = Boolean(studyNotesDownloadLinksByYouTubeId[embeddedYouTubeVideoId]);
         const videoTitle = card.querySelector('.video-title');
         const videoDescription = card.querySelector('.video-description');
         const existingDateLabel = card.querySelector('.video-date');
@@ -479,6 +618,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const isPlaceholderCard = isPlaceholderVideoCard(card, embeddedYouTubeVideoId);
         const shouldBeComingSoon = !activeVideoIds.has(videoId) || isPlaceholderCard;
 
+        if (!shouldBeComingSoon && dateLabel && embeddedYouTubeVideoId && uploadDateLabelsByYouTubeId[embeddedYouTubeVideoId]) {
+            dateLabel.textContent = uploadDateLabelsByYouTubeId[embeddedYouTubeVideoId];
+        }
+
         if (shouldBeComingSoon) {
             if (videoTitle) {
                 videoTitle.textContent = 'Coming Soon';
@@ -489,17 +632,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             if (dateLabel) {
-                dateLabel.textContent = 'Coming Soon';
+                dateLabel.textContent = 'Upload date: Coming soon';
             }
 
-            button.href = resolvedDownloadUrl;
-            button.setAttribute('download', `${videoId}-study-notes.pdf`);
-            button.setAttribute('target', '_self');
-
-            button.addEventListener('click', function (event) {
-                event.preventDefault();
-                window.location.href = resolvedDownloadUrl;
-            });
+            if (studyNotesUnavailable) {
+                syncUnavailableStudyNotesButton(button);
+            } else {
+                syncStudyNotesLink(button, resolvedDownloadUrl, shouldDownloadStudyNotes, videoId);
+            }
 
             return;
         }
@@ -532,24 +672,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const formattedDate = formatPostedDate(metadata.publishedAt);
                 if (!formattedDate) {
-                    dateLabel.remove();
+                    if (!dateLabel.textContent.trim()) {
+                        dateLabel.remove();
+                    }
                     applyVideoSearchFilter();
                     return;
                 }
 
-                dateLabel.textContent = formattedDate;
+                dateLabel.textContent = `Uploaded: ${formattedDate}`;
                 applyVideoSearchFilter();
             });
         }
 
-        button.href = resolvedDownloadUrl;
-        button.setAttribute('download', `${videoId}-study-notes.pdf`);
-        button.setAttribute('target', '_self');
+        if (studyNotesUnavailable) {
+            syncUnavailableStudyNotesButton(button);
 
-        button.addEventListener('click', function (event) {
-            event.preventDefault();
-            window.location.href = resolvedDownloadUrl;
-        });
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                button.dataset.studyNotesUnavailableClicked = 'true';
+                button.textContent = unavailableStudyNotesLabel;
+            });
+            return;
+        }
+
+        syncStudyNotesLink(button, resolvedDownloadUrl, shouldDownloadStudyNotes, videoId);
     });
 
     const toggleButtons = document.querySelectorAll('.toggle-description');
@@ -574,7 +720,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (videoSearchInput) {
         videoSearchInput.addEventListener('input', applyVideoSearchFilter);
-        applyVideoSearchFilter();
     }
 
     if (typeof mobileButtonLabelMediaQuery.addEventListener === 'function') {
@@ -584,6 +729,8 @@ document.addEventListener('DOMContentLoaded', function () {
         mobileButtonLabelMediaQuery.addListener(syncStudyNotesButtonLabels);
     }
     syncStudyNotesButtonLabels();
+    sortVideoCardsNewestFirst();
+    applyVideoSearchFilter();
 
     const rssStripItem = document.querySelector('.rss-strip-item');
     const rssStripSource = document.querySelector('.rss-strip-source');
