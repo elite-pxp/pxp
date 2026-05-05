@@ -920,6 +920,40 @@ a.prayer-button {
     box-shadow: 0 0 0 2px rgba(201, 168, 109, 0.18);
 }
 
+.admin-field-preview {
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    min-height: 2.2rem;
+    align-items: center;
+    padding: 0.42rem 0.58rem;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    background: white;
+    color: var(--black);
+    font: 700 0.92rem/1.25 var(--font-body);
+    overflow-wrap: anywhere;
+}
+
+.admin-field-preview-fontSize::before {
+    content: "Aa";
+    margin-right: 0.45rem;
+    color: var(--tan);
+    font-size: 0.8em;
+}
+
+.admin-field-preview-color {
+    border-width: 2px;
+}
+
+.admin-field-preview-buttonSize,
+.admin-field-preview-buttonHeight {
+    justify-content: center;
+    background: var(--black);
+    color: white;
+    font-weight: 800;
+}
+
 .admin-video-group {
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 9px;

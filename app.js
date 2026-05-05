@@ -142,6 +142,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
+    const applyColorOverride = function (selector, value) {
+        if (typeof value !== 'string' || !value.trim()) {
+            return;
+        }
+
+        document.querySelectorAll(selector).forEach(function (element) {
+            element.style.color = value.trim();
+            element.dataset.adminColor = 'true';
+        });
+    };
+
     const applySizeOverride = function (selector, property, value) {
         const cssSize = normalizeCssSize(value);
         if (!cssSize) {
@@ -162,6 +173,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const rss = adminContent.rss || {};
         const videos = Array.isArray(adminContent.videos) ? adminContent.videos : [];
         const textSizes = adminContent.textSizes || {};
+        const textColors = adminContent.textColors || {};
+        const buttonSizes = adminContent.buttonSizes || {};
 
         if (typeof adminContent.pageTitle === 'string') {
             document.title = adminContent.pageTitle;
@@ -239,6 +252,20 @@ document.addEventListener('DOMContentLoaded', function () {
         applyFontSizeOverride('.footer-link', textSizes.footerLinks);
         applyFontSizeOverride('.footer-copyright', textSizes.footerCopyright);
         applyFontSizeOverride('.rss-strip-item, .rss-strip-source, .rss-strip-label', textSizes.rss);
+        applyColorOverride('.nav-brand-name', textColors.headerBrand);
+        applyColorOverride('.hero-title', textColors.heroTitle);
+        applyColorOverride('.hero-description', textColors.heroDescription);
+        applyColorOverride('.donate-button, .prayer-button', textColors.heroButtons);
+        applyColorOverride('.section-title', textColors.videoSectionTitle);
+        applyColorOverride('.video-title', textColors.videoTitle);
+        applyColorOverride('.video-description', textColors.videoDescription);
+        applyColorOverride('.download-button', textColors.studyNotesButton);
+        applyColorOverride('.footer-brand', textColors.footerBrand);
+        applyColorOverride('.footer-description', textColors.footerDescription);
+        applySizeOverride('.donate-button, .prayer-button', 'padding', buttonSizes.heroButtonsPadding);
+        applySizeOverride('.download-button', 'padding', buttonSizes.studyNotesButtonPadding);
+        applySizeOverride('.donate-button, .prayer-button', 'minHeight', buttonSizes.heroButtonsMinHeight);
+        applySizeOverride('.download-button', 'minHeight', buttonSizes.studyNotesButtonMinHeight);
 
         videos.forEach(function (video, index) {
             const card = videoCards[index];
@@ -331,6 +358,16 @@ document.addEventListener('DOMContentLoaded', function () {
         return window.getComputedStyle(element)[property] || '';
     };
 
+    const getComputedPadding = function (selector) {
+        const element = document.querySelector(selector);
+        if (!element) {
+            return '';
+        }
+
+        const style = window.getComputedStyle(element);
+        return `${style.paddingTop} ${style.paddingRight} ${style.paddingBottom} ${style.paddingLeft}`;
+    };
+
     const getVideoFontSize = function (card, selector) {
         const element = card.querySelector(selector);
         if (!element) {
@@ -390,6 +427,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 footerCopyright: getComputedFontSize('.footer-copyright'),
                 rss: getComputedFontSize('.rss-strip-item'),
             },
+            textColors: {
+                headerBrand: getComputedStyleValue('.nav-brand-name', 'color'),
+                heroTitle: getComputedStyleValue('.hero-title', 'color'),
+                heroDescription: getComputedStyleValue('.hero-description', 'color'),
+                heroButtons: getComputedStyleValue('.donate-button', 'color'),
+                videoSectionTitle: getComputedStyleValue('.section-title', 'color'),
+                videoTitle: getComputedStyleValue('.video-title', 'color'),
+                videoDescription: getComputedStyleValue('.video-description', 'color'),
+                studyNotesButton: getComputedStyleValue('.download-button', 'color'),
+                footerBrand: getComputedStyleValue('.footer-brand', 'color'),
+                footerDescription: getComputedStyleValue('.footer-description', 'color'),
+            },
+            buttonSizes: {
+                heroButtonsPadding: getComputedPadding('.donate-button'),
+                studyNotesButtonPadding: getComputedPadding('.download-button'),
+                heroButtonsMinHeight: getComputedStyleValue('.donate-button', 'minHeight'),
+                studyNotesButtonMinHeight: getComputedStyleValue('.download-button', 'minHeight'),
+            },
             videos: Array.from(videoCards).map(function (card) {
                 return {
                     title: getVideoFieldValue(card, '.video-title'),
@@ -423,7 +478,48 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     };
 
-    const createAdminField = function (name, label, value, type = 'input') {
+    const updateAdminPreview = function (control, preview, previewType) {
+        if (!preview || !previewType) {
+            return;
+        }
+
+        const value = control.value.trim();
+        preview.removeAttribute('style');
+
+        if (previewType === 'fontSize') {
+            preview.textContent = value || 'Text size preview';
+            if (value) {
+                preview.style.fontSize = normalizeCssSize(value);
+            }
+            return;
+        }
+
+        if (previewType === 'color') {
+            preview.textContent = value || 'Color preview';
+            if (value) {
+                preview.style.color = value;
+                preview.style.borderColor = value;
+            }
+            return;
+        }
+
+        if (previewType === 'buttonSize') {
+            preview.textContent = value || 'Button size preview';
+            if (value) {
+                preview.style.padding = normalizeCssSize(value);
+            }
+            return;
+        }
+
+        if (previewType === 'buttonHeight') {
+            preview.textContent = value || 'Button height preview';
+            if (value) {
+                preview.style.minHeight = normalizeCssSize(value);
+            }
+        }
+    };
+
+    const createAdminField = function (name, label, value, type = 'input', previewType = '') {
         const field = document.createElement('label');
         field.className = 'admin-field';
         const labelText = document.createElement('span');
@@ -435,6 +531,15 @@ document.addEventListener('DOMContentLoaded', function () {
             control.type = 'text';
         }
         field.append(labelText, control);
+        if (previewType) {
+            const preview = document.createElement('span');
+            preview.className = `admin-field-preview admin-field-preview-${previewType}`;
+            field.appendChild(preview);
+            updateAdminPreview(control, preview, previewType);
+            control.addEventListener('input', function () {
+                updateAdminPreview(control, preview, previewType);
+            });
+        }
         return field;
     };
 
@@ -482,25 +587,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const textSizeSection = createAdminSection('Text Sizes');
         textSizeSection.append(
-            createAdminField('textSizes.headerBrand', 'Header brand size', snapshot.textSizes.headerBrand),
-            createAdminField('textSizes.headerShop', 'Shop link size', snapshot.textSizes.headerShop),
-            createAdminField('textSizes.heroTitle', 'Full hero title size', snapshot.textSizes.heroTitle),
-            createAdminField('textSizes.heroBrand', 'Hero brand name size', snapshot.textSizes.heroBrand),
-            createAdminField('textSizes.heroTitleLine', 'Hero title line size', snapshot.textSizes.heroTitleLine),
-            createAdminField('textSizes.heroDescription', 'Hero description size', snapshot.textSizes.heroDescription),
-            createAdminField('textSizes.heroButtons', 'Hero button text size', snapshot.textSizes.heroButtons),
-            createAdminField('textSizes.heroDate', 'Hero video date size', snapshot.textSizes.heroDate),
-            createAdminField('textSizes.videoSectionTitle', 'Video section title size', snapshot.textSizes.videoSectionTitle),
-            createAdminField('textSizes.videoTitle', 'All video title size', snapshot.textSizes.videoTitle),
-            createAdminField('textSizes.videoDate', 'All video date size', snapshot.textSizes.videoDate),
-            createAdminField('textSizes.videoDescription', 'All video description size', snapshot.textSizes.videoDescription),
-            createAdminField('textSizes.videoToggle', 'See more text size', snapshot.textSizes.videoToggle),
-            createAdminField('textSizes.studyNotesButton', 'All study notes button size', snapshot.textSizes.studyNotesButton),
-            createAdminField('textSizes.footerBrand', 'Footer brand size', snapshot.textSizes.footerBrand),
-            createAdminField('textSizes.footerDescription', 'Footer description size', snapshot.textSizes.footerDescription),
-            createAdminField('textSizes.footerLinks', 'Footer links size', snapshot.textSizes.footerLinks),
-            createAdminField('textSizes.footerCopyright', 'Footer copyright size', snapshot.textSizes.footerCopyright),
-            createAdminField('textSizes.rss', 'RSS strip text size', snapshot.textSizes.rss)
+            createAdminField('textSizes.headerBrand', 'Header brand size', snapshot.textSizes.headerBrand, 'input', 'fontSize'),
+            createAdminField('textSizes.headerShop', 'Shop link size', snapshot.textSizes.headerShop, 'input', 'fontSize'),
+            createAdminField('textSizes.heroTitle', 'Full hero title size', snapshot.textSizes.heroTitle, 'input', 'fontSize'),
+            createAdminField('textSizes.heroBrand', 'Hero brand name size', snapshot.textSizes.heroBrand, 'input', 'fontSize'),
+            createAdminField('textSizes.heroTitleLine', 'Hero title line size', snapshot.textSizes.heroTitleLine, 'input', 'fontSize'),
+            createAdminField('textSizes.heroDescription', 'Hero description size', snapshot.textSizes.heroDescription, 'input', 'fontSize'),
+            createAdminField('textSizes.heroButtons', 'Hero button text size', snapshot.textSizes.heroButtons, 'input', 'fontSize'),
+            createAdminField('textSizes.heroDate', 'Hero video date size', snapshot.textSizes.heroDate, 'input', 'fontSize'),
+            createAdminField('textSizes.videoSectionTitle', 'Video section title size', snapshot.textSizes.videoSectionTitle, 'input', 'fontSize'),
+            createAdminField('textSizes.videoTitle', 'All video title size', snapshot.textSizes.videoTitle, 'input', 'fontSize'),
+            createAdminField('textSizes.videoDate', 'All video date size', snapshot.textSizes.videoDate, 'input', 'fontSize'),
+            createAdminField('textSizes.videoDescription', 'All video description size', snapshot.textSizes.videoDescription, 'input', 'fontSize'),
+            createAdminField('textSizes.videoToggle', 'See more text size', snapshot.textSizes.videoToggle, 'input', 'fontSize'),
+            createAdminField('textSizes.studyNotesButton', 'All study notes button size', snapshot.textSizes.studyNotesButton, 'input', 'fontSize'),
+            createAdminField('textSizes.footerBrand', 'Footer brand size', snapshot.textSizes.footerBrand, 'input', 'fontSize'),
+            createAdminField('textSizes.footerDescription', 'Footer description size', snapshot.textSizes.footerDescription, 'input', 'fontSize'),
+            createAdminField('textSizes.footerLinks', 'Footer links size', snapshot.textSizes.footerLinks, 'input', 'fontSize'),
+            createAdminField('textSizes.footerCopyright', 'Footer copyright size', snapshot.textSizes.footerCopyright, 'input', 'fontSize'),
+            createAdminField('textSizes.rss', 'RSS strip text size', snapshot.textSizes.rss, 'input', 'fontSize')
+        );
+
+        const colorSection = createAdminSection('Text Colors');
+        colorSection.append(
+            createAdminField('textColors.headerBrand', 'Header brand color', snapshot.textColors.headerBrand, 'input', 'color'),
+            createAdminField('textColors.heroTitle', 'Hero title color', snapshot.textColors.heroTitle, 'input', 'color'),
+            createAdminField('textColors.heroDescription', 'Hero description color', snapshot.textColors.heroDescription, 'input', 'color'),
+            createAdminField('textColors.heroButtons', 'Hero button text color', snapshot.textColors.heroButtons, 'input', 'color'),
+            createAdminField('textColors.videoSectionTitle', 'Video section title color', snapshot.textColors.videoSectionTitle, 'input', 'color'),
+            createAdminField('textColors.videoTitle', 'Video title color', snapshot.textColors.videoTitle, 'input', 'color'),
+            createAdminField('textColors.videoDescription', 'Video description color', snapshot.textColors.videoDescription, 'input', 'color'),
+            createAdminField('textColors.studyNotesButton', 'Study notes button text color', snapshot.textColors.studyNotesButton, 'input', 'color'),
+            createAdminField('textColors.footerBrand', 'Footer brand color', snapshot.textColors.footerBrand, 'input', 'color'),
+            createAdminField('textColors.footerDescription', 'Footer description color', snapshot.textColors.footerDescription, 'input', 'color')
+        );
+
+        const buttonSizeSection = createAdminSection('Button Sizes');
+        buttonSizeSection.append(
+            createAdminField('buttonSizes.heroButtonsPadding', 'Hero button padding', snapshot.buttonSizes.heroButtonsPadding, 'input', 'buttonSize'),
+            createAdminField('buttonSizes.heroButtonsMinHeight', 'Hero button minimum height', snapshot.buttonSizes.heroButtonsMinHeight, 'input', 'buttonHeight'),
+            createAdminField('buttonSizes.studyNotesButtonPadding', 'Study notes button padding', snapshot.buttonSizes.studyNotesButtonPadding, 'input', 'buttonSize'),
+            createAdminField('buttonSizes.studyNotesButtonMinHeight', 'Study notes button minimum height', snapshot.buttonSizes.studyNotesButtonMinHeight, 'input', 'buttonHeight')
         );
 
         const videosSection = createAdminSection('Videos');
@@ -521,10 +648,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 createAdminField(`videos.${index}.previewImage`, 'Preview image link', video.previewImage),
                 createAdminField(`videos.${index}.downloadLink`, 'Study notes/download link', video.downloadLink),
                 createAdminField(`videos.${index}.downloadText`, 'Study notes button text', video.downloadText),
-                createAdminField(`videos.${index}.titleSize`, 'Title size', video.titleSize),
-                createAdminField(`videos.${index}.dateSize`, 'Date size', video.dateSize),
-                createAdminField(`videos.${index}.descriptionSize`, 'Description size', video.descriptionSize),
-                createAdminField(`videos.${index}.downloadTextSize`, 'Study notes button size', video.downloadTextSize)
+                createAdminField(`videos.${index}.titleSize`, 'Title size', video.titleSize, 'input', 'fontSize'),
+                createAdminField(`videos.${index}.dateSize`, 'Date size', video.dateSize, 'input', 'fontSize'),
+                createAdminField(`videos.${index}.descriptionSize`, 'Description size', video.descriptionSize, 'input', 'fontSize'),
+                createAdminField(`videos.${index}.downloadTextSize`, 'Study notes button text size', video.downloadTextSize, 'input', 'fontSize')
             );
             videosSection.appendChild(group);
         });
@@ -560,7 +687,7 @@ document.addEventListener('DOMContentLoaded', function () {
         actions.className = 'admin-actions';
         actions.innerHTML = '<button type="submit" class="admin-save">Save Changes</button><button type="button" class="admin-export">Export JSON</button><button type="button" class="admin-import">Import JSON</button><button type="button" class="admin-reset">Reset Local Edits</button><span class="admin-status" role="status"></span>';
 
-        form.append(headerSection, heroSection, textSizeSection, videosSection, footerSection, actions);
+        form.append(headerSection, heroSection, textSizeSection, colorSection, buttonSizeSection, videosSection, footerSection, actions);
         document.body.appendChild(overlay);
 
         const setNestedValue = function (target, path, value) {
