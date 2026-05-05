@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const ADMIN_PASSWORD = 'PXPadmin2026!';
+    const ADMIN_PASSWORD = 'xx99';
     const ADMIN_STORAGE_KEY = 'pxpAdminContent';
     const ADMIN_SESSION_KEY = 'pxpAdminUnlocked';
     const ADMIN_EDITOR_SCOPE_KEY = 'pxpAdminEditorScope';
