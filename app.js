@@ -94,6 +94,8 @@ document.addEventListener('DOMContentLoaded', function () {
         '.rss-strip-item',
         '.rss-strip-source',
         '.rss-strip-label',
+        '.brand-icon',
+        '.brand-icon-image',
         '.footer-pxp-logo',
     ];
 
@@ -241,6 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
             element.style.padding = '';
             element.style.minHeight = '';
             element.style.width = '';
+            element.style.height = '';
             delete element.dataset.adminFontSize;
             delete element.dataset.adminColor;
             delete element.dataset.adminSize;
@@ -268,6 +271,9 @@ document.addEventListener('DOMContentLoaded', function () {
             document.title = activeContent.pageTitle;
         }
         applyTextOverride('.nav-brand-name', header.brandName);
+        applyImageOverride('.brand-icon-image', header.logoSrc);
+        applySizeOverride('.brand-icon', 'width', header.logoSize);
+        applySizeOverride('.brand-icon', 'height', header.logoSize);
         applyLinkOverride('.nav-shop', header.shopLink);
         applyTextOverride('.hero-title .brand-name', hero.brandName);
         applyTextOverride('.hero-title-line', hero.titleLine);
@@ -482,6 +488,8 @@ document.addEventListener('DOMContentLoaded', function () {
             pageTitle: document.title,
             header: {
                 brandName: getFieldValue('.nav-brand-name'),
+                logoSrc: getFieldValue('.brand-icon-image', 'src'),
+                logoSize: getComputedStyleValue('.brand-icon', 'width'),
                 shopLink: getFieldValue('.nav-shop', 'href'),
             },
             hero: {
@@ -714,6 +722,8 @@ document.addEventListener('DOMContentLoaded', function () {
         headerSection.append(
             createAdminField('pageTitle', 'Browser tab title', snapshot.pageTitle),
             createAdminField('header.brandName', 'Header brand text', snapshot.header.brandName),
+            createAdminField('header.logoSrc', 'Header logo image link', snapshot.header.logoSrc),
+            createAdminField('header.logoSize', 'Header logo size', snapshot.header.logoSize, 'input', 'buttonHeight'),
             createAdminField('header.shopLink', 'Shop link', snapshot.header.shopLink),
             createAdminField('videoSectionTitle', 'Video section title', snapshot.videoSectionTitle)
         );
