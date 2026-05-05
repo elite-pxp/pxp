@@ -327,8 +327,6 @@ document.addEventListener('DOMContentLoaded', function () {
         applyTextOverride('.hero-description', hero.description);
         applyLinkOverride('.donate-button', hero.donateLink);
         applyLinkOverride('.prayer-button', hero.prayerLink);
-        applyVideoSrc(heroFeaturedIframe, hero.embedLink);
-        applyTextOverride('.hero-featured-date', hero.date);
         applyTextOverride('.section-title', activeContent.videoSectionTitle);
         applyTextOverride('.footer-brand', footer.brand);
         applyTextOverride('.footer-description', footer.description);
@@ -557,8 +555,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 description: getFieldValue('.hero-description'),
                 donateLink: getFieldValue('.donate-button', 'href'),
                 prayerLink: getFieldValue('.prayer-button', 'href'),
-                embedLink: getFieldValue('.hero-featured-video iframe', 'src'),
-                date: getFieldValue('.hero-featured-date'),
             },
             videoSectionTitle: getFieldValue('.section-title'),
             textSizes: {
@@ -910,8 +906,6 @@ document.addEventListener('DOMContentLoaded', function () {
             createAdminField('hero.brandName', 'Brand title', snapshot.hero.brandName),
             createAdminField('hero.titleLine', 'Hero title line', snapshot.hero.titleLine),
             createAdminField('hero.description', 'Hero description', snapshot.hero.description, 'textarea'),
-            createAdminField('hero.embedLink', 'Hero embedded video link', snapshot.hero.embedLink),
-            createAdminField('hero.date', 'Hero video date text', snapshot.hero.date),
             createAdminField('hero.donateLink', 'Donate link', snapshot.hero.donateLink),
             createAdminField('hero.prayerLink', 'Prayer request link', snapshot.hero.prayerLink)
         );
@@ -1640,47 +1634,11 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const normalizedUsername = (heroYouTubeUsername || '').replace(/^@/, '').trim();
-        const channelId = await resolveChannelId() || await resolveChannelIdFromHeroVideo();
-        if (!channelId) {
-            const latestFromRssByUserOnly = await getLatestVideoIdFromYouTubeRssByUser(normalizedUsername);
-            if (latestFromRssByUserOnly?.videoId) {
-                heroFeaturedIframe.src = `https://www.youtube.com/embed/${latestFromRssByUserOnly.videoId}`;
-                heroFeaturedDate.textContent = formatUploadDateLabel(latestFromRssByUserOnly.publishedAt);
-                return;
-            }
-            await syncHeroFeaturedDateFromIframe();
-            return;
+        if (heroUploadsPlaylistId) {
+            heroFeaturedIframe.src = `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(heroUploadsPlaylistId)}`;
         }
-
-        const latestFromApi = await getLatestVideoIdFromYouTubeApi(channelId);
-        const latestFromRss = latestFromApi ? null : await getLatestVideoIdFromYouTubeRss(channelId);
-        const latestFromRssByUser = (!latestFromApi && !latestFromRss) ? await getLatestVideoIdFromYouTubeRssByUser(normalizedUsername) : null;
-        const latestVideo = latestFromApi || latestFromRss || latestFromRssByUser;
-
-        if (!latestVideo?.videoId) {
-            const latestFromRssByUserOnly = await getLatestVideoIdFromYouTubeRssByUser(normalizedUsername);
-            if (latestFromRssByUserOnly?.videoId) {
-                heroFeaturedIframe.src = `https://www.youtube.com/embed/${latestFromRssByUserOnly.videoId}`;
-                heroFeaturedDate.textContent = formatUploadDateLabel(latestFromRssByUserOnly.publishedAt);
-                return;
-            }
-
-            if (heroUploadsPlaylistId) {
-                heroFeaturedIframe.src = `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(heroUploadsPlaylistId)}`;
-            }
-            heroFeaturedDate.textContent = '';
-            return;
-        }
-
-        heroFeaturedIframe.src = `https://www.youtube.com/embed/${latestVideo.videoId}`;
-
         if (heroFeaturedDate) {
-            heroFeaturedDate.textContent = formatUploadDateLabel(latestVideo.publishedAt);
-        }
-
-        if (!latestVideo.publishedAt) {
-            await syncHeroFeaturedDateFromIframe();
+            heroFeaturedDate.textContent = 'Latest uploads from PoweredXPrayers';
         }
     };
 
