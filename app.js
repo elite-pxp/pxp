@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const shareButton = document.querySelector('.nav-share-button');
     const mobileButtonLabelMediaQuery = window.matchMedia('(max-width: 560px)');
     const adminDeviceMediaQuery = window.matchMedia('(max-width: 760px)');
-    const videoCards = document.querySelectorAll('.video-card');
+    let videoCards = Array.from(document.querySelectorAll('.video-card'));
     const videosContainer = document.querySelector('.videos-container');
     const primaryVideoGrid = document.querySelector('.videos-container > .video-grid:not(.video-grid-extra)');
     const extraVideoGrid = document.querySelector('.video-grid-extra');
@@ -175,12 +175,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
+    const normalizeYouTubeEmbedUrl = function (value) {
+        if (typeof value !== 'string' || !value.trim()) {
+            return '';
+        }
+
+        try {
+            const parsedUrl = new URL(value.trim(), window.location.origin);
+            const embedMatch = parsedUrl.pathname.match(/\/embed\/([^/?]+)/);
+            const shortMatch = parsedUrl.hostname.includes('youtu.be') ? parsedUrl.pathname.replace('/', '') : '';
+            const watchId = parsedUrl.searchParams.get('v');
+            const videoId = embedMatch?.[1] || watchId || shortMatch;
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : value.trim();
+        } catch (error) {
+            return value.trim();
+        }
+    };
+
     const applyVideoSrc = function (element, value) {
         if (!element || typeof value !== 'string' || !value.trim()) {
             return;
         }
 
-        element.src = value.trim();
+        element.src = normalizeYouTubeEmbedUrl(value);
         element.dataset.adminOverride = 'true';
     };
 
@@ -234,6 +251,36 @@ document.addEventListener('DOMContentLoaded', function () {
             element.style[property] = cssSize;
             element.dataset.adminSize = 'true';
         });
+    };
+
+    const isAdminVideoEmpty = function (video) {
+        if (!video || typeof video !== 'object') {
+            return true;
+        }
+
+        return ['title', 'date', 'description', 'embedLink', 'previewImage', 'downloadLink', 'downloadText'].every(function (key) {
+            return !String(video[key] || '').trim();
+        });
+    };
+
+    const createVideoCardElement = function (index) {
+        const card = document.createElement('div');
+        card.className = 'video-card';
+        card.dataset.videoId = `video-${index + 1}`;
+        card.dataset.adminCreated = 'true';
+        card.innerHTML = '<div class="video-embed"><iframe width="100%" height="300" src="" title="Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="video-card-body"><h3 class="video-title">New Video</h3><p class="video-date"></p><p class="video-description">Add a YouTube link in the editor to auto-fill this video card.</p></div><div class="video-card-footer"><button type="button" class="toggle-description">See more</button><a href="#" class="download-button">Download Study Notes</a></div>';
+
+        const toggle = card.querySelector('.toggle-description');
+        const description = card.querySelector('.video-description');
+        toggle.addEventListener('click', function () {
+            const expanded = description.classList.toggle('expanded');
+            toggle.textContent = expanded ? 'See less' : 'See more';
+            toggle.setAttribute('aria-expanded', expanded);
+        });
+
+        (extraVideoGrid || primaryVideoGrid)?.appendChild(card);
+        videoCards = Array.from(document.querySelectorAll('.video-card'));
+        return card;
     };
 
     const resetAdminInlineStyles = function () {
@@ -362,10 +409,19 @@ document.addEventListener('DOMContentLoaded', function () {
         applySizeOverride('.download-button', 'minHeight', buttonSizes.studyNotesButtonMinHeight);
 
         videos.forEach(function (video, index) {
-            const card = videoCards[index];
+            if (isAdminVideoEmpty(video)) {
+                const emptyCard = videoCards[index];
+                if (emptyCard?.dataset.adminCreated === 'true') {
+                    emptyCard.hidden = true;
+                }
+                return;
+            }
+
+            const card = videoCards[index] || createVideoCardElement(index);
             if (!card) {
                 return;
             }
+            card.hidden = false;
 
             const iframe = card.querySelector('.video-embed iframe');
             const previewLink = card.querySelector('.video-preview-link');
@@ -393,6 +449,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     previewLink.href = video.embedLink;
                     previewLink.dataset.adminOverride = 'true';
                 }
+            }
+            if (typeof video.embedLink === 'string' && iframe && title) {
+                iframe.title = title.textContent.trim() || 'Video';
             }
             if (typeof video.previewImage === 'string' && previewImage) {
                 previewImage.src = video.previewImage;
@@ -707,6 +766,87 @@ document.addEventListener('DOMContentLoaded', function () {
         return field;
     };
 
+    const createAdminVideoGroup = function (video, index, open = false) {
+        const group = document.createElement('details');
+        group.className = 'admin-video-group';
+        group.dataset.videoIndex = String(index);
+        group.open = open;
+
+        const summary = document.createElement('summary');
+        summary.textContent = `${index + 1}. ${video.title || 'New Video Card'}`;
+
+        const embedField = createAdminField(`videos.${index}.embedLink`, 'Embedded/watch link', video.embedLink);
+        const embedInput = embedField.querySelector('input');
+        const titleField = createAdminField(`videos.${index}.title`, 'Title', video.title);
+        const titleInput = titleField.querySelector('input');
+        const dateField = createAdminField(`videos.${index}.date`, 'Date text', video.date);
+        const dateInput = dateField.querySelector('input');
+        const descriptionField = createAdminField(`videos.${index}.description`, 'Description', video.description, 'textarea');
+        const descriptionInput = descriptionField.querySelector('textarea');
+        const previewField = createAdminField(`videos.${index}.previewImage`, 'Preview image link', video.previewImage);
+        const previewInput = previewField.querySelector('input');
+        const autoFillStatus = document.createElement('p');
+        autoFillStatus.className = 'admin-video-autofill-status';
+
+        const autoFillFromYouTube = function () {
+            const videoId = extractYouTubeVideoId(embedInput.value);
+            if (!videoId) {
+                autoFillStatus.textContent = '';
+                return;
+            }
+
+            autoFillStatus.textContent = 'Fetching YouTube details...';
+            if (previewInput && !previewInput.value.trim()) {
+                previewInput.value = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+            }
+
+            fetchYouTubeMetadata(videoId).then(function (metadata) {
+                if (!metadata) {
+                    autoFillStatus.textContent = 'Could not auto-fill from YouTube. You can still edit manually.';
+                    return;
+                }
+
+                if (titleInput && metadata.title) {
+                    titleInput.value = metadata.title;
+                    summary.textContent = `${index + 1}. ${metadata.title}`;
+                }
+
+                const normalizedDescription = normalizeYouTubeDescription(metadata.description || '');
+                if (descriptionInput && normalizedDescription) {
+                    descriptionInput.value = normalizedDescription;
+                }
+
+                const formattedDate = formatPostedDate(metadata.publishedAt);
+                if (dateInput && formattedDate) {
+                    dateInput.value = `Uploaded: ${formattedDate}`;
+                }
+
+                autoFillStatus.textContent = 'YouTube details loaded. Save changes to publish this card.';
+            });
+        };
+
+        embedInput.addEventListener('change', autoFillFromYouTube);
+        embedInput.addEventListener('blur', autoFillFromYouTube);
+
+        group.append(
+            summary,
+            embedField,
+            autoFillStatus,
+            titleField,
+            dateField,
+            descriptionField,
+            previewField,
+            createAdminField(`videos.${index}.downloadLink`, 'Study notes/download link', video.downloadLink),
+            createAdminField(`videos.${index}.downloadText`, 'Study notes button text', video.downloadText || 'Download Study Notes'),
+            createAdminField(`videos.${index}.titleSize`, 'Title size', video.titleSize, 'input', 'fontSize'),
+            createAdminField(`videos.${index}.dateSize`, 'Date size', video.dateSize, 'input', 'fontSize'),
+            createAdminField(`videos.${index}.descriptionSize`, 'Description size', video.descriptionSize, 'input', 'fontSize'),
+            createAdminField(`videos.${index}.downloadTextSize`, 'Study notes button text size', video.downloadTextSize, 'input', 'fontSize')
+        );
+
+        return group;
+    };
+
     const createAdminSection = function (title) {
         const section = document.createElement('section');
         section.className = 'admin-editor-section';
@@ -833,29 +973,42 @@ document.addEventListener('DOMContentLoaded', function () {
         );
 
         const videosSection = createAdminSection('Videos');
+        const addVideoButton = document.createElement('button');
+        addVideoButton.type = 'button';
+        addVideoButton.className = 'admin-add-video';
+        addVideoButton.textContent = 'Add Video Card';
+        videosSection.appendChild(addVideoButton);
+
+        let renderedVideoGroups = 0;
         snapshot.videos.forEach(function (video, index) {
-            const group = document.createElement('details');
-            group.className = 'admin-video-group';
-            if (index === 0) {
-                group.open = true;
+            if (isAdminVideoEmpty(video)) {
+                return;
             }
-            const summary = document.createElement('summary');
-            summary.textContent = `${index + 1}. ${video.title || 'Video'}`;
-            group.append(
-                summary,
-                createAdminField(`videos.${index}.title`, 'Title', video.title),
-                createAdminField(`videos.${index}.date`, 'Date text', video.date),
-                createAdminField(`videos.${index}.description`, 'Description', video.description, 'textarea'),
-                createAdminField(`videos.${index}.embedLink`, 'Embedded/watch link', video.embedLink),
-                createAdminField(`videos.${index}.previewImage`, 'Preview image link', video.previewImage),
-                createAdminField(`videos.${index}.downloadLink`, 'Study notes/download link', video.downloadLink),
-                createAdminField(`videos.${index}.downloadText`, 'Study notes button text', video.downloadText),
-                createAdminField(`videos.${index}.titleSize`, 'Title size', video.titleSize, 'input', 'fontSize'),
-                createAdminField(`videos.${index}.dateSize`, 'Date size', video.dateSize, 'input', 'fontSize'),
-                createAdminField(`videos.${index}.descriptionSize`, 'Description size', video.descriptionSize, 'input', 'fontSize'),
-                createAdminField(`videos.${index}.downloadTextSize`, 'Study notes button text size', video.downloadTextSize, 'input', 'fontSize')
-            );
-            videosSection.appendChild(group);
+
+            videosSection.appendChild(createAdminVideoGroup(video, index, renderedVideoGroups === 0));
+            renderedVideoGroups += 1;
+        });
+
+        addVideoButton.addEventListener('click', function () {
+            const existingGroups = Array.from(videosSection.querySelectorAll('.admin-video-group'));
+            const nextIndex = existingGroups.reduce(function (maxIndex, group) {
+                return Math.max(maxIndex, Number(group.dataset.videoIndex || -1));
+            }, snapshot.videos.length - 1) + 1;
+            const nextGroup = createAdminVideoGroup({
+                title: '',
+                date: '',
+                description: '',
+                embedLink: '',
+                previewImage: '',
+                downloadLink: studyNotesFolderUrl,
+                downloadText: 'Download Study Notes',
+                titleSize: snapshot.textSizes.videoTitle,
+                dateSize: snapshot.textSizes.videoDate,
+                descriptionSize: snapshot.textSizes.videoDescription,
+                downloadTextSize: snapshot.textSizes.studyNotesButton,
+            }, nextIndex, true);
+            videosSection.appendChild(nextGroup);
+            nextGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
         const footerSection = createAdminSection('Footer and RSS');
@@ -1051,6 +1204,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const embedMatch = parsedUrl.pathname.match(/\/embed\/([^/?]+)/);
             if (embedMatch && embedMatch[1]) {
                 return embedMatch[1];
+            }
+
+            if (parsedUrl.hostname.includes('youtu.be')) {
+                return parsedUrl.pathname.replace('/', '') || null;
             }
 
             const watchId = parsedUrl.searchParams.get('v');

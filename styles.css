@@ -1031,6 +1031,25 @@ a.prayer-button {
     line-height: 1.35;
 }
 
+.admin-add-video {
+    justify-self: start;
+    border: 0;
+    border-radius: 8px;
+    padding: 0.62rem 0.82rem;
+    background: var(--black);
+    color: white;
+    font: 800 0.85rem/1.2 var(--font-body);
+    cursor: pointer;
+}
+
+.admin-video-autofill-status {
+    margin: 0;
+    color: var(--gray);
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
 .admin-video-group {
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 9px;
