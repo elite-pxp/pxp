@@ -208,6 +208,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 download.href = video.downloadLink;
                 download.dataset.adminOverride = 'true';
             }
+            if (typeof video.downloadText === 'string' && download) {
+                download.textContent = video.downloadText;
+                download.dataset.adminLabel = 'true';
+            }
         });
     };
 
@@ -265,6 +269,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     embedLink: getVideoFieldValue(card, '.video-embed iframe', 'src') || getVideoFieldValue(card, '.video-preview-link', 'href'),
                     previewImage: getVideoFieldValue(card, '.video-preview-link img', 'src'),
                     downloadLink: getVideoFieldValue(card, '.download-button', 'href'),
+                    downloadText: getVideoFieldValue(card, '.download-button'),
                 };
             }),
             footer: {
@@ -356,7 +361,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 createAdminField(`videos.${index}.description`, 'Description', video.description, 'textarea'),
                 createAdminField(`videos.${index}.embedLink`, 'Embedded/watch link', video.embedLink),
                 createAdminField(`videos.${index}.previewImage`, 'Preview image link', video.previewImage),
-                createAdminField(`videos.${index}.downloadLink`, 'Study notes/download link', video.downloadLink)
+                createAdminField(`videos.${index}.downloadLink`, 'Study notes/download link', video.downloadLink),
+                createAdminField(`videos.${index}.downloadText`, 'Study notes button text', video.downloadText)
             );
             videosSection.appendChild(group);
         });
@@ -674,6 +680,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const useCompactLabel = mobileButtonLabelMediaQuery.matches || document.body.classList.contains('force-mobile-view');
         const label = useCompactLabel ? 'Study Notes' : 'Download Study Notes';
         document.querySelectorAll('.download-button').forEach(function (button) {
+            if (button.dataset.adminLabel === 'true') {
+                return;
+            }
+
             if (button.dataset.studyNotesUnavailableClicked === 'true') {
                 button.textContent = unavailableStudyNotesLabel;
                 return;
