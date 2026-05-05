@@ -799,6 +799,185 @@ a.prayer-button {
     line-height: 1;
 }
 
+.admin-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: clamp(0.8rem, 2vw, 1.5rem);
+    background: rgba(17, 17, 17, 0.58);
+    overflow-y: auto;
+}
+
+.admin-panel {
+    width: min(980px, 100%);
+    max-height: calc(100vh - 2rem);
+    overflow: auto;
+    border-radius: 12px;
+    background: var(--off-white);
+    color: var(--black);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.26);
+}
+
+.admin-panel-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 1.1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: var(--off-white);
+}
+
+.admin-kicker,
+.admin-panel h2,
+.admin-editor-section h3 {
+    margin: 0;
+}
+
+.admin-kicker {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tan);
+}
+
+.admin-panel h2,
+.admin-editor-section h3 {
+    font-family: var(--font-heading);
+    letter-spacing: 0;
+    line-height: 1.1;
+}
+
+.admin-panel h2 {
+    font-size: clamp(1.45rem, 1vw + 1.1rem, 1.9rem);
+}
+
+.admin-close {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 9px;
+    background: white;
+    color: var(--black);
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.admin-form {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.admin-editor-section {
+    display: grid;
+    gap: 0.8rem;
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background: white;
+}
+
+.admin-editor-section h3 {
+    font-size: 1.25rem;
+}
+
+.admin-field {
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.84rem;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.admin-field input,
+.admin-field textarea {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 8px;
+    background: var(--off-white);
+    color: var(--black);
+    font: 500 0.92rem/1.4 var(--font-body);
+    padding: 0.62rem 0.7rem;
+    outline: none;
+}
+
+.admin-field textarea {
+    min-height: 6rem;
+    resize: vertical;
+}
+
+.admin-field input:focus,
+.admin-field textarea:focus {
+    border-color: rgba(201, 168, 109, 0.75);
+    box-shadow: 0 0 0 2px rgba(201, 168, 109, 0.18);
+}
+
+.admin-video-group {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 9px;
+    padding: 0.75rem;
+    background: var(--off-white);
+}
+
+.admin-video-group summary {
+    cursor: pointer;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.admin-video-group[open] {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.admin-actions {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    padding: 0.9rem 0;
+    background: var(--off-white);
+}
+
+.admin-save,
+.admin-export,
+.admin-import,
+.admin-reset {
+    border: 0;
+    border-radius: 8px;
+    padding: 0.62rem 0.82rem;
+    background: var(--black);
+    color: white;
+    font: 800 0.85rem/1.2 var(--font-body);
+    cursor: pointer;
+}
+
+.admin-export,
+.admin-import {
+    background: var(--tan);
+}
+
+.admin-reset {
+    background: #7a271a;
+}
+
+.admin-status {
+    min-height: 1.2rem;
+    color: var(--gray);
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
 @keyframes button-glow-pulse {
     0% {
         box-shadow: 0 0 0 rgba(201, 168, 109, 0);

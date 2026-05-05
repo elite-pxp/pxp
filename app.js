@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const ADMIN_PASSWORD = 'PXPadmin2026!';
+    const ADMIN_STORAGE_KEY = 'pxpAdminContent';
+    const ADMIN_SESSION_KEY = 'pxpAdminUnlocked';
+
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js').catch(function (error) {
             console.warn('Service worker registration failed:', error);
@@ -63,6 +67,444 @@ document.addEventListener('DOMContentLoaded', function () {
     const heroYouTubeChannelId = 'UC1qFfHXbdgzy188ILJFw68Q';
     const heroUploadsPlaylistId = `UU${heroYouTubeChannelId.slice(2)}`;
     const youtubeRssEntriesCache = new Map();
+    let adminContent = {};
+
+    const getAdminContent = function () {
+        try {
+            return JSON.parse(window.localStorage.getItem(ADMIN_STORAGE_KEY) || '{}') || {};
+        } catch (error) {
+            return {};
+        }
+    };
+
+    const saveAdminContent = function (content) {
+        window.localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(content));
+        adminContent = content;
+    };
+
+    const applyTextOverride = function (selector, value) {
+        const element = document.querySelector(selector);
+        if (element && typeof value === 'string') {
+            element.textContent = value;
+        }
+    };
+
+    const applyLinkOverride = function (selector, value) {
+        const element = document.querySelector(selector);
+        if (element && typeof value === 'string') {
+            element.href = value;
+        }
+    };
+
+    const applyVideoSrc = function (element, value) {
+        if (!element || typeof value !== 'string' || !value.trim()) {
+            return;
+        }
+
+        element.src = value.trim();
+        element.dataset.adminOverride = 'true';
+    };
+
+    const applyAdminContent = function () {
+        adminContent = getAdminContent();
+        const hero = adminContent.hero || {};
+        const header = adminContent.header || {};
+        const footer = adminContent.footer || {};
+        const rss = adminContent.rss || {};
+        const videos = Array.isArray(adminContent.videos) ? adminContent.videos : [];
+
+        if (typeof adminContent.pageTitle === 'string') {
+            document.title = adminContent.pageTitle;
+        }
+        applyTextOverride('.nav-brand-name', header.brandName);
+        applyLinkOverride('.nav-shop', header.shopLink);
+        applyTextOverride('.hero-title .brand-name', hero.brandName);
+        applyTextOverride('.hero-title-line', hero.titleLine);
+        applyTextOverride('.hero-description', hero.description);
+        applyLinkOverride('.donate-button', hero.donateLink);
+        applyLinkOverride('.prayer-button', hero.prayerLink);
+        applyVideoSrc(heroFeaturedIframe, hero.embedLink);
+        applyTextOverride('.hero-featured-date', hero.date);
+        applyTextOverride('.section-title', adminContent.videoSectionTitle);
+        applyTextOverride('.footer-brand', footer.brand);
+        applyTextOverride('.footer-description', footer.description);
+        applyTextOverride('.footer-copyright .brand-name', footer.copyrightBrand);
+
+        const footerLinks = document.querySelectorAll('.footer-link');
+        if (Array.isArray(footer.links)) {
+            footer.links.forEach(function (link, index) {
+                const element = footerLinks[index];
+                if (!element) {
+                    return;
+                }
+                if (typeof link.text === 'string') {
+                    element.textContent = link.text;
+                }
+                if (typeof link.href === 'string') {
+                    element.href = link.href;
+                }
+            });
+        }
+
+        const footerActionLinks = document.querySelectorAll('.footer-action-icon');
+        if (Array.isArray(footer.actionLinks)) {
+            footer.actionLinks.forEach(function (href, index) {
+                if (footerActionLinks[index] && typeof href === 'string') {
+                    footerActionLinks[index].href = href;
+                }
+            });
+        }
+
+        const socialLinks = document.querySelectorAll('.social-icon');
+        if (Array.isArray(footer.socialLinks)) {
+            footer.socialLinks.forEach(function (href, index) {
+                if (socialLinks[index] && typeof href === 'string') {
+                    socialLinks[index].href = href;
+                }
+            });
+        }
+
+        applyTextOverride('.rss-strip-item', rss.title);
+        applyLinkOverride('.rss-strip-item', rss.link);
+        applyLinkOverride('.rss-strip-source', rss.feedLink);
+
+        videos.forEach(function (video, index) {
+            const card = videoCards[index];
+            if (!card) {
+                return;
+            }
+
+            const iframe = card.querySelector('.video-embed iframe');
+            const previewLink = card.querySelector('.video-preview-link');
+            const previewImage = card.querySelector('.video-preview-link img');
+            const title = card.querySelector('.video-title');
+            const date = card.querySelector('.video-date');
+            const description = card.querySelector('.video-description');
+            const download = card.querySelector('.download-button');
+
+            if (typeof video.title === 'string' && title) {
+                title.textContent = video.title;
+                card.dataset.adminTitle = 'true';
+            }
+            if (typeof video.date === 'string' && date) {
+                date.textContent = video.date;
+                card.dataset.adminDate = 'true';
+            }
+            if (typeof video.description === 'string' && description) {
+                description.textContent = video.description;
+                card.dataset.adminDescription = 'true';
+            }
+            if (typeof video.embedLink === 'string') {
+                applyVideoSrc(iframe, video.embedLink);
+                if (previewLink) {
+                    previewLink.href = video.embedLink;
+                    previewLink.dataset.adminOverride = 'true';
+                }
+            }
+            if (typeof video.previewImage === 'string' && previewImage) {
+                previewImage.src = video.previewImage;
+            }
+            if (typeof video.downloadLink === 'string' && download) {
+                download.href = video.downloadLink;
+                download.dataset.adminOverride = 'true';
+            }
+        });
+    };
+
+    const getFieldValue = function (selector, attribute = 'text') {
+        const element = document.querySelector(selector);
+        if (!element) {
+            return '';
+        }
+        return attribute === 'href' || attribute === 'src' ? element.getAttribute(attribute) || '' : element.textContent.trim();
+    };
+
+    const getVideoFieldValue = function (card, selector, attribute = 'text') {
+        const element = card.querySelector(selector);
+        if (!element) {
+            return '';
+        }
+        return attribute === 'href' || attribute === 'src' ? element.getAttribute(attribute) || '' : element.textContent.trim();
+    };
+
+    const getCurrentContentSnapshot = function () {
+        const footerLinks = Array.from(document.querySelectorAll('.footer-link')).map(function (link) {
+            return {
+                text: link.textContent.trim(),
+                href: link.getAttribute('href') || '',
+            };
+        });
+        const footerActionLinks = Array.from(document.querySelectorAll('.footer-action-icon')).map(function (link) {
+            return link.getAttribute('href') || '';
+        });
+        const socialLinks = Array.from(document.querySelectorAll('.social-icon')).map(function (link) {
+            return link.getAttribute('href') || '';
+        });
+
+        return {
+            pageTitle: document.title,
+            header: {
+                brandName: getFieldValue('.nav-brand-name'),
+                shopLink: getFieldValue('.nav-shop', 'href'),
+            },
+            hero: {
+                brandName: getFieldValue('.hero-title .brand-name'),
+                titleLine: getFieldValue('.hero-title-line'),
+                description: getFieldValue('.hero-description'),
+                donateLink: getFieldValue('.donate-button', 'href'),
+                prayerLink: getFieldValue('.prayer-button', 'href'),
+                embedLink: getFieldValue('.hero-featured-video iframe', 'src'),
+                date: getFieldValue('.hero-featured-date'),
+            },
+            videoSectionTitle: getFieldValue('.section-title'),
+            videos: Array.from(videoCards).map(function (card) {
+                return {
+                    title: getVideoFieldValue(card, '.video-title'),
+                    date: getVideoFieldValue(card, '.video-date'),
+                    description: getVideoFieldValue(card, '.video-description'),
+                    embedLink: getVideoFieldValue(card, '.video-embed iframe', 'src') || getVideoFieldValue(card, '.video-preview-link', 'href'),
+                    previewImage: getVideoFieldValue(card, '.video-preview-link img', 'src'),
+                    downloadLink: getVideoFieldValue(card, '.download-button', 'href'),
+                };
+            }),
+            footer: {
+                brand: getFieldValue('.footer-brand'),
+                description: getFieldValue('.footer-description'),
+                copyrightBrand: getFieldValue('.footer-copyright .brand-name'),
+                links: footerLinks,
+                actionLinks: footerActionLinks,
+                socialLinks: socialLinks,
+            },
+            rss: {
+                title: getFieldValue('.rss-strip-item'),
+                link: getFieldValue('.rss-strip-item', 'href'),
+                feedLink: getFieldValue('.rss-strip-source', 'href'),
+            },
+        };
+    };
+
+    const createAdminField = function (name, label, value, type = 'input') {
+        const field = document.createElement('label');
+        field.className = 'admin-field';
+        const labelText = document.createElement('span');
+        labelText.textContent = label;
+        const control = type === 'textarea' ? document.createElement('textarea') : document.createElement('input');
+        control.name = name;
+        control.value = value || '';
+        if (type !== 'textarea') {
+            control.type = 'text';
+        }
+        field.append(labelText, control);
+        return field;
+    };
+
+    const createAdminSection = function (title) {
+        const section = document.createElement('section');
+        section.className = 'admin-editor-section';
+        const heading = document.createElement('h3');
+        heading.textContent = title;
+        section.appendChild(heading);
+        return section;
+    };
+
+    const createAdminOverlay = function () {
+        const existingOverlay = document.querySelector('.admin-overlay');
+        if (existingOverlay) {
+            existingOverlay.remove();
+        }
+
+        const snapshot = getCurrentContentSnapshot();
+        const overlay = document.createElement('div');
+        overlay.className = 'admin-overlay';
+        overlay.innerHTML = '<div class="admin-panel" role="dialog" aria-modal="true" aria-labelledby="admin-title"><div class="admin-panel-header"><div><p class="admin-kicker">Private Admin</p><h2 id="admin-title">Edit Website Content</h2></div><button type="button" class="admin-close" aria-label="Close admin editor">x</button></div><form class="admin-form"></form></div>';
+
+        const form = overlay.querySelector('.admin-form');
+        const closeButton = overlay.querySelector('.admin-close');
+
+        const heroSection = createAdminSection('Hero');
+        heroSection.append(
+            createAdminField('hero.brandName', 'Brand title', snapshot.hero.brandName),
+            createAdminField('hero.titleLine', 'Hero title line', snapshot.hero.titleLine),
+            createAdminField('hero.description', 'Hero description', snapshot.hero.description, 'textarea'),
+            createAdminField('hero.embedLink', 'Hero embedded video link', snapshot.hero.embedLink),
+            createAdminField('hero.date', 'Hero video date text', snapshot.hero.date),
+            createAdminField('hero.donateLink', 'Donate link', snapshot.hero.donateLink),
+            createAdminField('hero.prayerLink', 'Prayer request link', snapshot.hero.prayerLink)
+        );
+
+        const headerSection = createAdminSection('Header');
+        headerSection.append(
+            createAdminField('pageTitle', 'Browser tab title', snapshot.pageTitle),
+            createAdminField('header.brandName', 'Header brand text', snapshot.header.brandName),
+            createAdminField('header.shopLink', 'Shop link', snapshot.header.shopLink),
+            createAdminField('videoSectionTitle', 'Video section title', snapshot.videoSectionTitle)
+        );
+
+        const videosSection = createAdminSection('Videos');
+        snapshot.videos.forEach(function (video, index) {
+            const group = document.createElement('details');
+            group.className = 'admin-video-group';
+            if (index === 0) {
+                group.open = true;
+            }
+            const summary = document.createElement('summary');
+            summary.textContent = `${index + 1}. ${video.title || 'Video'}`;
+            group.append(
+                summary,
+                createAdminField(`videos.${index}.title`, 'Title', video.title),
+                createAdminField(`videos.${index}.date`, 'Date text', video.date),
+                createAdminField(`videos.${index}.description`, 'Description', video.description, 'textarea'),
+                createAdminField(`videos.${index}.embedLink`, 'Embedded/watch link', video.embedLink),
+                createAdminField(`videos.${index}.previewImage`, 'Preview image link', video.previewImage),
+                createAdminField(`videos.${index}.downloadLink`, 'Study notes/download link', video.downloadLink)
+            );
+            videosSection.appendChild(group);
+        });
+
+        const footerSection = createAdminSection('Footer and RSS');
+        footerSection.append(
+            createAdminField('footer.brand', 'Footer brand', snapshot.footer.brand),
+            createAdminField('footer.description', 'Footer description', snapshot.footer.description, 'textarea'),
+            createAdminField('footer.copyrightBrand', 'Copyright brand', snapshot.footer.copyrightBrand),
+            createAdminField('rss.title', 'RSS text', snapshot.rss.title),
+            createAdminField('rss.link', 'RSS item link', snapshot.rss.link),
+            createAdminField('rss.feedLink', 'RSS feed link', snapshot.rss.feedLink)
+        );
+
+        snapshot.footer.links.forEach(function (link, index) {
+            footerSection.append(
+                createAdminField(`footer.links.${index}.text`, `Footer link ${index + 1} text`, link.text),
+                createAdminField(`footer.links.${index}.href`, `Footer link ${index + 1} URL`, link.href)
+            );
+        });
+
+        snapshot.footer.actionLinks.forEach(function (href, index) {
+            footerSection.append(createAdminField(`footer.actionLinks.${index}`, `Footer action ${index + 1} link`, href));
+        });
+
+        snapshot.footer.socialLinks.forEach(function (href, index) {
+            footerSection.append(createAdminField(`footer.socialLinks.${index}`, `Social icon ${index + 1} link`, href));
+        });
+
+        const actions = document.createElement('div');
+        actions.className = 'admin-actions';
+        actions.innerHTML = '<button type="submit" class="admin-save">Save Changes</button><button type="button" class="admin-export">Export JSON</button><button type="button" class="admin-import">Import JSON</button><button type="button" class="admin-reset">Reset Local Edits</button><span class="admin-status" role="status"></span>';
+
+        form.append(headerSection, heroSection, videosSection, footerSection, actions);
+        document.body.appendChild(overlay);
+
+        const setNestedValue = function (target, path, value) {
+            const parts = path.split('.');
+            let cursor = target;
+            parts.forEach(function (part, index) {
+                const isLast = index === parts.length - 1;
+                const nextPart = parts[index + 1];
+                const shouldBeArray = /^\d+$/.test(nextPart || '');
+                if (isLast) {
+                    cursor[part] = value;
+                    return;
+                }
+                if (!cursor[part]) {
+                    cursor[part] = shouldBeArray ? [] : {};
+                }
+                cursor = cursor[part];
+            });
+        };
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const nextContent = {};
+            Array.from(form.elements).forEach(function (element) {
+                if (!element.name) {
+                    return;
+                }
+                setNestedValue(nextContent, element.name, element.value.trim());
+            });
+            saveAdminContent(nextContent);
+            applyAdminContent();
+            overlay.querySelector('.admin-status').textContent = 'Saved. Refresh will keep these edits on this browser.';
+        });
+
+        overlay.querySelector('.admin-export').addEventListener('click', function () {
+            window.prompt('Admin content JSON:', JSON.stringify(getAdminContent(), null, 2));
+        });
+
+        overlay.querySelector('.admin-import').addEventListener('click', function () {
+            const json = window.prompt('Paste admin content JSON:');
+            if (!json) {
+                return;
+            }
+            try {
+                saveAdminContent(JSON.parse(json));
+                window.location.reload();
+            } catch (error) {
+                overlay.querySelector('.admin-status').textContent = 'That JSON could not be imported.';
+            }
+        });
+
+        overlay.querySelector('.admin-reset').addEventListener('click', function () {
+            if (!window.confirm('Reset saved admin edits on this browser?')) {
+                return;
+            }
+            window.localStorage.removeItem(ADMIN_STORAGE_KEY);
+            window.location.reload();
+        });
+
+        closeButton.addEventListener('click', function () {
+            overlay.remove();
+        });
+
+        overlay.addEventListener('click', function (event) {
+            if (event.target === overlay) {
+                overlay.remove();
+            }
+        });
+    };
+
+    const openAdminLogin = function () {
+        if (window.sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
+            createAdminOverlay();
+            return;
+        }
+
+        const password = window.prompt('Admin password:');
+        if (password === ADMIN_PASSWORD) {
+            window.sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+            createAdminOverlay();
+            return;
+        }
+
+        if (password !== null) {
+            window.alert('Incorrect password.');
+        }
+    };
+
+    const attachSecretAdminTrigger = function () {
+        const trigger = document.querySelector('.nav-brand') || document.querySelector('.footer-pxp-logo');
+        if (!trigger) {
+            return;
+        }
+
+        let clickCount = 0;
+        let clickTimer = null;
+        trigger.addEventListener('click', function (event) {
+            event.preventDefault();
+            clickCount += 1;
+            window.clearTimeout(clickTimer);
+            clickTimer = window.setTimeout(function () {
+                clickCount = 0;
+            }, 900);
+
+            if (clickCount >= 3) {
+                clickCount = 0;
+                window.clearTimeout(clickTimer);
+                openAdminLogin();
+            }
+        });
+    };
+
+    applyAdminContent();
+    attachSecretAdminTrigger();
 
     const setShareButtonFeedback = function (message, timeoutMs) {
         if (!shareButton) {
@@ -621,7 +1063,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const isPlaceholderCard = isPlaceholderVideoCard(card, embeddedYouTubeVideoId);
-        const shouldBeComingSoon = !activeVideoIds.has(videoId) || isPlaceholderCard;
+        const hasAdminVideoOverride = card.dataset.adminTitle === 'true' || card.dataset.adminDescription === 'true' || card.dataset.adminDate === 'true' || button.dataset.adminOverride === 'true';
+        const shouldBeComingSoon = (!activeVideoIds.has(videoId) || isPlaceholderCard) && !hasAdminVideoOverride;
 
         if (!shouldBeComingSoon && dateLabel && embeddedYouTubeVideoId && uploadDateLabelsByYouTubeId[embeddedYouTubeVideoId]) {
             dateLabel.textContent = uploadDateLabelsByYouTubeId[embeddedYouTubeVideoId];
@@ -660,18 +1103,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     return;
                 }
 
-                if (videoTitle && metadata.title) {
+                if (videoTitle && metadata.title && card.dataset.adminTitle !== 'true') {
                     videoTitle.textContent = metadata.title;
                 }
 
-                if (videoDescription && metadata.description) {
+                if (videoDescription && metadata.description && card.dataset.adminDescription !== 'true') {
                     const normalizedDescription = normalizeYouTubeDescription(metadata.description);
                     if (normalizedDescription) {
                         videoDescription.textContent = normalizedDescription;
                     }
                 }
 
-                if (!dateLabel) {
+                if (!dateLabel || card.dataset.adminDate === 'true') {
                     return;
                 }
 
@@ -689,7 +1132,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        if (studyNotesUnavailable) {
+        if (studyNotesUnavailable && button.dataset.adminOverride !== 'true') {
             syncUnavailableStudyNotesButton(button);
 
             button.addEventListener('click', function (event) {
@@ -700,7 +1143,9 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        syncStudyNotesLink(button, resolvedDownloadUrl, shouldDownloadStudyNotes, videoId);
+        if (button.dataset.adminOverride !== 'true') {
+            syncStudyNotesLink(button, resolvedDownloadUrl, shouldDownloadStudyNotes, videoId);
+        }
     });
 
     const toggleButtons = document.querySelectorAll('.toggle-description');
@@ -740,7 +1185,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const rssStripItem = document.querySelector('.rss-strip-item');
     const rssStripSource = document.querySelector('.rss-strip-source');
 
-    if (rssStripItem && rssStripSource) {
+    if (rssStripItem && rssStripSource && !adminContent.rss) {
         const rssFeedUrl = 'https://www.ibelieve.com/rss/';
         const rssItems = [
             {
@@ -779,5 +1224,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    attachHeroVideoFromFeed();
+    if (!adminContent.hero?.embedLink) {
+        attachHeroVideoFromFeed();
+    }
 });
