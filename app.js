@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const ADMIN_PASSWORD = 'PXPadmin2026!';
     const ADMIN_STORAGE_KEY = 'pxpAdminContent';
     const ADMIN_SESSION_KEY = 'pxpAdminUnlocked';
+    const ADMIN_EDITOR_SCOPE_KEY = 'pxpAdminEditorScope';
 
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js').catch(function (error) {
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const shareButton = document.querySelector('.nav-share-button');
     const mobileButtonLabelMediaQuery = window.matchMedia('(max-width: 560px)');
+    const adminDeviceMediaQuery = window.matchMedia('(max-width: 760px)');
     const videoCards = document.querySelectorAll('.video-card');
     const videosContainer = document.querySelector('.videos-container');
     const primaryVideoGrid = document.querySelector('.videos-container > .video-grid:not(.video-grid-extra)');
@@ -68,6 +70,73 @@ document.addEventListener('DOMContentLoaded', function () {
     const heroUploadsPlaylistId = `UU${heroYouTubeChannelId.slice(2)}`;
     const youtubeRssEntriesCache = new Map();
     let adminContent = {};
+
+    const adminOverrideSelectors = [
+        '.nav-brand-name',
+        '.nav-shop',
+        '.hero-title',
+        '.hero-title .brand-name',
+        '.hero-title-line',
+        '.hero-description',
+        '.donate-button',
+        '.prayer-button',
+        '.hero-featured-date',
+        '.section-title',
+        '.video-title',
+        '.video-date',
+        '.video-description',
+        '.toggle-description',
+        '.download-button',
+        '.footer-brand',
+        '.footer-description',
+        '.footer-link',
+        '.footer-copyright',
+        '.rss-strip-item',
+        '.rss-strip-source',
+        '.rss-strip-label',
+        '.footer-pxp-logo',
+    ];
+
+    const deepMerge = function (base, override) {
+        if (!override || typeof override !== 'object') {
+            return Array.isArray(base) ? base.slice() : { ...(base || {}) };
+        }
+
+        if (Array.isArray(base) || Array.isArray(override)) {
+            const baseArray = Array.isArray(base) ? base : [];
+            const overrideArray = Array.isArray(override) ? override : [];
+            const maxLength = Math.max(baseArray.length, overrideArray.length);
+            return Array.from({ length: maxLength }, function (_, index) {
+                const baseValue = baseArray[index];
+                const overrideValue = overrideArray[index];
+                if (baseValue && typeof baseValue === 'object' && overrideValue && typeof overrideValue === 'object') {
+                    return deepMerge(baseValue, overrideValue);
+                }
+                return overrideValue === undefined ? baseValue : overrideValue;
+            });
+        }
+
+        const merged = { ...(base || {}) };
+        Object.keys(override).forEach(function (key) {
+            const baseValue = merged[key];
+            const overrideValue = override[key];
+            if (baseValue && typeof baseValue === 'object' && overrideValue && typeof overrideValue === 'object') {
+                merged[key] = deepMerge(baseValue, overrideValue);
+                return;
+            }
+            merged[key] = overrideValue;
+        });
+        return merged;
+    };
+
+    const getActiveAdminDevice = function () {
+        return forceMobileView || adminDeviceMediaQuery.matches ? 'mobile' : 'desktop';
+    };
+
+    const getAdminEditorScope = function () {
+        const scope = window.sessionStorage.getItem(ADMIN_EDITOR_SCOPE_KEY);
+        return scope === 'desktop' || scope === 'mobile' ? scope : 'global';
+    };
 
     const getAdminContent = function () {
         try {
@@ -165,19 +234,38 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
+    const resetAdminInlineStyles = function () {
+        document.querySelectorAll(adminOverrideSelectors.join(',')).forEach(function (element) {
+            element.style.fontSize = '';
+            element.style.color = '';
+            element.style.padding = '';
+            element.style.minHeight = '';
+            element.style.width = '';
+            delete element.dataset.adminFontSize;
+            delete element.dataset.adminColor;
+            delete element.dataset.adminSize;
+        });
+    };
+
     const applyAdminContent = function () {
         adminContent = getAdminContent();
-        const hero = adminContent.hero || {};
-        const header = adminContent.header || {};
-        const footer = adminContent.footer || {};
-        const rss = adminContent.rss || {};
-        const videos = Array.isArray(adminContent.videos) ? adminContent.videos : [];
-        const textSizes = adminContent.textSizes || {};
-        const textColors = adminContent.textColors || {};
-        const buttonSizes = adminContent.buttonSizes || {};
+        const activeDevice = getActiveAdminDevice();
+        const deviceOverrides = adminContent.deviceOverrides || {};
+        const activeContent = deepMerge(adminContent, deviceOverrides[activeDevice] || {});
+        const hero = activeContent.hero || {};
+        const header = activeContent.header || {};
+        const footer = activeContent.footer || {};
+        const rss = activeContent.rss || {};
+        const videos = Array.isArray(activeContent.videos) ? activeContent.videos : [];
+        const textSizes = activeContent.textSizes || {};
+        const textColors = activeContent.textColors || {};
+        const buttonSizes = activeContent.buttonSizes || {};
 
-        if (typeof adminContent.pageTitle === 'string') {
-            document.title = adminContent.pageTitle;
+        document.documentElement.dataset.adminDevice = activeDevice;
+        resetAdminInlineStyles();
+
+        if (typeof activeContent.pageTitle === 'string') {
+            document.title = activeContent.pageTitle;
         }
         applyTextOverride('.nav-brand-name', header.brandName);
         applyLinkOverride('.nav-shop', header.shopLink);
@@ -188,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
         applyLinkOverride('.prayer-button', hero.prayerLink);
         applyVideoSrc(heroFeaturedIframe, hero.embedLink);
         applyTextOverride('.hero-featured-date', hero.date);
-        applyTextOverride('.section-title', adminContent.videoSectionTitle);
+        applyTextOverride('.section-title', activeContent.videoSectionTitle);
         applyTextOverride('.footer-brand', footer.brand);
         applyTextOverride('.footer-description', footer.description);
         applyTextOverride('.footer-copyright .brand-name', footer.copyrightBrand);
@@ -478,6 +566,16 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     };
 
+    const getAdminSnapshotForScope = function (scope) {
+        const liveSnapshot = getCurrentContentSnapshot();
+        const savedContent = getAdminContent();
+        const deviceOverrides = savedContent.deviceOverrides || {};
+        if (scope === 'desktop' || scope === 'mobile') {
+            return deepMerge(deepMerge(liveSnapshot, savedContent), deviceOverrides[scope] || {});
+        }
+        return deepMerge(liveSnapshot, savedContent);
+    };
+
     const updateAdminPreview = function (control, preview, previewType) {
         if (!preview || !previewType) {
             return;
@@ -552,19 +650,54 @@ document.addEventListener('DOMContentLoaded', function () {
         return section;
     };
 
+    const createAdminScopeSection = function (scope) {
+        const section = createAdminSection('Editor Target');
+        section.classList.add('admin-scope-section');
+
+        const field = document.createElement('label');
+        field.className = 'admin-field';
+
+        const labelText = document.createElement('span');
+        labelText.textContent = 'Apply changes to';
+
+        const control = document.createElement('select');
+        control.className = 'admin-scope-select';
+        control.innerHTML = '<option value="global">Both mobile and desktop</option><option value="desktop">Desktop version only</option><option value="mobile">Mobile version only</option>';
+        control.value = scope;
+
+        const badge = document.createElement('span');
+        badge.className = `admin-scope-badge admin-scope-badge-${scope}`;
+        badge.textContent = scope === 'desktop' ? 'Desktop only' : scope === 'mobile' ? 'Mobile only' : 'Both versions';
+
+        field.append(labelText, control, badge);
+        section.appendChild(field);
+
+        control.addEventListener('change', function () {
+            window.sessionStorage.setItem(ADMIN_EDITOR_SCOPE_KEY, control.value);
+            createAdminOverlay();
+        });
+
+        return section;
+    };
+
     const createAdminOverlay = function () {
         const existingOverlay = document.querySelector('.admin-overlay');
         if (existingOverlay) {
             existingOverlay.remove();
         }
 
-        const snapshot = getCurrentContentSnapshot();
+        const editorScope = getAdminEditorScope();
+        const snapshot = getAdminSnapshotForScope(editorScope);
         const overlay = document.createElement('div');
         overlay.className = 'admin-overlay';
-        overlay.innerHTML = '<div class="admin-panel" role="dialog" aria-modal="true" aria-labelledby="admin-title"><div class="admin-panel-header"><div><p class="admin-kicker">Private Admin</p><h2 id="admin-title">Edit Website Content</h2></div><button type="button" class="admin-close" aria-label="Close admin editor">x</button></div><form class="admin-form"></form></div>';
+        overlay.innerHTML = '<div class="admin-panel" role="dialog" aria-modal="true" aria-labelledby="admin-title"><div class="admin-panel-header"><div><p class="admin-kicker">Private Admin</p><h2 id="admin-title">Edit Website Content</h2><p class="admin-device-note"></p></div><button type="button" class="admin-close" aria-label="Close admin editor">x</button></div><form class="admin-form"></form></div>';
 
         const form = overlay.querySelector('.admin-form');
         const closeButton = overlay.querySelector('.admin-close');
+        const deviceNote = overlay.querySelector('.admin-device-note');
+        deviceNote.textContent = editorScope === 'desktop' ? 'You are editing the desktop version only.' : editorScope === 'mobile' ? 'You are editing the mobile version only.' : 'You are editing shared settings for both mobile and desktop.';
+
+        const scopeSection = createAdminScopeSection(editorScope);
 
         const heroSection = createAdminSection('Hero');
         heroSection.append(
@@ -687,7 +820,7 @@ document.addEventListener('DOMContentLoaded', function () {
         actions.className = 'admin-actions';
         actions.innerHTML = '<button type="submit" class="admin-save">Save Changes</button><button type="button" class="admin-export">Export JSON</button><button type="button" class="admin-import">Import JSON</button><button type="button" class="admin-reset">Reset Local Edits</button><span class="admin-status" role="status"></span>';
 
-        form.append(headerSection, heroSection, textSizeSection, colorSection, buttonSizeSection, videosSection, footerSection, actions);
+        form.append(scopeSection, headerSection, heroSection, textSizeSection, colorSection, buttonSizeSection, videosSection, footerSection, actions);
         document.body.appendChild(overlay);
 
         const setNestedValue = function (target, path, value) {
@@ -710,16 +843,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
         form.addEventListener('submit', function (event) {
             event.preventDefault();
-            const nextContent = {};
+            const formContent = {};
             Array.from(form.elements).forEach(function (element) {
                 if (!element.name) {
                     return;
                 }
-                setNestedValue(nextContent, element.name, element.value.trim());
+                setNestedValue(formContent, element.name, element.value.trim());
             });
+            const currentContent = getAdminContent();
+            let nextContent = {};
+            if (editorScope === 'desktop' || editorScope === 'mobile') {
+                nextContent = deepMerge({}, currentContent);
+                if (!nextContent.pageTitle && !nextContent.header && !nextContent.hero) {
+                    nextContent = deepMerge(getCurrentContentSnapshot(), nextContent);
+                }
+                nextContent.deviceOverrides = nextContent.deviceOverrides || {};
+                nextContent.deviceOverrides[editorScope] = formContent;
+            } else {
+                nextContent = formContent;
+                if (currentContent.deviceOverrides) {
+                    nextContent.deviceOverrides = currentContent.deviceOverrides;
+                }
+            }
             saveAdminContent(nextContent);
             applyAdminContent();
-            overlay.querySelector('.admin-status').textContent = 'Saved. Refresh will keep these edits on this browser.';
+            overlay.querySelector('.admin-status').textContent = editorScope === 'desktop' ? 'Saved for desktop only.' : editorScope === 'mobile' ? 'Saved for mobile only.' : 'Saved for both mobile and desktop.';
         });
 
         overlay.querySelector('.admin-export').addEventListener('click', function () {
@@ -801,6 +949,11 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     applyAdminContent();
+    if (typeof adminDeviceMediaQuery.addEventListener === 'function') {
+        adminDeviceMediaQuery.addEventListener('change', applyAdminContent);
+    } else if (typeof adminDeviceMediaQuery.addListener === 'function') {
+        adminDeviceMediaQuery.addListener(applyAdminContent);
+    }
     attachSecretAdminTrigger();
 
     const setShareButtonFeedback = function (message, timeoutMs) {
