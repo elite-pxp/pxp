@@ -105,6 +105,35 @@ document.addEventListener('DOMContentLoaded', function () {
         element.dataset.adminOverride = 'true';
     };
 
+    const normalizeCssSize = function (value) {
+        if (typeof value !== 'string') {
+            return '';
+        }
+
+        const trimmedValue = value.trim();
+        if (!trimmedValue) {
+            return '';
+        }
+
+        if (/^\d+(\.\d+)?$/.test(trimmedValue)) {
+            return `${trimmedValue}px`;
+        }
+
+        return trimmedValue;
+    };
+
+    const applyFontSizeOverride = function (selector, value) {
+        const cssSize = normalizeCssSize(value);
+        if (!cssSize) {
+            return;
+        }
+
+        document.querySelectorAll(selector).forEach(function (element) {
+            element.style.fontSize = cssSize;
+            element.dataset.adminFontSize = 'true';
+        });
+    };
+
     const applyAdminContent = function () {
         adminContent = getAdminContent();
         const hero = adminContent.hero || {};
@@ -112,6 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const footer = adminContent.footer || {};
         const rss = adminContent.rss || {};
         const videos = Array.isArray(adminContent.videos) ? adminContent.videos : [];
+        const textSizes = adminContent.textSizes || {};
 
         if (typeof adminContent.pageTitle === 'string') {
             document.title = adminContent.pageTitle;
@@ -168,6 +198,26 @@ document.addEventListener('DOMContentLoaded', function () {
         applyLinkOverride('.rss-strip-item', rss.link);
         applyLinkOverride('.rss-strip-source', rss.feedLink);
 
+        applyFontSizeOverride('.nav-brand-name', textSizes.headerBrand);
+        applyFontSizeOverride('.nav-shop', textSizes.headerShop);
+        applyFontSizeOverride('.hero-title', textSizes.heroTitle);
+        applyFontSizeOverride('.hero-title .brand-name', textSizes.heroBrand);
+        applyFontSizeOverride('.hero-title-line', textSizes.heroTitleLine);
+        applyFontSizeOverride('.hero-description', textSizes.heroDescription);
+        applyFontSizeOverride('.donate-button, .prayer-button', textSizes.heroButtons);
+        applyFontSizeOverride('.hero-featured-date', textSizes.heroDate);
+        applyFontSizeOverride('.section-title', textSizes.videoSectionTitle);
+        applyFontSizeOverride('.video-title', textSizes.videoTitle);
+        applyFontSizeOverride('.video-date', textSizes.videoDate);
+        applyFontSizeOverride('.video-description', textSizes.videoDescription);
+        applyFontSizeOverride('.toggle-description', textSizes.videoToggle);
+        applyFontSizeOverride('.download-button', textSizes.studyNotesButton);
+        applyFontSizeOverride('.footer-brand', textSizes.footerBrand);
+        applyFontSizeOverride('.footer-description', textSizes.footerDescription);
+        applyFontSizeOverride('.footer-link', textSizes.footerLinks);
+        applyFontSizeOverride('.footer-copyright', textSizes.footerCopyright);
+        applyFontSizeOverride('.rss-strip-item, .rss-strip-source, .rss-strip-label', textSizes.rss);
+
         videos.forEach(function (video, index) {
             const card = videoCards[index];
             if (!card) {
@@ -212,6 +262,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 download.textContent = video.downloadText;
                 download.dataset.adminLabel = 'true';
             }
+            if (typeof video.titleSize === 'string' && title) {
+                title.style.fontSize = normalizeCssSize(video.titleSize);
+            }
+            if (typeof video.dateSize === 'string' && date) {
+                date.style.fontSize = normalizeCssSize(video.dateSize);
+            }
+            if (typeof video.descriptionSize === 'string' && description) {
+                description.style.fontSize = normalizeCssSize(video.descriptionSize);
+            }
+            if (typeof video.downloadTextSize === 'string' && download) {
+                download.style.fontSize = normalizeCssSize(video.downloadTextSize);
+            }
         });
     };
 
@@ -229,6 +291,22 @@ document.addEventListener('DOMContentLoaded', function () {
             return '';
         }
         return attribute === 'href' || attribute === 'src' ? element.getAttribute(attribute) || '' : element.textContent.trim();
+    };
+
+    const getComputedFontSize = function (selector) {
+        const element = document.querySelector(selector);
+        if (!element) {
+            return '';
+        }
+        return window.getComputedStyle(element).fontSize || '';
+    };
+
+    const getVideoFontSize = function (card, selector) {
+        const element = card.querySelector(selector);
+        if (!element) {
+            return '';
+        }
+        return window.getComputedStyle(element).fontSize || '';
     };
 
     const getCurrentContentSnapshot = function () {
@@ -261,6 +339,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 date: getFieldValue('.hero-featured-date'),
             },
             videoSectionTitle: getFieldValue('.section-title'),
+            textSizes: {
+                headerBrand: getComputedFontSize('.nav-brand-name'),
+                headerShop: getComputedFontSize('.nav-shop'),
+                heroTitle: getComputedFontSize('.hero-title'),
+                heroBrand: getComputedFontSize('.hero-title .brand-name'),
+                heroTitleLine: getComputedFontSize('.hero-title-line'),
+                heroDescription: getComputedFontSize('.hero-description'),
+                heroButtons: getComputedFontSize('.donate-button'),
+                heroDate: getComputedFontSize('.hero-featured-date'),
+                videoSectionTitle: getComputedFontSize('.section-title'),
+                videoTitle: getComputedFontSize('.video-title'),
+                videoDate: getComputedFontSize('.video-date'),
+                videoDescription: getComputedFontSize('.video-description'),
+                videoToggle: getComputedFontSize('.toggle-description'),
+                studyNotesButton: getComputedFontSize('.download-button'),
+                footerBrand: getComputedFontSize('.footer-brand'),
+                footerDescription: getComputedFontSize('.footer-description'),
+                footerLinks: getComputedFontSize('.footer-link'),
+                footerCopyright: getComputedFontSize('.footer-copyright'),
+                rss: getComputedFontSize('.rss-strip-item'),
+            },
             videos: Array.from(videoCards).map(function (card) {
                 return {
                     title: getVideoFieldValue(card, '.video-title'),
@@ -270,6 +369,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     previewImage: getVideoFieldValue(card, '.video-preview-link img', 'src'),
                     downloadLink: getVideoFieldValue(card, '.download-button', 'href'),
                     downloadText: getVideoFieldValue(card, '.download-button'),
+                    titleSize: getVideoFontSize(card, '.video-title'),
+                    dateSize: getVideoFontSize(card, '.video-date'),
+                    descriptionSize: getVideoFontSize(card, '.video-description'),
+                    downloadTextSize: getVideoFontSize(card, '.download-button'),
                 };
             }),
             footer: {
@@ -345,6 +448,29 @@ document.addEventListener('DOMContentLoaded', function () {
             createAdminField('videoSectionTitle', 'Video section title', snapshot.videoSectionTitle)
         );
 
+        const textSizeSection = createAdminSection('Text Sizes');
+        textSizeSection.append(
+            createAdminField('textSizes.headerBrand', 'Header brand size', snapshot.textSizes.headerBrand),
+            createAdminField('textSizes.headerShop', 'Shop link size', snapshot.textSizes.headerShop),
+            createAdminField('textSizes.heroTitle', 'Full hero title size', snapshot.textSizes.heroTitle),
+            createAdminField('textSizes.heroBrand', 'Hero brand name size', snapshot.textSizes.heroBrand),
+            createAdminField('textSizes.heroTitleLine', 'Hero title line size', snapshot.textSizes.heroTitleLine),
+            createAdminField('textSizes.heroDescription', 'Hero description size', snapshot.textSizes.heroDescription),
+            createAdminField('textSizes.heroButtons', 'Hero button text size', snapshot.textSizes.heroButtons),
+            createAdminField('textSizes.heroDate', 'Hero video date size', snapshot.textSizes.heroDate),
+            createAdminField('textSizes.videoSectionTitle', 'Video section title size', snapshot.textSizes.videoSectionTitle),
+            createAdminField('textSizes.videoTitle', 'All video title size', snapshot.textSizes.videoTitle),
+            createAdminField('textSizes.videoDate', 'All video date size', snapshot.textSizes.videoDate),
+            createAdminField('textSizes.videoDescription', 'All video description size', snapshot.textSizes.videoDescription),
+            createAdminField('textSizes.videoToggle', 'See more text size', snapshot.textSizes.videoToggle),
+            createAdminField('textSizes.studyNotesButton', 'All study notes button size', snapshot.textSizes.studyNotesButton),
+            createAdminField('textSizes.footerBrand', 'Footer brand size', snapshot.textSizes.footerBrand),
+            createAdminField('textSizes.footerDescription', 'Footer description size', snapshot.textSizes.footerDescription),
+            createAdminField('textSizes.footerLinks', 'Footer links size', snapshot.textSizes.footerLinks),
+            createAdminField('textSizes.footerCopyright', 'Footer copyright size', snapshot.textSizes.footerCopyright),
+            createAdminField('textSizes.rss', 'RSS strip text size', snapshot.textSizes.rss)
+        );
+
         const videosSection = createAdminSection('Videos');
         snapshot.videos.forEach(function (video, index) {
             const group = document.createElement('details');
@@ -362,7 +488,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 createAdminField(`videos.${index}.embedLink`, 'Embedded/watch link', video.embedLink),
                 createAdminField(`videos.${index}.previewImage`, 'Preview image link', video.previewImage),
                 createAdminField(`videos.${index}.downloadLink`, 'Study notes/download link', video.downloadLink),
-                createAdminField(`videos.${index}.downloadText`, 'Study notes button text', video.downloadText)
+                createAdminField(`videos.${index}.downloadText`, 'Study notes button text', video.downloadText),
+                createAdminField(`videos.${index}.titleSize`, 'Title size', video.titleSize),
+                createAdminField(`videos.${index}.dateSize`, 'Date size', video.dateSize),
+                createAdminField(`videos.${index}.descriptionSize`, 'Description size', video.descriptionSize),
+                createAdminField(`videos.${index}.downloadTextSize`, 'Study notes button size', video.downloadTextSize)
             );
             videosSection.appendChild(group);
         });
@@ -396,7 +526,7 @@ document.addEventListener('DOMContentLoaded', function () {
         actions.className = 'admin-actions';
         actions.innerHTML = '<button type="submit" class="admin-save">Save Changes</button><button type="button" class="admin-export">Export JSON</button><button type="button" class="admin-import">Import JSON</button><button type="button" class="admin-reset">Reset Local Edits</button><span class="admin-status" role="status"></span>';
 
-        form.append(headerSection, heroSection, videosSection, footerSection, actions);
+        form.append(headerSection, heroSection, textSizeSection, videosSection, footerSection, actions);
         document.body.appendChild(overlay);
 
         const setNestedValue = function (target, path, value) {
