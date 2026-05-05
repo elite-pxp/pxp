@@ -96,6 +96,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
+    const applyImageOverride = function (selector, value) {
+        const element = document.querySelector(selector);
+        if (element && typeof value === 'string' && value.trim()) {
+            element.src = value.trim();
+            element.dataset.adminOverride = 'true';
+        }
+    };
+
     const applyVideoSrc = function (element, value) {
         if (!element || typeof value !== 'string' || !value.trim()) {
             return;
@@ -134,6 +142,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
+    const applySizeOverride = function (selector, property, value) {
+        const cssSize = normalizeCssSize(value);
+        if (!cssSize) {
+            return;
+        }
+
+        document.querySelectorAll(selector).forEach(function (element) {
+            element.style[property] = cssSize;
+            element.dataset.adminSize = 'true';
+        });
+    };
+
     const applyAdminContent = function () {
         adminContent = getAdminContent();
         const hero = adminContent.hero || {};
@@ -159,6 +179,8 @@ document.addEventListener('DOMContentLoaded', function () {
         applyTextOverride('.footer-brand', footer.brand);
         applyTextOverride('.footer-description', footer.description);
         applyTextOverride('.footer-copyright .brand-name', footer.copyrightBrand);
+        applyImageOverride('.footer-pxp-logo', footer.logoSrc);
+        applySizeOverride('.footer-pxp-logo', 'width', footer.logoWidth);
 
         const footerLinks = document.querySelectorAll('.footer-link');
         if (Array.isArray(footer.links)) {
@@ -301,6 +323,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return window.getComputedStyle(element).fontSize || '';
     };
 
+    const getComputedStyleValue = function (selector, property) {
+        const element = document.querySelector(selector);
+        if (!element) {
+            return '';
+        }
+        return window.getComputedStyle(element)[property] || '';
+    };
+
     const getVideoFontSize = function (card, selector) {
         const element = card.querySelector(selector);
         if (!element) {
@@ -379,6 +409,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 brand: getFieldValue('.footer-brand'),
                 description: getFieldValue('.footer-description'),
                 copyrightBrand: getFieldValue('.footer-copyright .brand-name'),
+                logoSrc: getFieldValue('.footer-pxp-logo', 'src'),
+                logoWidth: getComputedStyleValue('.footer-pxp-logo', 'width'),
                 links: footerLinks,
                 actionLinks: footerActionLinks,
                 socialLinks: socialLinks,
@@ -502,6 +534,8 @@ document.addEventListener('DOMContentLoaded', function () {
             createAdminField('footer.brand', 'Footer brand', snapshot.footer.brand),
             createAdminField('footer.description', 'Footer description', snapshot.footer.description, 'textarea'),
             createAdminField('footer.copyrightBrand', 'Copyright brand', snapshot.footer.copyrightBrand),
+            createAdminField('footer.logoSrc', 'Footer logo image link', snapshot.footer.logoSrc),
+            createAdminField('footer.logoWidth', 'Footer logo width', snapshot.footer.logoWidth),
             createAdminField('rss.title', 'RSS text', snapshot.rss.title),
             createAdminField('rss.link', 'RSS item link', snapshot.rss.link),
             createAdminField('rss.feedLink', 'RSS feed link', snapshot.rss.feedLink)
