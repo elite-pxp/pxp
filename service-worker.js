@@ -1,12 +1,12 @@
-const CACHE_VERSION = 'pxp-v21';
+const CACHE_VERSION = 'pxp-v22';
 const APP_SHELL_CACHE = `app-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 
 const APP_SHELL_FILES = [
   './',
   './index.html',
-  './styles.css?v=12',
-  './app.js?v=41',
+  './styles.css?v=13',
+  './app.js?v=42',
   './site.webmanifest?v=4',
   './images/icons/favicon-32x32.png?v=3',
   './images/icons/apple-touch-icon.png?v=3',

@@ -649,6 +649,64 @@ document.addEventListener('DOMContentLoaded', function () {
         return field;
     };
 
+    const createAdminImageUploadField = function (targetName, label, value) {
+        const field = document.createElement('label');
+        field.className = 'admin-field admin-image-upload-field';
+
+        const labelText = document.createElement('span');
+        labelText.textContent = label;
+
+        const control = document.createElement('input');
+        control.type = 'file';
+        control.accept = 'image/png,image/jpeg,image/webp,image/gif,image/svg+xml';
+
+        const preview = document.createElement('img');
+        preview.className = 'admin-image-upload-preview';
+        preview.alt = '';
+        if (value) {
+            preview.src = value;
+        }
+
+        const status = document.createElement('span');
+        status.className = 'admin-image-upload-status';
+        status.textContent = 'Choose an image, then save changes.';
+
+        control.addEventListener('change', function () {
+            const file = control.files && control.files[0];
+            if (!file) {
+                return;
+            }
+
+            if (!file.type.startsWith('image/')) {
+                status.textContent = 'Please choose an image file.';
+                return;
+            }
+
+            if (file.size > 1800000) {
+                status.textContent = 'This image is large. A smaller image will save more reliably.';
+            } else {
+                status.textContent = 'Image loaded. Save changes to keep it.';
+            }
+
+            const reader = new FileReader();
+            reader.addEventListener('load', function () {
+                const result = typeof reader.result === 'string' ? reader.result : '';
+                const target = field.closest('form')?.elements[targetName];
+                if (target && result) {
+                    target.value = result;
+                    target.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+                if (result) {
+                    preview.src = result;
+                }
+            });
+            reader.readAsDataURL(file);
+        });
+
+        field.append(labelText, control, preview, status);
+        return field;
+    };
+
     const createAdminSection = function (title) {
         const section = document.createElement('section');
         section.className = 'admin-editor-section';
@@ -723,6 +781,7 @@ document.addEventListener('DOMContentLoaded', function () {
             createAdminField('pageTitle', 'Browser tab title', snapshot.pageTitle),
             createAdminField('header.brandName', 'Header brand text', snapshot.header.brandName),
             createAdminField('header.logoSrc', 'Header logo image link', snapshot.header.logoSrc),
+            createAdminImageUploadField('header.logoSrc', 'Upload header logo', snapshot.header.logoSrc),
             createAdminField('header.logoSize', 'Header logo size', snapshot.header.logoSize, 'input', 'buttonHeight'),
             createAdminField('header.shopLink', 'Shop link', snapshot.header.shopLink),
             createAdminField('videoSectionTitle', 'Video section title', snapshot.videoSectionTitle)
@@ -805,6 +864,7 @@ document.addEventListener('DOMContentLoaded', function () {
             createAdminField('footer.description', 'Footer description', snapshot.footer.description, 'textarea'),
             createAdminField('footer.copyrightBrand', 'Copyright brand', snapshot.footer.copyrightBrand),
             createAdminField('footer.logoSrc', 'Footer logo image link', snapshot.footer.logoSrc),
+            createAdminImageUploadField('footer.logoSrc', 'Upload footer logo', snapshot.footer.logoSrc),
             createAdminField('footer.logoWidth', 'Footer logo width', snapshot.footer.logoWidth),
             createAdminField('rss.title', 'RSS text', snapshot.rss.title),
             createAdminField('rss.link', 'RSS item link', snapshot.rss.link),

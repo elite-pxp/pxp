@@ -1004,6 +1004,33 @@ a.prayer-button {
     font-weight: 800;
 }
 
+.admin-image-upload-field input[type="file"] {
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.admin-image-upload-preview {
+    display: block;
+    width: 84px;
+    height: 84px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    background: white;
+    object-fit: contain;
+    padding: 0.35rem;
+}
+
+.admin-image-upload-preview:not([src]) {
+    display: none;
+}
+
+.admin-image-upload-status {
+    color: var(--gray);
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
 .admin-video-group {
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 9px;
