@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'pxp-v37';
+const CACHE_VERSION = 'pxp-v38';
 const APP_SHELL_CACHE = `app-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 
@@ -6,8 +6,7 @@ const APP_SHELL_FILES = [
   './',
   './index.html',
   './styles.css?v=15',
-  './firebase-config.js?v=1',
-  './app.js?v=57',
+  './app.js?v=58',
   './site.webmanifest?v=4',
   './images/icons/favicon-32x32.png?v=3',
   './images/icons/apple-touch-icon.png?v=3',

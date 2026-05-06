@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const ADMIN_PASSWORD = 'xx99';
     const ADMIN_STORAGE_KEY = 'pxpAdminContent';
     const ADMIN_SESSION_KEY = 'pxpAdminUnlocked';
-    const FIREBASE_ADMIN_DOC_PATH = 'siteContent/main';
 
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js').catch(function (error) {
@@ -68,8 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const heroUploadsPlaylistId = `UU${heroYouTubeChannelId.slice(2)}`;
     const youtubeRssEntriesCache = new Map();
     let adminContent = {};
-    const firebaseConfig = window.PXP_FIREBASE_CONFIG || {};
-    const firebaseEnabled = Boolean(firebaseConfig.apiKey && firebaseConfig.projectId);
 
     const adminOverrideSelectors = [
         '.nav-brand-name',
@@ -195,87 +192,19 @@ document.addEventListener('DOMContentLoaded', function () {
         window.localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(content));
     };
 
-    const getFirestoreDocumentEndpoint = function () {
-        if (!firebaseEnabled) {
-            return '';
-        }
-
-        const encodedPath = FIREBASE_ADMIN_DOC_PATH
-            .split('/')
-            .filter(Boolean)
-            .map(function (segment) { return encodeURIComponent(segment); })
-            .join('/');
-        return `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(firebaseConfig.projectId)}/databases/(default)/documents/${encodedPath}?key=${encodeURIComponent(firebaseConfig.apiKey)}`;
-    };
-
-    const loadAdminContentFromFirebase = async function () {
-        if (!firebaseEnabled) {
-            return null;
-        }
-
-        const response = await fetch(getFirestoreDocumentEndpoint(), { method: 'GET' });
-        if (response.status === 404) {
-            return {};
-        }
-        if (!response.ok) {
-            throw new Error(`Firebase load failed (${response.status})`);
-        }
-
-        const payload = await response.json();
-        const rawJson = payload?.fields?.contentJson?.stringValue || '{}';
-        try {
-            return JSON.parse(rawJson) || {};
-        } catch (error) {
-            return {};
-        }
-    };
-
-    const saveAdminContentToFirebase = async function (content) {
-        if (!firebaseEnabled) {
-            return;
-        }
-
-        const body = {
-            fields: {
-                contentJson: { stringValue: JSON.stringify(content || {}) },
-                updatedAt: { timestampValue: new Date().toISOString() },
-            },
-        };
-
-        const response = await fetch(getFirestoreDocumentEndpoint(), {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body),
-        });
-
-        if (!response.ok) {
-            throw new Error(`Firebase save failed (${response.status})`);
-        }
-    };
-
     const getAdminContent = function () {
         return adminContent && typeof adminContent === 'object' ? adminContent : {};
     };
 
-    const saveAdminContent = async function (content) {
+    const saveAdminContent = function (content) {
         saveLocalAdminContent(content);
         adminContent = content;
-        await saveAdminContentToFirebase(content);
     };
 
-    const initializeAdminContent = async function () {
+    const initializeAdminContent = function () {
         let loadedContent = {};
 
-        if (firebaseEnabled) {
-            try {
-                loadedContent = await loadAdminContentFromFirebase();
-            } catch (error) {
-                console.warn('Could not load Firebase content. Falling back to local content for this browser.', error);
-                loadedContent = useLocalAdminOverrides ? getLocalAdminContent() : {};
-            }
-        } else if (useLocalAdminOverrides || window.sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
+        if (useLocalAdminOverrides || window.sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
             loadedContent = getLocalAdminContent();
         }
 
@@ -1129,7 +1058,7 @@ document.addEventListener('DOMContentLoaded', function () {
         form.append(headerSection, heroSection, textSizeSection, colorSection, buttonSizeSection, videosSection, footerSection, actions);
         document.body.appendChild(overlay);
 
-        form.addEventListener('submit', async function (event) {
+        form.addEventListener('submit', function (event) {
             event.preventDefault();
             const formContent = {};
             Array.from(form.elements).forEach(function (element) {
@@ -1142,35 +1071,22 @@ document.addEventListener('DOMContentLoaded', function () {
             status.textContent = 'Saving...';
             const nextContent = formContent;
 
-            // Always apply instantly on this browser first, then sync remotely.
-            saveLocalAdminContent(nextContent);
-            adminContent = nextContent;
+            saveAdminContent(nextContent);
             applyAdminContent();
-
-            try {
-                await saveAdminContentToFirebase(nextContent);
-                status.textContent = firebaseEnabled
-                    ? 'Saved to Firebase for desktop and mobile browsers.'
-                    : 'Saved on this browser only. Add Firebase config to sync all devices.';
-            } catch (error) {
-                console.warn('Save failed:', error);
-                status.textContent = firebaseEnabled
-                    ? 'Saved on this browser, but Firebase sync failed. Check rules/network and save again.'
-                    : 'Saved on this browser only. Add Firebase config to sync all devices.';
-            }
+            status.textContent = 'Saved on this browser.';
         });
 
         overlay.querySelector('.admin-export').addEventListener('click', function () {
             window.prompt('Admin content JSON:', JSON.stringify(getAdminContent(), null, 2));
         });
 
-        overlay.querySelector('.admin-import').addEventListener('click', async function () {
+        overlay.querySelector('.admin-import').addEventListener('click', function () {
             const json = window.prompt('Paste admin content JSON:');
             if (!json) {
                 return;
             }
             try {
-                await saveAdminContent(JSON.parse(json));
+                saveAdminContent(JSON.parse(json));
                 window.location.reload();
             } catch (error) {
                 overlay.querySelector('.admin-status').textContent = 'That JSON could not be imported.';
@@ -1238,10 +1154,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
-    initializeAdminContent().finally(function () {
-        applyAdminContent();
-        attachSecretAdminTrigger();
-    });
+    initializeAdminContent();
+    applyAdminContent();
+    attachSecretAdminTrigger();
 
     const setShareButtonFeedback = function (message, timeoutMs) {
         if (!shareButton) {
