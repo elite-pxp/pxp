@@ -1,0 +1,28 @@
+{
+  "name": "Powered by Prayer",
+  "short_name": "PXP",
+  "icons": [
+    {
+      "src": "./images/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./images/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#fbf8f4",
+  "background_color": "#fbf8f4",
+  "display": "standalone",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "orientation": "portrait-primary",
+  "categories": [
+    "lifestyle",
+    "education"
+  ],
+  "lang": "en-US"
+}
