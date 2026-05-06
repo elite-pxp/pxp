@@ -264,8 +264,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const saveAdminContent = async function (content) {
         saveLocalAdminContent(content);
-        await saveAdminContentToFirebase(content);
         adminContent = content;
+        await saveAdminContentToFirebase(content);
     };
 
     const initializeAdminContent = async function () {
@@ -1144,15 +1144,22 @@ document.addEventListener('DOMContentLoaded', function () {
             const status = overlay.querySelector('.admin-status');
             status.textContent = 'Saving...';
             const nextContent = formContent;
+
+            // Always apply instantly on this browser first, then sync remotely.
+            saveLocalAdminContent(nextContent);
+            adminContent = nextContent;
+            applyAdminContent();
+
             try {
-                await saveAdminContent(nextContent);
-                applyAdminContent();
+                await saveAdminContentToFirebase(nextContent);
                 status.textContent = firebaseEnabled
                     ? 'Saved to Firebase for desktop and mobile browsers.'
                     : 'Saved on this browser only. Add Firebase config to sync all devices.';
             } catch (error) {
                 console.warn('Save failed:', error);
-                status.textContent = 'Save failed. Check Firebase config/rules, then try again.';
+                status.textContent = firebaseEnabled
+                    ? 'Saved on this browser, but Firebase sync failed. Check rules/network and save again.'
+                    : 'Saved on this browser only. Add Firebase config to sync all devices.';
             }
         });
 
