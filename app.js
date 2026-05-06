@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const videoSearchEmpty = document.querySelector('.video-search-empty');
     const studyNotesFolderUrl = 'https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing';
     const studyNotesDownloadLinksByYouTubeId = {
+        '-O99Y4kILG8': 'https://drive.google.com/uc?export=download&id=1LyHUPEO-xrRe6R-xDYBQ5IZMPZiYJdc4',
         Hu5gbtZsbcg: 'https://drive.google.com/uc?export=download&id=1I5AvwxAb0mNBzNNh4hiTCE29BLIAvkrb',
         jSADhcPqGpQ: 'https://drive.google.com/uc?export=download&id=1GBv-a-P-rjiCHT0pmwAdJ5MzwHELHnl3',
         PlCeqAbGN9U: 'https://drive.google.com/uc?export=download&id=1pe_Aclxwe8HvvZAz_I9jZZ4ir0wKi3vr',
@@ -129,6 +130,130 @@ document.addEventListener('DOMContentLoaded', function () {
             merged[key] = overrideValue;
         });
         return merged;
+    };
+
+    const setNestedValue = function (target, path, value) {
+        const parts = path.split('.');
+        let cursor = target;
+        parts.forEach(function (part, index) {
+            const isLast = index === parts.length - 1;
+            const nextPart = parts[index + 1];
+            const shouldBeArray = /^\d+$/.test(nextPart || '');
+            if (isLast) {
+                cursor[part] = value;
+                return;
+            }
+            if (!cursor[part]) {
+                cursor[part] = shouldBeArray ? [] : {};
+            }
+            cursor = cursor[part];
+        });
+    };
+
+    const pruneEmptyAdminBranches = function (value) {
+        if (!value || typeof value !== 'object') {
+            return false;
+        }
+
+        if (Array.isArray(value)) {
+            value.forEach(function (item) {
+                pruneEmptyAdminBranches(item);
+            });
+            return false;
+        }
+
+        Object.keys(value).forEach(function (key) {
+            if (pruneEmptyAdminBranches(value[key])) {
+                delete value[key];
+            }
+        });
+        return Object.keys(value).length === 0;
+    };
+
+    const movePathToSharedAdminContent = function (scopedContent, sharedContent, path) {
+        const parts = path.split('.');
+        let scopedCursor = scopedContent;
+        for (let index = 0; index < parts.length - 1; index += 1) {
+            scopedCursor = scopedCursor?.[parts[index]];
+            if (scopedCursor === undefined || scopedCursor === null) {
+                return;
+            }
+        }
+
+        const lastPart = parts[parts.length - 1];
+        if (scopedCursor[lastPart] === undefined) {
+            return;
+        }
+
+        setNestedValue(sharedContent, path, scopedCursor[lastPart]);
+        delete scopedCursor[lastPart];
+    };
+
+    const deleteNestedValue = function (target, path) {
+        const parts = path.split('.');
+        let cursor = target;
+        for (let index = 0; index < parts.length - 1; index += 1) {
+            cursor = cursor?.[parts[index]];
+            if (cursor === undefined || cursor === null) {
+                return;
+            }
+        }
+
+        delete cursor[parts[parts.length - 1]];
+    };
+
+    const getSharedAdminPaths = function (content) {
+        const paths = [
+            'header.shopLink',
+            'hero.donateLink',
+            'hero.prayerLink',
+            'rss.link',
+            'rss.feedLink',
+            'footer.actionLinks',
+            'footer.socialLinks',
+        ];
+
+        (content.footer?.links || []).forEach(function (_, index) {
+            paths.push(`footer.links.${index}.href`);
+        });
+
+        (content.videos || []).forEach(function (_, index) {
+            paths.push(`videos.${index}.embedLink`);
+            paths.push(`videos.${index}.downloadLink`);
+            paths.push(`videos.${index}.downloadText`);
+        });
+
+        return paths;
+    };
+
+    const splitSharedAdminContent = function (formContent) {
+        const sharedContent = {};
+        getSharedAdminPaths(formContent).forEach(function (path) {
+            movePathToSharedAdminContent(formContent, sharedContent, path);
+        });
+
+        pruneEmptyAdminBranches(formContent);
+        return sharedContent;
+    };
+
+    const clearSharedAdminFieldsFromDeviceOverrides = function (content) {
+        if (!content?.deviceOverrides) {
+            return;
+        }
+
+        ['desktop', 'mobile'].forEach(function (device) {
+            const deviceContent = content.deviceOverrides[device];
+            if (!deviceContent) {
+                return;
+            }
+
+            getSharedAdminPaths(deepMerge(content, deviceContent)).forEach(function (path) {
+                deleteNestedValue(deviceContent, path);
+            });
+            pruneEmptyAdminBranches(deviceContent);
+        });
+
+        pruneEmptyAdminBranches(content.deviceOverrides);
     };
 
     const getActiveAdminDevice = function () {
@@ -864,12 +989,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const control = document.createElement('select');
         control.className = 'admin-scope-select';
-        control.innerHTML = '<option value="global">Both mobile and desktop</option><option value="desktop">Desktop version only</option><option value="mobile">Mobile version only</option>';
+        control.innerHTML = '<option value="global">Both mobile and desktop</option><option value="desktop">Desktop layout only</option><option value="mobile">Mobile layout only</option>';
         control.value = scope;
 
         const badge = document.createElement('span');
         badge.className = `admin-scope-badge admin-scope-badge-${scope}`;
-        badge.textContent = scope === 'desktop' ? 'Desktop only' : scope === 'mobile' ? 'Mobile only' : 'Both versions';
+        badge.textContent = scope === 'desktop' ? 'Desktop layout' : scope === 'mobile' ? 'Mobile layout' : 'Both versions';
 
         field.append(labelText, control, badge);
         section.appendChild(field);
@@ -897,7 +1022,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const form = overlay.querySelector('.admin-form');
         const closeButton = overlay.querySelector('.admin-close');
         const deviceNote = overlay.querySelector('.admin-device-note');
-        deviceNote.textContent = editorScope === 'desktop' ? 'You are editing the desktop version only.' : editorScope === 'mobile' ? 'You are editing the mobile version only.' : 'You are editing shared settings for both mobile and desktop.';
+        deviceNote.textContent = editorScope === 'desktop' ? 'You are editing desktop layout settings. Links, video embeds, and study notes stay shared.' : editorScope === 'mobile' ? 'You are editing mobile layout settings. Links, video embeds, and study notes stay shared.' : 'You are editing shared settings for both mobile and desktop.';
 
         const scopeSection = createAdminScopeSection(editorScope);
 
@@ -1040,24 +1165,6 @@ document.addEventListener('DOMContentLoaded', function () {
         form.append(scopeSection, headerSection, heroSection, textSizeSection, colorSection, buttonSizeSection, videosSection, footerSection, actions);
         document.body.appendChild(overlay);
 
-        const setNestedValue = function (target, path, value) {
-            const parts = path.split('.');
-            let cursor = target;
-            parts.forEach(function (part, index) {
-                const isLast = index === parts.length - 1;
-                const nextPart = parts[index + 1];
-                const shouldBeArray = /^\d+$/.test(nextPart || '');
-                if (isLast) {
-                    cursor[part] = value;
-                    return;
-                }
-                if (!cursor[part]) {
-                    cursor[part] = shouldBeArray ? [] : {};
-                }
-                cursor = cursor[part];
-            });
-        };
-
         form.addEventListener('submit', function (event) {
             event.preventDefault();
             const formContent = {};
@@ -1070,21 +1177,25 @@ document.addEventListener('DOMContentLoaded', function () {
             const currentContent = getAdminContent();
             let nextContent = {};
             if (editorScope === 'desktop' || editorScope === 'mobile') {
+                const sharedContent = splitSharedAdminContent(formContent);
                 nextContent = deepMerge({}, currentContent);
                 if (!nextContent.pageTitle && !nextContent.header && !nextContent.hero) {
                     nextContent = deepMerge(getCurrentContentSnapshot(), nextContent);
                 }
+                nextContent = deepMerge(nextContent, sharedContent);
                 nextContent.deviceOverrides = nextContent.deviceOverrides || {};
                 nextContent.deviceOverrides[editorScope] = formContent;
+                clearSharedAdminFieldsFromDeviceOverrides(nextContent);
             } else {
                 nextContent = formContent;
                 if (currentContent.deviceOverrides) {
                     nextContent.deviceOverrides = currentContent.deviceOverrides;
                 }
+                clearSharedAdminFieldsFromDeviceOverrides(nextContent);
             }
             saveAdminContent(nextContent);
             applyAdminContent();
-            overlay.querySelector('.admin-status').textContent = editorScope === 'desktop' ? 'Saved for desktop only.' : editorScope === 'mobile' ? 'Saved for mobile only.' : 'Saved for both mobile and desktop.';
+            overlay.querySelector('.admin-status').textContent = editorScope === 'desktop' ? 'Saved desktop layout on this browser. Links, videos, and study notes were saved for both.' : editorScope === 'mobile' ? 'Saved mobile layout on this browser. Links, videos, and study notes were saved for both.' : 'Saved on this browser for both mobile and desktop.';
         });
 
         overlay.querySelector('.admin-export').addEventListener('click', function () {
