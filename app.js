@@ -39,12 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         t2BAf6_z_zk: 'https://drive.google.com/uc?export=download&id=1WTW2OZtogO9SZR0M5U5tN0n9NibcoRx1',
         ZBJrPorLCyc: 'https://drive.google.com/uc?export=download&id=1J3fBz0AZKNjZXxWXgTSemdSEeQqZ5Odt',
     };
-    const unavailableStudyNotesYouTubeIds = new Set([
-        'I7DZerTI9hg',
-        'CGpM9zMOX50',
-        '7zyTup1sU2U',
-        'aDlh_6UYVWY',
-    ]);
+    const unavailableStudyNotesYouTubeIds = new Set([]);
     const unavailableStudyNotesLabel = 'Study Notes Not Available';
     const uploadDateLabelsByYouTubeId = {
         '-O99Y4kILG8': 'Uploaded: January 6, 2026',
