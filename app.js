@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
         QOqeESjDzmA: 'https://drive.google.com/uc?export=download&id=1-ECjYUQ8gubX4RRZQ_QH9ekypcSO1q1s',
         t2BAf6_z_zk: 'https://drive.google.com/uc?export=download&id=1WTW2OZtogO9SZR0M5U5tN0n9NibcoRx1',
         ZBJrPorLCyc: 'https://drive.google.com/uc?export=download&id=1J3fBz0AZKNjZXxWXgTSemdSEeQqZ5Odt',
+        '7zyTup1sU2U': 'https://drive.google.com/file/d/1GIsqYW5Bl1JKub1xs_PPNlSWSufFCX8R/view?usp=drive_link',
         aDlh_6UYVWY: 'https://drive.google.com/file/d/1engIMXYPZm5dUpwcYNSNNHnHaw_Km9G5/view?usp=sharing',
     };
     const unavailableStudyNotesYouTubeIds = new Set([]);
