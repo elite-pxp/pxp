@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         t2BAf6_z_zk: 'https://drive.google.com/uc?export=download&id=1WTW2OZtogO9SZR0M5U5tN0n9NibcoRx1',
         ZBJrPorLCyc: 'https://drive.google.com/uc?export=download&id=1J3fBz0AZKNjZXxWXgTSemdSEeQqZ5Odt',
     };
-    const unavailableStudyNotesYouTubeIds = new Set([]);]);
+    const unavailableStudyNotesYouTubeIds = new Set([]);
     const unavailableStudyNotesLabel = 'Study Notes Not Available';
     const uploadDateLabelsByYouTubeId = {
         '-O99Y4kILG8': 'Uploaded: January 6, 2026',
@@ -1418,7 +1418,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     const openStudyNotesModal = function (button) {
-        const downloadUrl = button.href;
+        const downloadUrl = button.dataset.studyNotesDownloadUrl || button.href;
         const previewUrl = getStudyNotesPreviewUrl(downloadUrl);
         if (!previewUrl) {
             return;
@@ -1432,13 +1432,13 @@ document.addEventListener('DOMContentLoaded', function () {
         downloadLink.href = downloadUrl;
         downloadLink.textContent = button.dataset.studyNotesModalDownloadLabel || 'Download';
 
-        if (button.hasAttribute('download')) {
-            downloadLink.setAttribute('download', button.getAttribute('download') || 'study-notes.pdf');
+        if (button.dataset.studyNotesShouldDownload === 'true') {
+            downloadLink.setAttribute('download', button.dataset.studyNotesFileName || 'study-notes.pdf');
             downloadLink.setAttribute('target', '_self');
             downloadLink.removeAttribute('rel');
         } else {
             downloadLink.removeAttribute('download');
-            downloadLink.setAttribute('target', button.getAttribute('target') || '_blank');
+            downloadLink.setAttribute('target', '_blank');
             downloadLink.setAttribute('rel', 'noopener noreferrer');
         }
 
@@ -1448,20 +1448,15 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     const syncStudyNotesLink = function (button, url, shouldDownload, videoId) {
-        button.href = url;
+        button.href = '#';
+        button.dataset.studyNotesDownloadUrl = url;
         button.dataset.studyNotesPreviewUrl = getStudyNotesPreviewUrl(url);
         button.dataset.studyNotesModalDownloadLabel = 'Download';
-
-        if (shouldDownload) {
-            button.setAttribute('download', `${videoId}-study-notes.pdf`);
-            button.setAttribute('target', '_self');
-            button.removeAttribute('rel');
-            return;
-        }
-
+        button.dataset.studyNotesShouldDownload = shouldDownload ? 'true' : 'false';
+        button.dataset.studyNotesFileName = `${videoId}-study-notes.pdf`;
         button.removeAttribute('download');
-        button.setAttribute('target', '_blank');
-        button.setAttribute('rel', 'noopener noreferrer');
+        button.removeAttribute('target');
+        button.removeAttribute('rel');
     };
 
     const syncUnavailableStudyNotesButton = function (button) {
@@ -1470,6 +1465,7 @@ document.addEventListener('DOMContentLoaded', function () {
         button.removeAttribute('target');
         button.removeAttribute('rel');
         button.dataset.studyNotesUnavailable = 'true';
+        delete button.dataset.studyNotesDownloadUrl;
         delete button.dataset.studyNotesPreviewUrl;
     };
 
@@ -1477,6 +1473,24 @@ document.addEventListener('DOMContentLoaded', function () {
         const iframe = card.querySelector('.video-embed iframe');
         const iframeVideoId = extractYouTubeVideoId(iframe?.getAttribute('src') || '');
         return iframeVideoId || card.dataset.youtubeId || card.querySelector('.video-preview-link')?.dataset.youtubeId || '';
+    };
+
+    const syncVideoExpandToggleState = function (visibleCount = null) {
+        if (!videosContainer || !videoExpandToggle) {
+            return;
+        }
+
+        const count = Number.isFinite(visibleCount)
+            ? visibleCount
+            : videoCards.filter(function (card) {
+                return !card.classList.contains('is-filter-hidden');
+            }).length;
+        const hasSearchQuery = Boolean(videoSearchInput && normalizeSearchText(videoSearchInput.value));
+        const collapsed = videosContainer.classList.contains('is-collapsed');
+
+        videoExpandToggle.hidden = hasSearchQuery || count <= 4;
+        videoExpandToggle.textContent = collapsed ? 'See more Videos' : 'See less Videos';
+        videoExpandToggle.setAttribute('aria-expanded', String(!collapsed));
     };
 
     const applyVideoSearchFilter = function () {
@@ -1506,13 +1520,7 @@ document.addEventListener('DOMContentLoaded', function () {
             videosContainer.classList.toggle('is-searching', Boolean(query));
         }
 
-        if (videoExpandToggle) {
-            const hasSearchQuery = Boolean(query);
-            const collapsed = videosContainer ? videosContainer.classList.contains('is-collapsed') : true;
-            videoExpandToggle.hidden = hasSearchQuery || visibleCount <= 4;
-            videoExpandToggle.textContent = collapsed ? 'See more Videos' : 'See less Videos';
-            videoExpandToggle.setAttribute('aria-expanded', String(!collapsed));
-        }
+        syncVideoExpandToggleState(visibleCount);
 
         if (videoSearchEmpty) {
             videoSearchEmpty.hidden = visibleCount > 0;
@@ -1972,7 +1980,8 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const previewUrl = button.dataset.studyNotesPreviewUrl || getStudyNotesPreviewUrl(button.href);
+        const downloadUrl = button.dataset.studyNotesDownloadUrl || button.href;
+        const previewUrl = button.dataset.studyNotesPreviewUrl || getStudyNotesPreviewUrl(downloadUrl);
         if (!previewUrl) {
             return;
         }
@@ -2002,8 +2011,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (videosContainer && videoExpandToggle) {
         videoExpandToggle.addEventListener('click', function () {
             const collapsed = videosContainer.classList.toggle('is-collapsed');
-            videoExpandToggle.textContent = collapsed ? 'See more Videos' : 'See less Videos';
-            videoExpandToggle.setAttribute('aria-expanded', String(!collapsed));
+            syncVideoExpandToggleState();
         });
     }
 
@@ -2020,6 +2028,7 @@ document.addEventListener('DOMContentLoaded', function () {
     syncStudyNotesButtonLabels();
     sortVideoCardsNewestFirst();
     applyVideoSearchFilter();
+    syncVideoExpandToggleState();
 
     const rssStripItem = document.querySelector('.rss-strip-item');
     const rssStripSource = document.querySelector('.rss-strip-source');
