@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const ADMIN_PASSWORD = 'xx99';
     const ADMIN_STORAGE_KEY = 'pxpAdminContent';
     const ADMIN_SESSION_KEY = 'pxpAdminUnlocked';
-    const ADMIN_EDITOR_SCOPE_KEY = 'pxpAdminEditorScope';
+    const FIREBASE_ADMIN_DOC_PATH = 'siteContent/main';
 
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js').catch(function (error) {
@@ -12,13 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const currentUrl = new URL(window.location.href);
     const forceMobileView = currentUrl.searchParams.get('mobile') === '1';
+    const useLocalAdminOverrides = currentUrl.searchParams.get('adminPreview') === '1';
     if (forceMobileView) {
         document.body.classList.add('force-mobile-view');
     }
 
     const shareButton = document.querySelector('.nav-share-button');
     const mobileButtonLabelMediaQuery = window.matchMedia('(max-width: 560px)');
-    const adminDeviceMediaQuery = window.matchMedia('(max-width: 760px)');
     let videoCards = Array.from(document.querySelectorAll('.video-card'));
     const videosContainer = document.querySelector('.videos-container');
     const primaryVideoGrid = document.querySelector('.videos-container > .video-grid:not(.video-grid-extra)');
@@ -71,6 +71,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const heroUploadsPlaylistId = `UU${heroYouTubeChannelId.slice(2)}`;
     const youtubeRssEntriesCache = new Map();
     let adminContent = {};
+    const firebaseConfig = window.PXP_FIREBASE_CONFIG || {};
+    const firebaseEnabled = Boolean(firebaseConfig.apiKey && firebaseConfig.projectId);
 
     const adminOverrideSelectors = [
         '.nav-brand-name',
@@ -170,102 +172,21 @@ document.addEventListener('DOMContentLoaded', function () {
         return Object.keys(value).length === 0;
     };
 
-    const movePathToSharedAdminContent = function (scopedContent, sharedContent, path) {
-        const parts = path.split('.');
-        let scopedCursor = scopedContent;
-        for (let index = 0; index < parts.length - 1; index += 1) {
-            scopedCursor = scopedCursor?.[parts[index]];
-            if (scopedCursor === undefined || scopedCursor === null) {
-                return;
-            }
+    const migrateLegacyDeviceOverrides = function (content) {
+        if (!content || typeof content !== 'object' || !content.deviceOverrides) {
+            return content || {};
         }
 
-        const lastPart = parts[parts.length - 1];
-        if (scopedCursor[lastPart] === undefined) {
-            return;
-        }
-
-        setNestedValue(sharedContent, path, scopedCursor[lastPart]);
-        delete scopedCursor[lastPart];
+        const migrated = deepMerge({}, content);
+        const deviceOverrides = migrated.deviceOverrides || {};
+        const desktop = deviceOverrides.desktop || {};
+        const mobile = deviceOverrides.mobile || {};
+        const merged = deepMerge(deepMerge(migrated, desktop), mobile);
+        delete merged.deviceOverrides;
+        return merged;
     };
 
-    const deleteNestedValue = function (target, path) {
-        const parts = path.split('.');
-        let cursor = target;
-        for (let index = 0; index < parts.length - 1; index += 1) {
-            cursor = cursor?.[parts[index]];
-            if (cursor === undefined || cursor === null) {
-                return;
-            }
-        }
-
-        delete cursor[parts[parts.length - 1]];
-    };
-
-    const getSharedAdminPaths = function (content) {
-        const paths = [
-            'header.shopLink',
-            'hero.donateLink',
-            'hero.prayerLink',
-            'rss.link',
-            'rss.feedLink',
-            'footer.actionLinks',
-            'footer.socialLinks',
-        ];
-
-        (content.footer?.links || []).forEach(function (_, index) {
-            paths.push(`footer.links.${index}.href`);
-        });
-
-        (content.videos || []).forEach(function (_, index) {
-            paths.push(`videos.${index}.embedLink`);
-            paths.push(`videos.${index}.downloadLink`);
-            paths.push(`videos.${index}.downloadText`);
-        });
-
-        return paths;
-    };
-
-    const splitSharedAdminContent = function (formContent) {
-        const sharedContent = {};
-        getSharedAdminPaths(formContent).forEach(function (path) {
-            movePathToSharedAdminContent(formContent, sharedContent, path);
-        });
-
-        pruneEmptyAdminBranches(formContent);
-        return sharedContent;
-    };
-
-    const clearSharedAdminFieldsFromDeviceOverrides = function (content) {
-        if (!content?.deviceOverrides) {
-            return;
-        }
-
-        ['desktop', 'mobile'].forEach(function (device) {
-            const deviceContent = content.deviceOverrides[device];
-            if (!deviceContent) {
-                return;
-            }
-
-            getSharedAdminPaths(deepMerge(content, deviceContent)).forEach(function (path) {
-                deleteNestedValue(deviceContent, path);
-            });
-            pruneEmptyAdminBranches(deviceContent);
-        });
-
-        pruneEmptyAdminBranches(content.deviceOverrides);
-    };
-
-    const getActiveAdminDevice = function () {
-        return forceMobileView || adminDeviceMediaQuery.matches ? 'mobile' : 'desktop';
-    };
-
-    const getAdminEditorScope = function () {
-        const scope = window.sessionStorage.getItem(ADMIN_EDITOR_SCOPE_KEY);
-        return scope === 'desktop' || scope === 'mobile' ? scope : 'global';
-    };
-
-    const getAdminContent = function () {
+    const getLocalAdminContent = function () {
         try {
             return JSON.parse(window.localStorage.getItem(ADMIN_STORAGE_KEY) || '{}') || {};
         } catch (error) {
@@ -273,9 +194,95 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    const saveAdminContent = function (content) {
+    const saveLocalAdminContent = function (content) {
         window.localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(content));
+    };
+
+    const getFirestoreDocumentEndpoint = function () {
+        if (!firebaseEnabled) {
+            return '';
+        }
+
+        const encodedPath = FIREBASE_ADMIN_DOC_PATH
+            .split('/')
+            .filter(Boolean)
+            .map(function (segment) { return encodeURIComponent(segment); })
+            .join('/');
+        return `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(firebaseConfig.projectId)}/databases/(default)/documents/${encodedPath}?key=${encodeURIComponent(firebaseConfig.apiKey)}`;
+    };
+
+    const loadAdminContentFromFirebase = async function () {
+        if (!firebaseEnabled) {
+            return null;
+        }
+
+        const response = await fetch(getFirestoreDocumentEndpoint(), { method: 'GET' });
+        if (response.status === 404) {
+            return {};
+        }
+        if (!response.ok) {
+            throw new Error(`Firebase load failed (${response.status})`);
+        }
+
+        const payload = await response.json();
+        const rawJson = payload?.fields?.contentJson?.stringValue || '{}';
+        try {
+            return JSON.parse(rawJson) || {};
+        } catch (error) {
+            return {};
+        }
+    };
+
+    const saveAdminContentToFirebase = async function (content) {
+        if (!firebaseEnabled) {
+            return;
+        }
+
+        const body = {
+            fields: {
+                contentJson: { stringValue: JSON.stringify(content || {}) },
+                updatedAt: { timestampValue: new Date().toISOString() },
+            },
+        };
+
+        const response = await fetch(getFirestoreDocumentEndpoint(), {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Firebase save failed (${response.status})`);
+        }
+    };
+
+    const getAdminContent = function () {
+        return adminContent && typeof adminContent === 'object' ? adminContent : {};
+    };
+
+    const saveAdminContent = async function (content) {
+        saveLocalAdminContent(content);
+        await saveAdminContentToFirebase(content);
         adminContent = content;
+    };
+
+    const initializeAdminContent = async function () {
+        let loadedContent = {};
+
+        if (firebaseEnabled) {
+            try {
+                loadedContent = await loadAdminContentFromFirebase();
+            } catch (error) {
+                console.warn('Could not load Firebase content. Falling back to local content for this browser.', error);
+                loadedContent = useLocalAdminOverrides ? getLocalAdminContent() : {};
+            }
+        } else if (useLocalAdminOverrides || window.sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
+            loadedContent = getLocalAdminContent();
+        }
+
+        adminContent = migrateLegacyDeviceOverrides(loadedContent || {});
     };
 
     const applyTextOverride = function (selector, value) {
@@ -423,10 +430,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     const applyAdminContent = function () {
-        adminContent = getAdminContent();
-        const activeDevice = getActiveAdminDevice();
-        const deviceOverrides = adminContent.deviceOverrides || {};
-        const activeContent = deepMerge(adminContent, deviceOverrides[activeDevice] || {});
+        const activeContent = migrateLegacyDeviceOverrides(getAdminContent());
         const hero = activeContent.hero || {};
         const header = activeContent.header || {};
         const footer = activeContent.footer || {};
@@ -436,7 +440,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const textColors = activeContent.textColors || {};
         const buttonSizes = activeContent.buttonSizes || {};
 
-        document.documentElement.dataset.adminDevice = activeDevice;
+        document.documentElement.dataset.adminDevice = forceMobileView ? 'mobile' : 'desktop';
         resetAdminInlineStyles();
 
         if (typeof activeContent.pageTitle === 'string') {
@@ -754,13 +758,9 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     };
 
-    const getAdminSnapshotForScope = function (scope) {
+    const getAdminSnapshotForScope = function () {
         const liveSnapshot = getCurrentContentSnapshot();
-        const savedContent = getAdminContent();
-        const deviceOverrides = savedContent.deviceOverrides || {};
-        if (scope === 'desktop' || scope === 'mobile') {
-            return deepMerge(deepMerge(liveSnapshot, savedContent), deviceOverrides[scope] || {});
-        }
+        const savedContent = migrateLegacyDeviceOverrides(getAdminContent());
         return deepMerge(liveSnapshot, savedContent);
     };
 
@@ -977,44 +977,13 @@ document.addEventListener('DOMContentLoaded', function () {
         return section;
     };
 
-    const createAdminScopeSection = function (scope) {
-        const section = createAdminSection('Editor Target');
-        section.classList.add('admin-scope-section');
-
-        const field = document.createElement('label');
-        field.className = 'admin-field';
-
-        const labelText = document.createElement('span');
-        labelText.textContent = 'Apply changes to';
-
-        const control = document.createElement('select');
-        control.className = 'admin-scope-select';
-        control.innerHTML = '<option value="global">Both mobile and desktop</option><option value="desktop">Desktop layout only</option><option value="mobile">Mobile layout only</option>';
-        control.value = scope;
-
-        const badge = document.createElement('span');
-        badge.className = `admin-scope-badge admin-scope-badge-${scope}`;
-        badge.textContent = scope === 'desktop' ? 'Desktop layout' : scope === 'mobile' ? 'Mobile layout' : 'Both versions';
-
-        field.append(labelText, control, badge);
-        section.appendChild(field);
-
-        control.addEventListener('change', function () {
-            window.sessionStorage.setItem(ADMIN_EDITOR_SCOPE_KEY, control.value);
-            createAdminOverlay();
-        });
-
-        return section;
-    };
-
     const createAdminOverlay = function () {
         const existingOverlay = document.querySelector('.admin-overlay');
         if (existingOverlay) {
             existingOverlay.remove();
         }
 
-        const editorScope = getAdminEditorScope();
-        const snapshot = getAdminSnapshotForScope(editorScope);
+        const snapshot = getAdminSnapshotForScope();
         const overlay = document.createElement('div');
         overlay.className = 'admin-overlay';
         overlay.innerHTML = '<div class="admin-panel" role="dialog" aria-modal="true" aria-labelledby="admin-title"><div class="admin-panel-header"><div><p class="admin-kicker">Private Admin</p><h2 id="admin-title">Edit Website Content</h2><p class="admin-device-note"></p></div><button type="button" class="admin-close" aria-label="Close admin editor">x</button></div><form class="admin-form"></form></div>';
@@ -1022,9 +991,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const form = overlay.querySelector('.admin-form');
         const closeButton = overlay.querySelector('.admin-close');
         const deviceNote = overlay.querySelector('.admin-device-note');
-        deviceNote.textContent = editorScope === 'desktop' ? 'You are editing desktop layout settings. Links, video embeds, and study notes stay shared.' : editorScope === 'mobile' ? 'You are editing mobile layout settings. Links, video embeds, and study notes stay shared.' : 'You are editing shared settings for both mobile and desktop.';
-
-        const scopeSection = createAdminScopeSection(editorScope);
+        deviceNote.textContent = 'You are editing one shared website content source for both desktop and mobile browsers.';
 
         const heroSection = createAdminSection('Hero');
         heroSection.append(
@@ -1162,10 +1129,10 @@ document.addEventListener('DOMContentLoaded', function () {
         actions.className = 'admin-actions';
         actions.innerHTML = '<button type="submit" class="admin-save">Save Changes</button><button type="button" class="admin-export">Export JSON</button><button type="button" class="admin-import">Import JSON</button><button type="button" class="admin-reset">Reset Local Edits</button><span class="admin-status" role="status"></span>';
 
-        form.append(scopeSection, headerSection, heroSection, textSizeSection, colorSection, buttonSizeSection, videosSection, footerSection, actions);
+        form.append(headerSection, heroSection, textSizeSection, colorSection, buttonSizeSection, videosSection, footerSection, actions);
         document.body.appendChild(overlay);
 
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', async function (event) {
             event.preventDefault();
             const formContent = {};
             Array.from(form.elements).forEach(function (element) {
@@ -1174,41 +1141,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 setNestedValue(formContent, element.name, element.value.trim());
             });
-            const currentContent = getAdminContent();
-            let nextContent = {};
-            if (editorScope === 'desktop' || editorScope === 'mobile') {
-                const sharedContent = splitSharedAdminContent(formContent);
-                nextContent = deepMerge({}, currentContent);
-                if (!nextContent.pageTitle && !nextContent.header && !nextContent.hero) {
-                    nextContent = deepMerge(getCurrentContentSnapshot(), nextContent);
-                }
-                nextContent = deepMerge(nextContent, sharedContent);
-                nextContent.deviceOverrides = nextContent.deviceOverrides || {};
-                nextContent.deviceOverrides[editorScope] = formContent;
-                clearSharedAdminFieldsFromDeviceOverrides(nextContent);
-            } else {
-                nextContent = formContent;
-                if (currentContent.deviceOverrides) {
-                    nextContent.deviceOverrides = currentContent.deviceOverrides;
-                }
-                clearSharedAdminFieldsFromDeviceOverrides(nextContent);
+            const status = overlay.querySelector('.admin-status');
+            status.textContent = 'Saving...';
+            const nextContent = formContent;
+            try {
+                await saveAdminContent(nextContent);
+                applyAdminContent();
+                status.textContent = firebaseEnabled
+                    ? 'Saved to Firebase for desktop and mobile browsers.'
+                    : 'Saved on this browser only. Add Firebase config to sync all devices.';
+            } catch (error) {
+                console.warn('Save failed:', error);
+                status.textContent = 'Save failed. Check Firebase config/rules, then try again.';
             }
-            saveAdminContent(nextContent);
-            applyAdminContent();
-            overlay.querySelector('.admin-status').textContent = editorScope === 'desktop' ? 'Saved desktop layout on this browser. Links, videos, and study notes were saved for both.' : editorScope === 'mobile' ? 'Saved mobile layout on this browser. Links, videos, and study notes were saved for both.' : 'Saved on this browser for both mobile and desktop.';
         });
 
         overlay.querySelector('.admin-export').addEventListener('click', function () {
             window.prompt('Admin content JSON:', JSON.stringify(getAdminContent(), null, 2));
         });
 
-        overlay.querySelector('.admin-import').addEventListener('click', function () {
+        overlay.querySelector('.admin-import').addEventListener('click', async function () {
             const json = window.prompt('Paste admin content JSON:');
             if (!json) {
                 return;
             }
             try {
-                saveAdminContent(JSON.parse(json));
+                await saveAdminContent(JSON.parse(json));
                 window.location.reload();
             } catch (error) {
                 overlay.querySelector('.admin-status').textContent = 'That JSON could not be imported.';
@@ -1276,13 +1234,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
-    applyAdminContent();
-    if (typeof adminDeviceMediaQuery.addEventListener === 'function') {
-        adminDeviceMediaQuery.addEventListener('change', applyAdminContent);
-    } else if (typeof adminDeviceMediaQuery.addListener === 'function') {
-        adminDeviceMediaQuery.addListener(applyAdminContent);
-    }
-    attachSecretAdminTrigger();
+    initializeAdminContent().finally(function () {
+        applyAdminContent();
+        attachSecretAdminTrigger();
+    });
 
     const setShareButtonFeedback = function (message, timeoutMs) {
         if (!shareButton) {
