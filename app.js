@@ -1271,8 +1271,118 @@ document.addEventListener('DOMContentLoaded', function () {
         return !embeddedYouTubeVideoId;
     };
 
+    const getGoogleDriveId = function (url) {
+        if (typeof url !== 'string' || !url.trim()) {
+            return '';
+        }
+
+        try {
+            const parsedUrl = new URL(url.trim(), window.location.origin);
+            const fileMatch = parsedUrl.pathname.match(/\/file\/d\/([^/]+)/);
+            const folderMatch = parsedUrl.pathname.match(/\/folders\/([^/]+)/);
+            return parsedUrl.searchParams.get('id') || fileMatch?.[1] || folderMatch?.[1] || '';
+        } catch (error) {
+            const idMatch = url.match(/[?&]id=([^&]+)/);
+            const fileMatch = url.match(/\/file\/d\/([^/]+)/);
+            return decodeURIComponent(idMatch?.[1] || fileMatch?.[1] || '');
+        }
+    };
+
+    const getStudyNotesPreviewUrl = function (url) {
+        if (typeof url !== 'string' || !url.trim() || url.trim() === '#') {
+            return '';
+        }
+
+        try {
+            const parsedUrl = new URL(url.trim(), window.location.origin);
+            const driveId = getGoogleDriveId(url);
+
+            if (driveId && parsedUrl.pathname.includes('/folders/')) {
+                return `https://drive.google.com/embeddedfolderview?id=${encodeURIComponent(driveId)}#list`;
+            }
+
+            if (driveId && parsedUrl.hostname.includes('drive.google.com')) {
+                return `https://drive.google.com/file/d/${encodeURIComponent(driveId)}/preview`;
+            }
+        } catch (error) {
+            // Fall through to the original link for non-standard URLs.
+        }
+
+        return url.trim();
+    };
+
+    const getStudyNotesModal = function () {
+        let modal = document.querySelector('.study-notes-modal');
+        if (modal) {
+            return modal;
+        }
+
+        modal = document.createElement('div');
+        modal.className = 'study-notes-modal';
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-labelledby', 'study-notes-modal-title');
+        modal.hidden = true;
+        modal.innerHTML = '<div class="study-notes-modal-backdrop" data-study-notes-close></div><div class="study-notes-modal-panel"><div class="study-notes-modal-header"><h2 id="study-notes-modal-title">Study Notes Preview</h2><button type="button" class="study-notes-modal-close" aria-label="Close study notes preview" data-study-notes-close>&times;</button></div><div class="study-notes-preview-frame-wrap"><iframe class="study-notes-preview-frame" title="Study notes preview" loading="lazy" allow="autoplay"></iframe></div><div class="study-notes-modal-actions"><a href="#" class="study-notes-modal-download">Download</a></div></div>';
+        document.body.appendChild(modal);
+
+        modal.addEventListener('click', function (event) {
+            if (event.target.closest('[data-study-notes-close]')) {
+                closeStudyNotesModal();
+            }
+        });
+
+        return modal;
+    };
+
+    const closeStudyNotesModal = function () {
+        const modal = document.querySelector('.study-notes-modal');
+        if (!modal) {
+            return;
+        }
+
+        const iframe = modal.querySelector('.study-notes-preview-frame');
+        modal.hidden = true;
+        document.body.classList.remove('study-notes-modal-open');
+        if (iframe) {
+            iframe.src = 'about:blank';
+        }
+    };
+
+    const openStudyNotesModal = function (button) {
+        const downloadUrl = button.href;
+        const previewUrl = getStudyNotesPreviewUrl(downloadUrl);
+        if (!previewUrl) {
+            return;
+        }
+
+        const modal = getStudyNotesModal();
+        const iframe = modal.querySelector('.study-notes-preview-frame');
+        const downloadLink = modal.querySelector('.study-notes-modal-download');
+
+        iframe.src = previewUrl;
+        downloadLink.href = downloadUrl;
+        downloadLink.textContent = button.dataset.studyNotesModalDownloadLabel || 'Download';
+
+        if (button.hasAttribute('download')) {
+            downloadLink.setAttribute('download', button.getAttribute('download') || 'study-notes.pdf');
+            downloadLink.setAttribute('target', '_self');
+            downloadLink.removeAttribute('rel');
+        } else {
+            downloadLink.removeAttribute('download');
+            downloadLink.setAttribute('target', button.getAttribute('target') || '_blank');
+            downloadLink.setAttribute('rel', 'noopener noreferrer');
+        }
+
+        modal.hidden = false;
+        document.body.classList.add('study-notes-modal-open');
+        modal.querySelector('.study-notes-modal-close')?.focus();
+    };
+
     const syncStudyNotesLink = function (button, url, shouldDownload, videoId) {
         button.href = url;
+        button.dataset.studyNotesPreviewUrl = getStudyNotesPreviewUrl(url);
+        button.dataset.studyNotesModalDownloadLabel = 'Download';
 
         if (shouldDownload) {
             button.setAttribute('download', `${videoId}-study-notes.pdf`);
@@ -1292,6 +1402,7 @@ document.addEventListener('DOMContentLoaded', function () {
         button.removeAttribute('target');
         button.removeAttribute('rel');
         button.dataset.studyNotesUnavailable = 'true';
+        delete button.dataset.studyNotesPreviewUrl;
     };
 
     const getEmbeddedYouTubeVideoId = function (card) {
@@ -1784,6 +1895,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (button.dataset.adminOverride !== 'true') {
             syncStudyNotesLink(button, resolvedDownloadUrl, shouldDownloadStudyNotes, videoId);
+        }
+    });
+
+    document.addEventListener('click', function (event) {
+        const button = event.target.closest('.download-button');
+        if (!button || button.dataset.studyNotesUnavailable === 'true') {
+            return;
+        }
+
+        const previewUrl = button.dataset.studyNotesPreviewUrl || getStudyNotesPreviewUrl(button.href);
+        if (!previewUrl) {
+            return;
+        }
+
+        event.preventDefault();
+        openStudyNotesModal(button);
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            closeStudyNotesModal();
         }
     });
 
