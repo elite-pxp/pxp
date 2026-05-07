@@ -1255,9 +1255,22 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
+        videoCards = Array.from(document.querySelectorAll('.video-card'));
         const newestFirst = sortMode !== 'oldest';
         const sortedCards = Array.from(videoCards).sort(function (firstCard, secondCard) {
-            const timeDelta = parseVideoCardDate(secondCard) - parseVideoCardDate(firstCard);
+            const firstTime = parseVideoCardDate(firstCard);
+            const secondTime = parseVideoCardDate(secondCard);
+            if (!firstTime && !secondTime) {
+                return 0;
+            }
+            if (!firstTime) {
+                return 1;
+            }
+            if (!secondTime) {
+                return -1;
+            }
+
+            const timeDelta = secondTime - firstTime;
             return newestFirst ? timeDelta : -timeDelta;
         });
 
