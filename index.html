@@ -69,15 +69,24 @@
         <div class="videos-container is-collapsed">
             <div class="video-section-header">
                 <h2 class="section-title">Guided Prayer & Biblical Teaching</h2>
-                <div class="video-search-wrap">
-                    <label for="video-search" class="sr-only">Search videos</label>
-                    <input
-                        id="video-search"
-                        class="video-search-input"
-                        type="search"
-                        placeholder="Search prayer sessions by title, date, or keyword."
-                        autocomplete="off"
-                    />
+                <div class="video-controls-wrap">
+                    <div class="video-search-wrap">
+                        <label for="video-search" class="sr-only">Search videos</label>
+                        <input
+                            id="video-search"
+                            class="video-search-input"
+                            type="search"
+                            placeholder="Search prayer sessions by title, date, or keyword."
+                            autocomplete="off"
+                        />
+                    </div>
+                    <div class="video-sort-wrap">
+                        <label for="video-sort" class="sr-only">Sort videos by date</label>
+                        <select id="video-sort" class="video-sort-select" aria-label="Sort videos by date">
+                            <option value="newest">Newest first</option>
+                            <option value="oldest">Oldest first</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <p class="video-search-empty" hidden>No videos match your search.</p>

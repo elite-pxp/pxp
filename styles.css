@@ -286,6 +286,13 @@ a.prayer-button {
     margin: 0;
 }
 
+.video-controls-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .video-search-input {
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.12);
@@ -297,6 +304,27 @@ a.prayer-button {
     line-height: 1.3;
     padding: 0.62rem 0.78rem;
     outline: none;
+}
+
+.video-sort-wrap {
+    margin: 0;
+}
+
+.video-sort-select {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.82);
+    color: var(--black);
+    font-family: var(--font-body);
+    font-size: clamp(0.82rem, 0.2vw + 0.78rem, 0.9rem);
+    line-height: 1.3;
+    padding: 0.62rem 0.7rem;
+    outline: none;
+}
+
+.video-sort-select:focus {
+    border-color: rgba(201, 168, 109, 0.65);
+    box-shadow: 0 0 0 2px rgba(201, 168, 109, 0.18);
 }
 
 .video-search-input::placeholder {
@@ -1565,7 +1593,19 @@ a.prayer-button {
         max-width: 100%;
     }
 
+    .video-controls-wrap {
+        grid-template-columns: 1fr;
+        gap: 0.42rem;
+    }
+
     .video-search-input {
+        font-size: 0.78rem;
+        padding: 0.42rem 0.58rem;
+        border-radius: 8px;
+    }
+
+    .video-sort-select {
+        width: 100%;
         font-size: 0.78rem;
         padding: 0.42rem 0.58rem;
         border-radius: 8px;

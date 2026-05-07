@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const extraVideoGrid = document.querySelector('.video-grid-extra');
     const videoExpandToggle = document.querySelector('.video-expand-toggle');
     const videoSearchInput = document.querySelector('.video-search-input');
+    const videoSortSelect = document.querySelector('.video-sort-select');
     const videoSearchEmpty = document.querySelector('.video-search-empty');
     const studyNotesFolderUrl = 'https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing';
     const studyNotesDownloadLinksByYouTubeId = {
@@ -50,9 +51,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         'MlWYBkHROXc': 'Uploaded: January 20, 2026',
         'frqOolLffs8': 'Uploaded: January 27, 2026',
     };
-    const activeVideoIds = new Set(Array.from({ length: 17 }, function (_, index) {
-        return `video-${index + 1}`;
-    }));
     const youtubeApiKey =
         window.YOUTUBE_API_KEY ||
         document.querySelector('meta[name="youtube-api-key"]')?.getAttribute('content')?.trim() ||
@@ -1252,13 +1250,15 @@ document.addEventListener('DOMContentLoaded', async function () {
         return Number.isNaN(parsedDate.getTime()) ? 0 : parsedDate.getTime();
     };
 
-    const sortVideoCardsNewestFirst = function () {
+    const sortVideoCardsByDate = function (sortMode = 'newest') {
         if (!primaryVideoGrid || !extraVideoGrid) {
             return;
         }
 
+        const newestFirst = sortMode !== 'oldest';
         const sortedCards = Array.from(videoCards).sort(function (firstCard, secondCard) {
-            return parseVideoCardDate(secondCard) - parseVideoCardDate(firstCard);
+            const timeDelta = parseVideoCardDate(secondCard) - parseVideoCardDate(firstCard);
+            return newestFirst ? timeDelta : -timeDelta;
         });
 
         sortedCards.forEach(function (card, index) {
@@ -1901,7 +1901,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         const isPlaceholderCard = isPlaceholderVideoCard(card, embeddedYouTubeVideoId);
         const hasAdminVideoOverride = card.dataset.adminTitle === 'true' || card.dataset.adminDescription === 'true' || card.dataset.adminDate === 'true' || button.dataset.adminOverride === 'true';
-        const shouldBeComingSoon = (!activeVideoIds.has(videoId) || isPlaceholderCard) && !hasAdminVideoOverride;
+        const shouldBeComingSoon = isPlaceholderCard && !hasAdminVideoOverride;
 
         if (!shouldBeComingSoon && dateLabel && embeddedYouTubeVideoId && uploadDateLabelsByYouTubeId[embeddedYouTubeVideoId]) {
             dateLabel.textContent = uploadDateLabelsByYouTubeId[embeddedYouTubeVideoId];
@@ -1965,6 +1965,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 }
 
                 dateLabel.textContent = `Uploaded: ${formattedDate}`;
+                sortVideoCardsByDate(videoSortSelect?.value || 'newest');
                 applyVideoSearchFilter();
             });
         }
@@ -2033,6 +2034,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (videoSearchInput) {
         videoSearchInput.addEventListener('input', applyVideoSearchFilter);
     }
+    if (videoSortSelect) {
+        videoSortSelect.addEventListener('change', function () {
+            sortVideoCardsByDate(videoSortSelect.value);
+            applyVideoSearchFilter();
+        });
+    }
 
     if (typeof mobileButtonLabelMediaQuery.addEventListener === 'function') {
         mobileButtonLabelMediaQuery.addEventListener('change', syncStudyNotesButtonLabels);
@@ -2041,7 +2048,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         mobileButtonLabelMediaQuery.addListener(syncStudyNotesButtonLabels);
     }
     syncStudyNotesButtonLabels();
-    sortVideoCardsNewestFirst();
+    sortVideoCardsByDate(videoSortSelect?.value || 'newest');
     applyVideoSearchFilter();
     syncVideoExpandToggleState();
 
