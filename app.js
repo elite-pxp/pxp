@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const initializeAdminContent = function () {
         let loadedContent = {};
 
-        if (useLocalAdminOverrides || window.sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
+        if (useLocalAdminOverrides) {
             loadedContent = getLocalAdminContent();
         }
 
