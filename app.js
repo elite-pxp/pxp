@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     const ADMIN_PASSWORD = 'xx99';
     const ADMIN_STORAGE_KEY = 'pxpAdminContent';
     const ADMIN_SESSION_KEY = 'pxpAdminUnlocked';
@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         QOqeESjDzmA: 'https://drive.google.com/uc?export=download&id=1-ECjYUQ8gubX4RRZQ_QH9ekypcSO1q1s',
         t2BAf6_z_zk: 'https://drive.google.com/uc?export=download&id=1WTW2OZtogO9SZR0M5U5tN0n9NibcoRx1',
         ZBJrPorLCyc: 'https://drive.google.com/uc?export=download&id=1J3fBz0AZKNjZXxWXgTSemdSEeQqZ5Odt',
+        CGpM9zMOX50: 'https://drive.google.com/drive/folders/1Jwt70wfCazmUoWpXVsFlXw8KS1hIcWoz?usp=drive_link',
         '7zyTup1sU2U': 'https://drive.google.com/file/d/1GIsqYW5Bl1JKub1xs_PPNlSWSufFCX8R/view?usp=drive_link',
         aDlh_6UYVWY: 'https://drive.google.com/file/d/1engIMXYPZm5dUpwcYNSNNHnHaw_Km9G5/view?usp=sharing',
     };
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const heroYouTubeHandle = '@PoweredXPrayers';
     const heroYouTubeUsername = 'PoweredXPrayers';
     const heroYouTubeChannelId = 'UC1qFfHXbdgzy188ILJFw68Q';
+    const uploadScheduleTimeZone = 'America/New_York';
     const heroUploadsPlaylistId = `UU${heroYouTubeChannelId.slice(2)}`;
     const youtubeRssEntriesCache = new Map();
     let adminContent = {};
@@ -1209,6 +1211,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }).format(parsedDate);
     };
 
+    const isTuesdayUploadDate = function (isoDate) {
+        const parsedDate = new Date(isoDate);
+        if (Number.isNaN(parsedDate.getTime())) {
+            return false;
+        }
+        const weekday = new Intl.DateTimeFormat('en-US', {
+            weekday: 'long',
+            timeZone: uploadScheduleTimeZone,
+        }).format(parsedDate);
+        return weekday === 'Tuesday';
+    };
+
     const formatUploadDateLabel = function (isoDate) {
         const formattedDate = formatPostedDate(isoDate);
         return formattedDate ? `Uploaded: ${formattedDate}` : '';
@@ -1746,6 +1760,76 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
+    const ensureLatestUploadCard = async function () {
+        if (!primaryVideoGrid) {
+            return;
+        }
+
+        const existingVideoIds = new Set(videoCards.map(function (card) {
+            return getEmbeddedYouTubeVideoId(card);
+        }).filter(Boolean));
+
+        const channelId = await resolveChannelId() || await resolveChannelIdFromHeroVideo();
+        const rssEntries = await fetchYouTubeRssEntries(channelId);
+        const latestTuesdayEntry = rssEntries.find(function (entry) {
+            return isTuesdayUploadDate(entry.publishedAt);
+        }) || null;
+        const latestVideoId = latestTuesdayEntry?.videoId || '';
+
+        if (!latestVideoId || existingVideoIds.has(latestVideoId)) {
+            return;
+        }
+
+        const metadata = await fetchYouTubeMetadata(latestVideoId);
+        const latestPublishedAt = metadata?.publishedAt || latestTuesdayEntry?.publishedAt || '';
+        if (!isTuesdayUploadDate(latestPublishedAt)) {
+            return;
+        }
+
+        const videoTitle = metadata?.title || 'Latest Upload';
+        const videoDescription = normalizeYouTubeDescription(metadata?.description || '') || 'Watch the latest message on YouTube.';
+        const postedDate = formatPostedDate(latestPublishedAt);
+        const videoDate = postedDate ? `Uploaded: ${postedDate}` : 'Uploaded: Recently';
+
+        const card = document.createElement('div');
+        card.className = 'video-card';
+        card.dataset.videoId = `video-auto-${latestVideoId}`;
+        card.dataset.youtubeId = latestVideoId;
+        card.dataset.autoLatest = 'true';
+
+        card.innerHTML = '<div class="video-embed"><iframe width="100%" height="300" src="" title="Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="video-card-body"><h3 class="video-title"></h3><p class="video-date"></p><p class="video-description"></p></div><div class="video-card-footer"><button type="button" class="toggle-description">See more</button><a href="#" class="download-button">Download Study Notes</a></div>';
+
+        const iframe = card.querySelector('.video-embed iframe');
+        const title = card.querySelector('.video-title');
+        const date = card.querySelector('.video-date');
+        const description = card.querySelector('.video-description');
+        const toggle = card.querySelector('.toggle-description');
+
+        if (iframe) {
+            iframe.src = `https://www.youtube.com/embed/${latestVideoId}`;
+            iframe.title = videoTitle;
+        }
+        if (title) {
+            title.textContent = videoTitle;
+        }
+        if (date) {
+            date.textContent = videoDate;
+        }
+        if (description) {
+            description.textContent = videoDescription;
+        }
+        if (toggle && description) {
+            toggle.addEventListener('click', function () {
+                const expanded = description.classList.toggle('expanded');
+                toggle.textContent = expanded ? 'See less' : 'See more';
+                toggle.setAttribute('aria-expanded', expanded);
+            });
+        }
+
+        primaryVideoGrid.insertBefore(card, primaryVideoGrid.firstChild);
+        videoCards = Array.from(document.querySelectorAll('.video-card'));
+    };
+
     if (shareButton) {
         shareButton.addEventListener('click', async function () {
             const shareUrl = window.location.href;
@@ -1779,6 +1863,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    await ensureLatestUploadCard();
+
     videoCards.forEach((card, index) => {
         if (!card.dataset.videoId) {
             card.dataset.videoId = `video-${index + 1}`;
@@ -1786,6 +1872,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const button = card.querySelector('.download-button');
         if (!button) {
+            return;
+        }
+        if (button.dataset.studyNotesDisabled === 'true') {
+            button.setAttribute('href', '#');
+            button.removeAttribute('target');
+            button.removeAttribute('rel');
+            button.removeAttribute('download');
             return;
         }
 
@@ -1894,6 +1987,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('click', function (event) {
         const button = event.target.closest('.download-button');
         if (!button || button.dataset.studyNotesUnavailable === 'true') {
+            return;
+        }
+        if (button.dataset.studyNotesDisabled === 'true') {
+            event.preventDefault();
             return;
         }
 
