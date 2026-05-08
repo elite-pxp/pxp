@@ -2,12 +2,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap");
 
 :root {
-    --black: #111111;
+    --black: #314e28;
     --white: #ffffff;
-    --tan: #c9a86d;
-    --beige: #f7f1e6;
-    --off-white: #fbf8f4;
-    --gray: #5b5b5b;
+    --tan: #dac271;
+    --beige: #d9efe3;
+    --off-white: #eef8f2;
+    --gray: #60a47c;
+    --emerald: #65ca92;
+    --aqua-forest: #60a47c;
     --shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
     --font-heading: "Cormorant Garamond", Georgia, serif;
     --font-body: "Manrope", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -236,7 +238,7 @@ a.prayer-button {
     font-family: var(--font-body);
     font-size: clamp(0.72rem, 0.14vw + 0.69rem, 0.78rem);
     line-height: 1.3;
-    color: #c9a86d;
+    color: var(--tan);
     letter-spacing: 0.01em;
 }
 
@@ -323,8 +325,8 @@ a.prayer-button {
 }
 
 .video-sort-select:focus {
-    border-color: rgba(201, 168, 109, 0.65);
-    box-shadow: 0 0 0 2px rgba(201, 168, 109, 0.18);
+    border-color: rgba(218, 194, 113, 0.72);
+    box-shadow: 0 0 0 2px rgba(218, 194, 113, 0.24);
 }
 
 .video-search-input::placeholder {
@@ -332,8 +334,8 @@ a.prayer-button {
 }
 
 .video-search-input:focus {
-    border-color: rgba(201, 168, 109, 0.65);
-    box-shadow: 0 0 0 2px rgba(201, 168, 109, 0.18);
+    border-color: rgba(218, 194, 113, 0.72);
+    box-shadow: 0 0 0 2px rgba(218, 194, 113, 0.24);
 }
 
 .video-search-empty {
@@ -390,7 +392,7 @@ a.prayer-button {
     padding: 0;
     border: none;
     background: none;
-    color: #b42318;
+    color: var(--black);
     font: inherit;
     font-size: clamp(0.72rem, 0.12vw + 0.68rem, 0.8rem);
     font-style: italic;
@@ -435,7 +437,7 @@ a.prayer-button {
 }
 
 .video-card {
-    background: white;
+    background: var(--white);
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -452,7 +454,7 @@ a.prayer-button {
 }
 
 .video-embed {
-    background: #f8f3eb;
+    background: var(--beige);
 }
 
 .video-embed iframe {
@@ -513,7 +515,7 @@ a.prayer-button {
     font-family: var(--font-body);
     font-size: clamp(0.72rem, 0.14vw + 0.69rem, 0.78rem);
     line-height: 1.3;
-    color: #c9a86d;
+    color: var(--tan);
     letter-spacing: 0.01em;
     font-weight: 700;
 }
@@ -666,7 +668,7 @@ a.prayer-button {
     max-height: min(72vh, 44rem);
     margin: 0 auto;
     overflow: hidden;
-    background: #f8f3eb;
+    background: var(--beige);
     border-inline: 1px solid rgba(0, 0, 0, 0.08);
 }
 
@@ -709,7 +711,7 @@ a.prayer-button {
     padding: 0.48rem 0.62rem;
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 11px;
-    background: rgba(251, 248, 244, 0.97);
+    background: rgba(238, 248, 242, 0.97);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -850,7 +852,7 @@ a.prayer-button {
 
 .footer-action-icon:hover {
     transform: translateY(-2px);
-    background: #222;
+    background: var(--aqua-forest);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
 }
 
@@ -887,14 +889,14 @@ a.prayer-button {
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background: white;
+    background: var(--white);
     color: var(--black);
     transition: transform 0.25s ease, background 0.25s ease;
 }
 
 .social-icon:hover {
     transform: translateY(-2px);
-    background: var(--beige);
+    background: var(--emerald);
 }
 
 .footer-donate,
@@ -905,7 +907,7 @@ a.prayer-button {
 .donate-button,
 .prayer-button {
     display: inline-block;
-    background: rgba(17, 17, 17, 0.8);
+    background: var(--aqua-forest);
     color: white;
     padding: 0.72rem 1.28rem;
     border-radius: 8px;
@@ -1074,8 +1076,8 @@ a.prayer-button {
 .admin-field input:focus,
 .admin-field select:focus,
 .admin-field textarea:focus {
-    border-color: rgba(201, 168, 109, 0.75);
-    box-shadow: 0 0 0 2px rgba(201, 168, 109, 0.18);
+    border-color: rgba(218, 194, 113, 0.75);
+    box-shadow: 0 0 0 2px rgba(218, 194, 113, 0.24);
 }
 
 .admin-scope-section {
@@ -1098,11 +1100,11 @@ a.prayer-button {
 }
 
 .admin-scope-badge-desktop {
-    background: #264f8f;
+    background: var(--aqua-forest);
 }
 
 .admin-scope-badge-mobile {
-    background: #8a3f25;
+    background: var(--black);
 }
 
 .admin-field-preview {
@@ -1233,7 +1235,7 @@ a.prayer-button {
 }
 
 .admin-reset {
-    background: #7a271a;
+    background: var(--black);
 }
 
 .admin-status {
@@ -1245,13 +1247,13 @@ a.prayer-button {
 
 @keyframes button-glow-pulse {
     0% {
-        box-shadow: 0 0 0 rgba(201, 168, 109, 0);
+        box-shadow: 0 0 0 rgba(218, 194, 113, 0);
     }
     50% {
-        box-shadow: 0 0 0.8rem rgba(201, 168, 109, 0.38);
+        box-shadow: 0 0 0.8rem rgba(218, 194, 113, 0.38);
     }
     100% {
-        box-shadow: 0 0 0 rgba(201, 168, 109, 0);
+        box-shadow: 0 0 0 rgba(218, 194, 113, 0);
     }
 }
 
@@ -1272,7 +1274,7 @@ a.prayer-button {
 
 .donate-button:hover,
 .prayer-button:hover {
-    background: #222;
+    background: var(--black);
 }
 
 .donate-button,
