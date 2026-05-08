@@ -1,6 +1,14 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap");
 
+@font-face {
+    font-family: "Times New Roman MT Condensed";
+    src: url("./fonts/Times New Roman MT Condensed Regular.otf") format("opentype");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
 :root {
     --black: #314e28;
     --white: #ffffff;
@@ -176,9 +184,9 @@ a.prayer-button {
 }
 
 .hero-title {
-    font-family: var(--font-heading);
+    font-family: "Times New Roman MT Condensed", var(--font-heading);
     font-weight: 700;
-    font-size: clamp(2.4rem, 4vw, 4rem);
+    font-size: clamp(2rem, 3.2vw, 3rem);
     color: var(--black);
     margin-bottom: 0.8rem;
     line-height: 1.12;
@@ -1374,7 +1382,7 @@ a.prayer-button {
     }
 
     .hero-title {
-        font-size: clamp(1.95rem, 5.2vw, 2.45rem);
+        font-size: clamp(1.68rem, 4.5vw, 2.1rem);
         line-height: 1.14;
     }
 
@@ -1515,7 +1523,7 @@ a.prayer-button {
     }
 
     .hero-title {
-        font-size: clamp(1.78rem, 8.4vw, 2.12rem);
+        font-size: clamp(1.52rem, 7.2vw, 1.88rem);
         line-height: 1.16;
     }
 
