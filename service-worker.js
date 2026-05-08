@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'pxp-v40';
+const CACHE_VERSION = 'pxp-v41';
 const APP_SHELL_CACHE = `app-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 
@@ -6,7 +6,7 @@ const APP_SHELL_FILES = [
   './',
   './index.html',
   './styles.css?v=15',
-  './app.js?v=60',
+  './app.js?v=61',
   './site.webmanifest?v=4',
   './images/icons/favicon-32x32.png?v=3',
   './images/icons/apple-touch-icon.png?v=3',
@@ -39,6 +39,10 @@ self.addEventListener('activate', (event) => {
 });
 
 const isHttpRequest = (request) => request.url.startsWith('http');
+const isCoreAssetRequest = (requestUrl) => {
+  const pathname = requestUrl.pathname || '';
+  return pathname.endsWith('/index.html') || pathname.endsWith('/app.js') || pathname.endsWith('/styles.css');
+};
 
 self.addEventListener('fetch', (event) => {
   const { request } = event;
@@ -66,6 +70,22 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (requestUrl.origin !== self.location.origin) {
+    return;
+  }
+
+  if (isCoreAssetRequest(requestUrl)) {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          const copy = networkResponse.clone();
+          caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
+          return networkResponse;
+        })
+        .catch(async () => {
+          const cachedResponse = await caches.match(request);
+          return cachedResponse || caches.match('./index.html');
+        })
+    );
     return;
   }
 
