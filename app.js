@@ -2010,6 +2010,16 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
+        if (embeddedYouTubeVideoId === 'Jva-mSBFc9k') {
+            syncStudyNotesLink(
+                button,
+                studyNotesDownloadLinksByYouTubeId['Jva-mSBFc9k'] || resolvedDownloadUrl,
+                true,
+                videoId
+            );
+            return;
+        }
+
         if (!hasCustomAdminStudyNotesLink) {
             syncStudyNotesLink(button, resolvedDownloadUrl, shouldDownloadStudyNotes, videoId);
         }
