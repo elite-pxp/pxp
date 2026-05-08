@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const videoSearchEmpty = document.querySelector('.video-search-empty');
     const studyNotesFolderUrl = 'https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing';
     const studyNotesDownloadLinksByYouTubeId = {
-        'Jva-mSBFc9k': 'https://drive.google.com/uc?export=download&id=1HS2kjs8ko1aSIbhXlL3HrHJoZZ3qWDmg',
+        'Jva-mSBFc9k': 'https://drive.google.com/uc?export=download&id=1q4WbAewxnPmCbDpr7897iqqE1Vxwteca',
         '-O99Y4kILG8': 'https://drive.google.com/uc?export=download&id=1LyHUPEO-xrRe6R-xDYBQ5IZMPZiYJdc4',
         Hu5gbtZsbcg: 'https://drive.google.com/uc?export=download&id=1I5AvwxAb0mNBzNNh4hiTCE29BLIAvkrb',
         jSADhcPqGpQ: 'https://drive.google.com/uc?export=download&id=1GBv-a-P-rjiCHT0pmwAdJ5MzwHELHnl3',
