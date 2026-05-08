@@ -1985,11 +1985,19 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         const currentButtonHref = (button.getAttribute('href') || '').trim();
+        const defaultStudyNotesFolderId = getGoogleDriveId(studyNotesFolderUrl);
+        const currentButtonDriveId = getGoogleDriveId(currentButtonHref);
+        const isDefaultStudyNotesFolderLink = Boolean(
+            currentButtonHref &&
+            currentButtonDriveId &&
+            defaultStudyNotesFolderId &&
+            currentButtonDriveId === defaultStudyNotesFolderId
+        );
         const hasCustomAdminStudyNotesLink =
             button.dataset.adminOverride === 'true' &&
             currentButtonHref &&
             currentButtonHref !== '#' &&
-            currentButtonHref !== studyNotesFolderUrl;
+            !isDefaultStudyNotesFolderLink;
 
         if (studyNotesUnavailable && !hasCustomAdminStudyNotesLink) {
             syncUnavailableStudyNotesButton(button);
