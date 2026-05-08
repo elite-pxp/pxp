@@ -5,9 +5,9 @@
     --black: #314e28;
     --white: #ffffff;
     --tan: #dac271;
-    --beige: #d9efe3;
-    --off-white: #eef8f2;
-    --gray: #60a47c;
+    --beige: #e8dcc0;
+    --off-white: #f4f0e3;
+    --gray: #4f6148;
     --emerald: #65ca92;
     --aqua-forest: #60a47c;
     --shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
@@ -158,6 +158,7 @@ a.prayer-button {
     align-items: center;
     justify-content: center;
     padding: clamp(1.4rem, 3.2vw, 2rem) 2rem;
+    background: linear-gradient(180deg, rgba(218, 194, 113, 0.22) 0%, rgba(244, 240, 227, 0.92) 100%);
 }
 
 .hero-content {
@@ -244,6 +245,7 @@ a.prayer-button {
 
 .videos {
     padding: clamp(2rem, 4vw, 2.7rem) 2rem;
+    background: linear-gradient(180deg, rgba(49, 78, 40, 0.18) 0%, rgba(49, 78, 40, 0.12) 30%, rgba(244, 240, 227, 0.98) 100%);
 }
 
 .videos-container {
@@ -746,7 +748,7 @@ a.prayer-button {
 }
 
 .footer {
-    background: linear-gradient(180deg, var(--beige) 0%, var(--off-white) 100%);
+    background: linear-gradient(180deg, rgba(96, 164, 124, 0.26) 0%, rgba(49, 78, 40, 0.34) 45%, rgba(232, 220, 192, 0.9) 100%);
     padding: clamp(2rem, 4vw, 2.6rem) 2rem;
 }
 
@@ -896,7 +898,7 @@ a.prayer-button {
 
 .social-icon:hover {
     transform: translateY(-2px);
-    background: var(--emerald);
+    background: var(--tan);
 }
 
 .footer-donate,
@@ -907,7 +909,7 @@ a.prayer-button {
 .donate-button,
 .prayer-button {
     display: inline-block;
-    background: var(--aqua-forest);
+    background: var(--black);
     color: white;
     padding: 0.72rem 1.28rem;
     border-radius: 8px;
