@@ -57,8 +57,8 @@ a.prayer-button {
 .header {
     position: sticky;
     top: 0;
-    background-color: var(--off-white);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background-color: rgba(49, 78, 40, 0.96);
+    border-bottom: 1px solid rgba(218, 194, 113, 0.35);
     box-shadow: var(--shadow);
     z-index: 100;
     padding: 0.42rem 0;
@@ -90,7 +90,7 @@ a.prayer-button {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    color: var(--black);
+    color: var(--off-white);
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: clamp(1.1rem, 0.5vw + 1rem, 1.34rem);
@@ -124,7 +124,7 @@ a.prayer-button {
 }
 
 .nav-link {
-    color: var(--black);
+    color: var(--off-white);
     font-family: var(--font-body);
     font-weight: 600;
     letter-spacing: 0.03em;
@@ -140,10 +140,10 @@ a.prayer-button {
     justify-content: center;
     width: 34px;
     height: 34px;
-    border: 1px solid rgba(0, 0, 0, 0.14);
+    border: 1px solid rgba(218, 194, 113, 0.45);
     border-radius: 9px;
-    background: var(--off-white);
-    color: var(--black);
+    background: rgba(244, 240, 227, 0.12);
+    color: var(--off-white);
     cursor: pointer;
 }
 
@@ -749,7 +749,7 @@ a.prayer-button {
 
 .footer {
     background: linear-gradient(180deg, rgba(96, 164, 124, 0.26) 0%, rgba(49, 78, 40, 0.34) 45%, rgba(232, 220, 192, 0.9) 100%);
-    padding: clamp(2rem, 4vw, 2.6rem) 2rem;
+    padding: clamp(1.2rem, 2.4vw, 1.7rem) 2rem;
 }
 
 .footer-content {
@@ -778,7 +778,7 @@ a.prayer-button {
 .footer-description {
     font-family: var(--font-body);
     font-size: clamp(0.95rem, 0.25vw + 0.9rem, 1rem);
-    color: var(--gray);
+    color: #24361f;
     max-width: 520px;
     margin-bottom: 1rem;
     line-height: 1.58;
@@ -786,7 +786,7 @@ a.prayer-button {
 }
 
 .footer-copyright {
-    color: var(--gray);
+    color: #24361f;
     font-size: clamp(0.86rem, 0.2vw + 0.82rem, 0.95rem);
     line-height: 1.32;
     letter-spacing: 0.004em;
@@ -817,11 +817,11 @@ a.prayer-button {
 }
 
 .footer-link {
-    color: var(--black);
+    color: #1f2f1b;
     font-size: clamp(0.9rem, 0.25vw + 0.84rem, 0.98rem);
     line-height: 1.28;
     letter-spacing: 0.004em;
-    opacity: 0.85;
+    opacity: 0.95;
 }
 
 .footer-social-row {
