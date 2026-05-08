@@ -1984,7 +1984,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
         }
 
-        if (studyNotesUnavailable && button.dataset.adminOverride !== 'true') {
+        const currentButtonHref = (button.getAttribute('href') || '').trim();
+        const hasCustomAdminStudyNotesLink =
+            button.dataset.adminOverride === 'true' &&
+            currentButtonHref &&
+            currentButtonHref !== '#' &&
+            currentButtonHref !== studyNotesFolderUrl;
+
+        if (studyNotesUnavailable && !hasCustomAdminStudyNotesLink) {
             syncUnavailableStudyNotesButton(button);
 
             button.addEventListener('click', function (event) {
@@ -1995,7 +2002,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
-        if (button.dataset.adminOverride !== 'true') {
+        if (!hasCustomAdminStudyNotesLink) {
             syncStudyNotesLink(button, resolvedDownloadUrl, shouldDownloadStudyNotes, videoId);
         }
     });
