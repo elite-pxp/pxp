@@ -48,7 +48,8 @@ button,
 a.button,
 a.download-button,
 a.donate-button,
-a.prayer-button {
+a.prayer-button,
+a.cashapp-button {
     font: inherit;
 }
 
@@ -196,7 +197,7 @@ a.prayer-button {
     display: flex;
     align-items: center;
     gap: 0.7rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin-top: 0.9rem;
 }
 
@@ -385,6 +386,7 @@ a.prayer-button {
 .download-button,
 .donate-button,
 .prayer-button,
+.cashapp-button,
 .nav-shop,
 .nav-share-button,
 .toggle-description,
@@ -717,7 +719,8 @@ a.prayer-button {
 }
 
 .donate-button,
-.prayer-button {
+.prayer-button,
+.cashapp-button {
     display: inline-block;
     background: rgba(17, 17, 17, 0.8);
     color: white;
@@ -729,6 +732,7 @@ a.prayer-button {
     letter-spacing: 0.012em;
     transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
     min-height: 2.5rem;
+    white-space: nowrap;
 }
 
 .donate-button {
@@ -753,6 +757,19 @@ a.prayer-button {
 
 .prayer-button::before {
     content: "\1F64F";
+    font-size: 0.9em;
+    line-height: 1;
+}
+
+.cashapp-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.38rem;
+}
+
+.cashapp-button::before {
+    content: "\1F4B0";
     font-size: 0.9em;
     line-height: 1;
 }
@@ -785,12 +802,14 @@ a.prayer-button {
 }
 
 .donate-button:hover,
-.prayer-button:hover {
+.prayer-button:hover,
+.cashapp-button:hover {
     background: #222;
 }
 
 .donate-button,
-.prayer-button {
+.prayer-button,
+.cashapp-button {
     animation: button-soft-float 3.2s ease-in-out infinite;
 }
 
@@ -806,7 +825,8 @@ a.prayer-button {
     }
 
     .donate-button:hover,
-    .prayer-button:hover {
+    .prayer-button:hover,
+    .cashapp-button:hover {
         animation: none;
         transform: scale(1.03);
         box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
@@ -1044,7 +1064,8 @@ a.prayer-button {
     }
 
     .hero-actions .donate-button,
-    .hero-actions .prayer-button {
+    .hero-actions .prayer-button,
+    .hero-actions .cashapp-button {
         width: 100%;
         text-align: center;
         min-height: 2.2rem;
@@ -1153,7 +1174,8 @@ a.prayer-button {
     }
 
     .donate-button,
-    .prayer-button {
+    .prayer-button,
+    .cashapp-button {
         font-size: 0.82rem;
         min-height: 2.45rem;
         padding: 0.66rem 1.1rem;
@@ -1209,7 +1231,8 @@ body.force-mobile-view .hero-actions {
 }
 
 body.force-mobile-view .hero-actions .donate-button,
-body.force-mobile-view .hero-actions .prayer-button {
+body.force-mobile-view .hero-actions .prayer-button,
+body.force-mobile-view .hero-actions .cashapp-button {
     width: 100%;
     text-align: center;
     min-height: 2.2rem;

@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         '.hero-description',
         '.donate-button',
         '.prayer-button',
+        '.cashapp-button',
         '.hero-featured-date',
         '.section-title',
         '.video-title',
@@ -435,7 +436,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         applyFontSizeOverride('.hero-title .brand-name', textSizes.heroBrand);
         applyFontSizeOverride('.hero-title-line', textSizes.heroTitleLine);
         applyFontSizeOverride('.hero-description', textSizes.heroDescription);
-        applyFontSizeOverride('.donate-button, .prayer-button', textSizes.heroButtons);
+        applyFontSizeOverride('.donate-button, .cashapp-button, .prayer-button', textSizes.heroButtons);
         applyFontSizeOverride('.hero-featured-date', textSizes.heroDate);
         applyFontSizeOverride('.section-title', textSizes.videoSectionTitle);
         applyFontSizeOverride('.video-title', textSizes.videoTitle);
@@ -451,16 +452,16 @@ document.addEventListener('DOMContentLoaded', async function () {
         applyColorOverride('.nav-brand-name', textColors.headerBrand);
         applyColorOverride('.hero-title', textColors.heroTitle);
         applyColorOverride('.hero-description', textColors.heroDescription);
-        applyColorOverride('.donate-button, .prayer-button', textColors.heroButtons);
+        applyColorOverride('.donate-button, .cashapp-button, .prayer-button', textColors.heroButtons);
         applyColorOverride('.section-title', textColors.videoSectionTitle);
         applyColorOverride('.video-title', textColors.videoTitle);
         applyColorOverride('.video-description', textColors.videoDescription);
         applyColorOverride('.download-button', textColors.studyNotesButton);
         applyColorOverride('.footer-brand', textColors.footerBrand);
         applyColorOverride('.footer-description', textColors.footerDescription);
-        applySizeOverride('.donate-button, .prayer-button', 'padding', buttonSizes.heroButtonsPadding);
+        applySizeOverride('.donate-button, .cashapp-button, .prayer-button', 'padding', buttonSizes.heroButtonsPadding);
         applySizeOverride('.download-button', 'padding', buttonSizes.studyNotesButtonPadding);
-        applySizeOverride('.donate-button, .prayer-button', 'minHeight', buttonSizes.heroButtonsMinHeight);
+        applySizeOverride('.donate-button, .cashapp-button, .prayer-button', 'minHeight', buttonSizes.heroButtonsMinHeight);
         applySizeOverride('.download-button', 'minHeight', buttonSizes.studyNotesButtonMinHeight);
 
         videos.forEach(function (video, index) {
