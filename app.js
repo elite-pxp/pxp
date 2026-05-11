@@ -1955,7 +1955,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     return;
                 }
 
-                if (videoTitle && metadata.title && card.dataset.adminTitle !== 'true') {
+                if (videoTitle && metadata.title) {
                     videoTitle.textContent = metadata.title;
                 }
 
