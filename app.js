@@ -1748,6 +1748,36 @@ document.addEventListener('DOMContentLoaded', async function () {
         };
     };
 
+    const isEmbeddableYouTubeVideoId = async function (videoId) {
+        if (!videoId) {
+            return false;
+        }
+
+        try {
+            const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/watch?v=${videoId}`)}&format=json`;
+            const response = await fetch(oembedUrl);
+            return response.ok;
+        } catch (error) {
+            return false;
+        }
+    };
+
+    const findNewestEmbeddableUpload = async function (channelId) {
+        const rssEntries = await fetchYouTubeRssEntries(channelId);
+        for (const entry of rssEntries) {
+            if (!entry?.videoId) {
+                continue;
+            }
+
+            const embeddable = await isEmbeddableYouTubeVideoId(entry.videoId);
+            if (embeddable) {
+                return entry;
+            }
+        }
+
+        return null;
+    };
+
     const syncHeroFeaturedDateFromIframe = async function () {
         if (!heroFeaturedIframe || !heroFeaturedDate) {
             return;
@@ -1765,6 +1795,16 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const attachHeroVideoFromFeed = async function () {
         if (!heroFeaturedIframe) {
+            return;
+        }
+
+        const channelId = await resolveChannelId() || await resolveChannelIdFromHeroVideo();
+        const newestEmbeddable = await findNewestEmbeddableUpload(channelId);
+        if (newestEmbeddable?.videoId) {
+            heroFeaturedIframe.src = `https://www.youtube.com/embed/${encodeURIComponent(newestEmbeddable.videoId)}`;
+            if (heroFeaturedDate) {
+                heroFeaturedDate.textContent = formatUploadDateLabel(newestEmbeddable.publishedAt || '');
+            }
             return;
         }
 
