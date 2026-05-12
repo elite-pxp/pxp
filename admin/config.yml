@@ -1,0 +1,86 @@
+backend:
+  name: github
+  repo: elite-pxp/pxp
+  branch: main
+  open_authoring: true
+  squash_merges: true
+
+publish_mode: editorial_workflow
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "site_settings"
+    label: "Site Settings"
+    files:
+      - label: "Live Content"
+        name: "live_content"
+        file: "content/admin-content.json"
+        format: "json"
+        fields:
+          - label: "Page Title"
+            name: "pageTitle"
+            widget: "string"
+            required: false
+
+          - label: "Header"
+            name: "header"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Brand Name", name: "brandName", widget: "string", required: false }
+              - { label: "Logo URL", name: "logoSrc", widget: "string", required: false }
+              - { label: "Logo Size", name: "logoSize", widget: "string", required: false, hint: "Example: 30px" }
+              - { label: "Shop Link", name: "shopLink", widget: "string", required: false }
+
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Brand Name", name: "brandName", widget: "string", required: false }
+              - { label: "Title Line", name: "titleLine", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Donate Link", name: "donateLink", widget: "string", required: false }
+              - { label: "Prayer Link", name: "prayerLink", widget: "string", required: false }
+              - { label: "Hero Embed Link", name: "embedLink", widget: "string", required: false, hint: "Optional. Paste YouTube watch/share/embed URL." }
+
+          - label: "Video Section Title"
+            name: "videoSectionTitle"
+            widget: "string"
+            required: false
+
+          - label: "Videos"
+            name: "videos"
+            widget: "list"
+            required: false
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Date Label", name: "date", widget: "string", required: false, hint: "Example: Uploaded: May 12, 2026" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "YouTube Embed/Watch URL", name: "embedLink", widget: "string", required: false }
+              - { label: "Preview Image URL", name: "previewImage", widget: "string", required: false }
+              - { label: "Study Notes Link", name: "downloadLink", widget: "string", required: false }
+              - { label: "Study Notes Button Label", name: "downloadText", widget: "string", required: false }
+
+          - label: "Footer"
+            name: "footer"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Brand", name: "brand", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Copyright Brand", name: "copyrightBrand", widget: "string", required: false }
+              - { label: "Footer Logo URL", name: "logoSrc", widget: "string", required: false }
+              - { label: "Footer Logo Width", name: "logoWidth", widget: "string", required: false }
+
+          - label: "RSS Strip"
+            name: "rss"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Story Link", name: "link", widget: "string", required: false }
+              - { label: "Feed Link", name: "feedLink", widget: "string", required: false }

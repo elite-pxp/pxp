@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const ADMIN_PASSWORD = 'xx99';
     const ADMIN_STORAGE_KEY = 'pxpAdminContent';
     const ADMIN_SESSION_KEY = 'pxpAdminUnlocked';
+    const ADMIN_CONTENT_URL = './content/admin-content.json';
 
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js').catch(function (error) {
@@ -204,11 +205,27 @@ document.addEventListener('DOMContentLoaded', async function () {
         adminContent = content;
     };
 
-    const initializeAdminContent = function () {
+    const getPublishedAdminContent = async function () {
+        try {
+            const response = await fetch(`${ADMIN_CONTENT_URL}?t=${Date.now()}`, { cache: 'no-store' });
+            if (!response.ok) {
+                return {};
+            }
+
+            const payload = await response.json();
+            return payload && typeof payload === 'object' ? payload : {};
+        } catch (error) {
+            return {};
+        }
+    };
+
+    const initializeAdminContent = async function () {
         let loadedContent = {};
 
         if (useLocalAdminOverrides) {
             loadedContent = getLocalAdminContent();
+        } else {
+            loadedContent = await getPublishedAdminContent();
         }
 
         adminContent = migrateLegacyDeviceOverrides(loadedContent || {});
@@ -1157,7 +1174,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     };
 
-    initializeAdminContent();
+    await initializeAdminContent();
     applyAdminContent();
     attachSecretAdminTrigger();
 
