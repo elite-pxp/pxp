@@ -65,7 +65,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     const heroYouTubeHandle = '@PoweredXPrayers';
     const heroYouTubeUsername = 'PoweredXPrayers';
     const heroYouTubeChannelId = 'UC1qFfHXbdgzy188ILJFw68Q';
-    const heroPinnedVideoId = 'Zv4tzmP2OfI';
     const uploadScheduleTimeZone = 'America/New_York';
     const heroUploadsPlaylistId = `UU${heroYouTubeChannelId.slice(2)}`;
     const youtubeRssEntriesCache = new Map();
@@ -1799,19 +1798,20 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
-        if (heroPinnedVideoId) {
-            const pinnedEmbeddable = await isEmbeddableYouTubeVideoId(heroPinnedVideoId);
-            if (pinnedEmbeddable) {
-                heroFeaturedIframe.src = `https://www.youtube.com/embed/${encodeURIComponent(heroPinnedVideoId)}`;
-                if (heroFeaturedDate) {
-                    const pinnedMetadata = await fetchYouTubeMetadata(heroPinnedVideoId);
-                    heroFeaturedDate.textContent = formatUploadDateLabel(pinnedMetadata?.publishedAt || '');
-                }
-                return;
+        const channelId = await resolveChannelId() || await resolveChannelIdFromHeroVideo();
+        const latestFromRss = await getLatestVideoIdFromYouTubeRss(channelId);
+        const latestFromUser = !latestFromRss && heroYouTubeUsername ? await getLatestVideoIdFromYouTubeRssByUser(heroYouTubeUsername) : null;
+        const latestFromApi = !latestFromRss && !latestFromUser ? await getLatestVideoIdFromYouTubeApi(channelId) : null;
+        const latestEntry = latestFromRss || latestFromUser || latestFromApi;
+
+        if (latestEntry?.videoId) {
+            heroFeaturedIframe.src = `https://www.youtube.com/embed/${encodeURIComponent(latestEntry.videoId)}`;
+            if (heroFeaturedDate) {
+                heroFeaturedDate.textContent = formatUploadDateLabel(latestEntry.publishedAt || '');
             }
+            return;
         }
 
-        const channelId = await resolveChannelId() || await resolveChannelIdFromHeroVideo();
         const newestEmbeddable = await findNewestEmbeddableUpload(channelId);
         if (newestEmbeddable?.videoId) {
             heroFeaturedIframe.src = `https://www.youtube.com/embed/${encodeURIComponent(newestEmbeddable.videoId)}`;
