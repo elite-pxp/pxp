@@ -1824,11 +1824,14 @@ document.addEventListener('DOMContentLoaded', async function () {
         const latestEntry = latestFromRss || latestFromUser || latestFromApi;
 
         if (latestEntry?.videoId) {
-            heroFeaturedIframe.src = `https://www.youtube.com/embed/${encodeURIComponent(latestEntry.videoId)}`;
-            if (heroFeaturedDate) {
-                heroFeaturedDate.textContent = formatUploadDateLabel(latestEntry.publishedAt || '');
+            const latestIsEmbeddable = await isEmbeddableYouTubeVideoId(latestEntry.videoId);
+            if (latestIsEmbeddable) {
+                heroFeaturedIframe.src = `https://www.youtube.com/embed/${encodeURIComponent(latestEntry.videoId)}`;
+                if (heroFeaturedDate) {
+                    heroFeaturedDate.textContent = formatUploadDateLabel(latestEntry.publishedAt || '');
+                }
+                return;
             }
-            return;
         }
 
         const newestEmbeddable = await findNewestEmbeddableUpload(channelId);
@@ -2206,7 +2209,5 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
-    if (!adminContent.hero?.embedLink) {
-        attachHeroVideoFromFeed();
-    }
+    attachHeroVideoFromFeed();
 });
