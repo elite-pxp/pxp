@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         CGpM9zMOX50: 'https://drive.google.com/drive/folders/1Jwt70wfCazmUoWpXVsFlXw8KS1hIcWoz?usp=drive_link',
         '7zyTup1sU2U': 'https://drive.google.com/file/d/1GIsqYW5Bl1JKub1xs_PPNlSWSufFCX8R/view?usp=drive_link',
         aDlh_6UYVWY: 'https://drive.google.com/file/d/1engIMXYPZm5dUpwcYNSNNHnHaw_Km9G5/view?usp=sharing',
+        'Vz-MnpmWfl8': 'https://drive.google.com/file/d/1_FjV8gHA8wT3PuarWWfvSWhPb7NnxdPi/view?usp=sharing',
     };
     const unavailableStudyNotesYouTubeIds = new Set([]);
     const unavailableStudyNotesLabel = 'Study Notes Not Available';
@@ -2026,7 +2027,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     return;
                 }
 
-                if (videoTitle && metadata.title) {
+                if (videoTitle && metadata.title && card.dataset.adminTitle !== 'true') {
                     videoTitle.textContent = metadata.title;
                 }
 
