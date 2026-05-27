@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     const shareButton = document.querySelector('.nav-share-button');
+    const prayerRequestTriggers = document.querySelectorAll('.prayer-request-trigger');
     const mobileButtonLabelMediaQuery = window.matchMedia('(max-width: 560px)');
     let videoCards = Array.from(document.querySelectorAll('.video-card'));
     const videosContainer = document.querySelector('.videos-container');
@@ -254,6 +255,65 @@ document.addEventListener('DOMContentLoaded', async function () {
             element.src = value.trim();
             element.dataset.adminOverride = 'true';
         }
+    };
+
+    const openPrayerRequestPopup = function () {
+        const formId = 'xNAkyNruR5LibqfWRvXy';
+        const popupBaseId = `popup-${formId}`;
+        const popupInstanceId = `${popupBaseId}-${Date.now()}`;
+
+        Array.from(document.querySelectorAll(`iframe[id^="${popupBaseId}"]`)).forEach(function (frame) {
+            frame.remove();
+        });
+
+        const existingScript = document.getElementById('pxp-prayer-popup-script');
+        if (existingScript) {
+            existingScript.remove();
+        }
+
+        try {
+            Object.keys(window.localStorage).forEach(function (key) {
+                if (key.includes(formId) || key.includes(popupBaseId)) {
+                    window.localStorage.removeItem(key);
+                }
+            });
+            Object.keys(window.sessionStorage).forEach(function (key) {
+                if (key.includes(formId) || key.includes(popupBaseId)) {
+                    window.sessionStorage.removeItem(key);
+                }
+            });
+        } catch (error) {
+            // Ignore storage cleanup errors in restricted contexts.
+        }
+
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://link.poweredxprayers.com/widget/form/xNAkyNruR5LibqfWRvXy';
+        iframe.style.display = 'none';
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        iframe.style.borderRadius = '3px';
+        iframe.id = popupInstanceId;
+        iframe.setAttribute('data-layout', "{'id':'POPUP'}");
+        iframe.setAttribute('data-trigger-type', 'alwaysShow');
+        iframe.setAttribute('data-trigger-value', '');
+        iframe.setAttribute('data-activation-type', 'alwaysActivated');
+        iframe.setAttribute('data-activation-value', '');
+        iframe.setAttribute('data-deactivation-type', 'neverDeactivate');
+        iframe.setAttribute('data-deactivation-value', '');
+        iframe.setAttribute('data-form-name', 'Video Production and Editing Request');
+        iframe.setAttribute('data-height', 'undefined');
+        iframe.setAttribute('data-layout-iframe-id', popupInstanceId);
+        iframe.setAttribute('data-form-id', formId);
+        iframe.title = 'Video Production and Editing Request';
+        iframe.setAttribute('data-modal-height', '500');
+        document.body.appendChild(iframe);
+
+        const script = document.createElement('script');
+        script.id = 'pxp-prayer-popup-script';
+        script.src = `https://link.poweredxprayers.com/js/form_embed.js?v=${Date.now()}`;
+        script.async = true;
+        document.body.appendChild(script);
     };
 
     const normalizeYouTubeEmbedUrl = function (value) {
@@ -1180,6 +1240,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     await initializeAdminContent();
     applyAdminContent();
     attachSecretAdminTrigger();
+    prayerRequestTriggers.forEach(function (trigger) {
+        trigger.addEventListener('click', function (event) {
+            event.preventDefault();
+            openPrayerRequestPopup();
+        });
+    });
 
     const setShareButtonFeedback = function (message, timeoutMs) {
         if (!shareButton) {
