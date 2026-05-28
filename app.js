@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const shareButton = document.querySelector('.nav-share-button');
     const prayerRequestTriggers = document.querySelectorAll('.prayer-request-trigger');
+    const AUTO_PRAYER_POPUP_DELAY_MS = 1200;
     const mobileButtonLabelMediaQuery = window.matchMedia('(max-width: 560px)');
     let videoCards = Array.from(document.querySelectorAll('.video-card'));
     const videosContainer = document.querySelector('.videos-container');
@@ -74,6 +75,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const heroUploadsPlaylistId = `UU${heroYouTubeChannelId.slice(2)}`;
     const youtubeRssEntriesCache = new Map();
     let adminContent = {};
+    let hasAutoPrayerPopupOpened = false;
 
     const adminOverrideSelectors = [
         '.nav-brand-name',
@@ -301,11 +303,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         iframe.setAttribute('data-activation-value', '');
         iframe.setAttribute('data-deactivation-type', 'neverDeactivate');
         iframe.setAttribute('data-deactivation-value', '');
-        iframe.setAttribute('data-form-name', 'Video Production and Editing Request');
+        iframe.setAttribute('data-form-name', 'Prayer Request');
         iframe.setAttribute('data-height', 'undefined');
         iframe.setAttribute('data-layout-iframe-id', popupInstanceId);
         iframe.setAttribute('data-form-id', formId);
-        iframe.title = 'Video Production and Editing Request';
+        iframe.title = 'Prayer Request';
         iframe.setAttribute('data-modal-height', '500');
         document.body.appendChild(iframe);
 
@@ -314,6 +316,14 @@ document.addEventListener('DOMContentLoaded', async function () {
         script.src = `https://link.poweredxprayers.com/js/form_embed.js?v=${Date.now()}`;
         script.async = true;
         document.body.appendChild(script);
+    };
+
+    const autoOpenPrayerRequestPopup = function () {
+        if (hasAutoPrayerPopupOpened) {
+            return;
+        }
+        hasAutoPrayerPopupOpened = true;
+        openPrayerRequestPopup();
     };
 
     const normalizeYouTubeEmbedUrl = function (value) {
@@ -1246,6 +1256,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             openPrayerRequestPopup();
         });
     });
+
+    window.setTimeout(function () {
+        autoOpenPrayerRequestPopup();
+    }, AUTO_PRAYER_POPUP_DELAY_MS);
 
     const setShareButtonFeedback = function (message, timeoutMs) {
         if (!shareButton) {
