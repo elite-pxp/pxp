@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         aDlh_6UYVWY: 'https://drive.google.com/file/d/1engIMXYPZm5dUpwcYNSNNHnHaw_Km9G5/view?usp=sharing',
         'Vz-MnpmWfl8': 'https://drive.google.com/file/d/1_FjV8gHA8wT3PuarWWfvSWhPb7NnxdPi/view?usp=sharing',
         VZygVRaDCUI: 'https://drive.google.com/file/d/1AU4r3qAmzNDas3B6ZSVmHToU1VKnQ7a8/view?usp=sharing',
+        QogDKTsxzUk: 'https://drive.google.com/file/d/1-V2vcY8TrdoinGM1pGhoS8S35_gv4jUL/view?usp=sharing',
     };
     const unavailableStudyNotesYouTubeIds = new Set([]);
     const unavailableStudyNotesLabel = 'Study Notes Not Available';
