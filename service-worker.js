@@ -1,11 +1,12 @@
-const CACHE_VERSION = 'pxp-v54';
+const CACHE_VERSION = 'pxp-v56';
 const APP_SHELL_CACHE = `app-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 
 const APP_SHELL_FILES = [
   './',
   './index.html',
-  './styles.css?v=21',
+  './styles.css?v=23',
+  './three-day-fasting-prayer.html',
   './app.js?v=69',
   './site.webmanifest?v=4',
   './images/icons/favicon-32x32.png?v=3',

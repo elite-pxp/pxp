@@ -142,6 +142,10 @@ a.cashapp-button {
     padding: 0.25rem 0.1rem;
 }
 
+.nav-link.is-active {
+    color: var(--tan);
+}
+
 .nav-share-button {
     margin-left: 0;
     display: inline-flex;
@@ -260,6 +264,296 @@ a.cashapp-button {
     line-height: 1.3;
     color: var(--tan);
     letter-spacing: 0.01em;
+}
+
+.focus-shell {
+    width: min(100%, 1140px);
+    margin: 0 auto;
+}
+
+.focus-shell .hero {
+    min-height: auto;
+    padding-top: 0.85rem;
+    padding-bottom: 1.1rem;
+}
+
+.focus-shell .hero-content {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    justify-items: center;
+}
+
+.focus-shell .hero-text {
+    max-width: 760px;
+    text-align: center;
+}
+
+.focus-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.85rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(49, 78, 40, 0.14);
+    color: var(--black);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.focus-section {
+    padding: clamp(2.2rem, 4.5vw, 3.4rem) 2rem;
+    background: #f4f0e3;
+}
+
+.focus-section.alt {
+    background: linear-gradient(180deg, rgba(49, 78, 40, 0.12) 0%, rgba(244, 240, 227, 0.98) 100%);
+}
+
+.focus-shell .focus-section:first-of-type {
+    padding-top: 1.1rem;
+    padding-bottom: 1.5rem;
+}
+
+#restore-days .section-title {
+    font-size: clamp(1.55rem, 1vw + 1.1rem, 2rem);
+    margin-bottom: 1.2rem;
+}
+
+#restore-days {
+    padding-top: 1.5rem;
+}
+
+.focus-lead {
+    max-width: 760px;
+    margin: 0 0 1.8rem;
+    color: var(--black);
+    font-size: clamp(1rem, 0.36vw + 0.92rem, 1.08rem);
+    line-height: 1.72;
+}
+
+.focus-shell .hero-description {
+    margin-inline: auto;
+}
+
+.focus-shell .hero-actions {
+    justify-content: center;
+}
+
+.focus-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.focus-card {
+    padding: 1.2rem 1.2rem 1.1rem;
+    border-radius: 18px;
+    border: 1px solid rgba(49, 78, 40, 0.1);
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 18px 38px rgba(49, 78, 40, 0.08);
+}
+
+.focus-card h3 {
+    margin: 0 0 0.7rem;
+    font-family: var(--font-heading);
+    font-size: clamp(1.15rem, 0.55vw + 1rem, 1.4rem);
+    line-height: 1.12;
+    color: var(--black);
+}
+
+.focus-card p {
+    margin: 0;
+    color: rgba(31, 47, 27, 0.86);
+    line-height: 1.65;
+}
+
+.focus-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: rgba(31, 47, 27, 0.88);
+    line-height: 1.7;
+}
+
+.focus-list li + li {
+    margin-top: 0.45rem;
+}
+
+.focus-day-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: start;
+}
+
+.focus-day-media,
+.focus-placeholder-media {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+    padding: 1rem;
+    background:
+        radial-gradient(circle at top, rgba(218, 194, 113, 0.28), transparent 52%),
+        linear-gradient(135deg, #1f2f1b 0%, #314e28 100%);
+    color: var(--off-white);
+    text-align: center;
+    border-bottom: 1px solid rgba(49, 78, 40, 0.08);
+}
+
+.focus-day-media {
+    position: relative;
+    overflow: hidden;
+}
+
+.focus-day-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.focus-day-media .play-button {
+    position: absolute;
+}
+
+.focus-day-overlay-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(31, 47, 27, 0.78);
+    color: var(--off-white);
+    font-size: 0.82rem;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.focus-placeholder-media strong {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--font-heading);
+    font-size: clamp(1.15rem, 0.5vw + 1rem, 1.4rem);
+}
+
+.focus-placeholder-media span {
+    color: rgba(244, 240, 227, 0.78);
+    font-size: 0.92rem;
+}
+
+.focus-note {
+    margin-top: 0.9rem;
+    color: rgba(31, 47, 27, 0.72);
+    font-size: 0.9rem;
+}
+
+.focus-card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+}
+
+.focus-card-header .video-title {
+    margin: 0;
+}
+
+.focus-day-label {
+    color: rgba(49, 78, 40, 0.7);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.focus-day-summary {
+    margin: 0;
+    color: rgba(31, 47, 27, 0.8);
+    line-height: 1.6;
+}
+
+.focus-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.9rem;
+}
+
+.focus-actions .download-button,
+.focus-actions .toggle-description {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+}
+
+.button-disabled {
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+.focus-details {
+    margin-top: 0.85rem;
+    border-top: 1px solid rgba(49, 78, 40, 0.1);
+    padding-top: 0.85rem;
+}
+
+.focus-details summary {
+    cursor: pointer;
+    list-style: none;
+    font-weight: 700;
+    color: var(--black);
+    font-size: 0.82rem;
+    font-style: italic;
+    animation: focus-blink 1.8s ease-in-out infinite;
+}
+
+.focus-details summary::after {
+    content: " ↓";
+    display: inline-block;
+    margin-left: 0.25rem;
+    transition: transform 0.2s ease;
+}
+
+.focus-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.focus-details[open] summary {
+    margin-bottom: 0.8rem;
+}
+
+.focus-details[open] summary::after {
+    transform: translateY(1px);
+}
+
+@keyframes focus-blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.45;
+    }
+}
+
+.focus-details-copy {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.focus-details-copy p,
+.focus-details-copy ul {
+    margin: 0;
+}
+
+.focus-details-copy ul {
+    padding-left: 1.1rem;
 }
 
 .videos {
@@ -1426,6 +1720,40 @@ a.cashapp-button {
         margin-top: 0.22rem;
     }
 
+    .focus-columns,
+    .focus-day-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .focus-shell .hero {
+        padding-top: 0.55rem;
+        padding-bottom: 0.85rem;
+    }
+
+    .focus-shell .hero-title {
+        font-size: clamp(1.7rem, 4.6vw, 2.25rem);
+    }
+
+    .focus-shell .hero-actions {
+        width: 100%;
+        max-width: 28rem;
+        margin-inline: auto;
+    }
+
+    .focus-shell .focus-section,
+    #restore-days {
+        padding-top: 1.1rem;
+    }
+
+    .focus-day-overlay-text {
+        font-size: 0.74rem;
+        padding: 0.38rem 0.65rem;
+    }
+
+    .focus-actions .download-button {
+        width: 100%;
+    }
+
     .video-card-body {
         padding: 0.82rem;
     }
@@ -1536,6 +1864,14 @@ a.cashapp-button {
         padding: 0.3rem 0.2rem;
     }
 
+    .focus-shell {
+        gap: 1.4rem;
+    }
+
+    .focus-card {
+        padding: 1rem;
+    }
+
     .nav-share-button {
         width: 32px;
         height: 32px;
@@ -1585,6 +1921,57 @@ a.cashapp-button {
     .hero-featured-date {
         font-size: 0.72rem;
         line-height: 1.3;
+    }
+
+    .focus-shell .header-container {
+        padding: 0 0.95rem;
+    }
+
+    .focus-shell .header-nav {
+        gap: 0.5rem;
+    }
+
+    .focus-shell .nav-brand-name {
+        max-width: 7.2rem;
+    }
+
+    .focus-shell .hero-title {
+        font-size: clamp(1.48rem, 7vw, 1.95rem);
+    }
+
+    .focus-shell .hero-description {
+        font-size: 0.88rem;
+        line-height: 1.5;
+    }
+
+    .focus-shell .hero-actions {
+        grid-template-columns: 1fr;
+        gap: 0.45rem;
+    }
+
+    .focus-shell .hero-actions .donate-button,
+    .focus-shell .hero-actions .prayer-button,
+    .focus-shell .hero-actions .cashapp-button {
+        min-height: 2.35rem;
+        font-size: 0.8rem;
+    }
+
+    .focus-shell .focus-section {
+        padding-inline: 1.2rem;
+    }
+
+    #restore-days .section-title {
+        font-size: 1.45rem;
+        margin-bottom: 0.95rem;
+    }
+
+    .focus-day-overlay-text {
+        font-size: 0.7rem;
+        letter-spacing: 0.06em;
+    }
+
+    .focus-details summary {
+        font-size: 0.78rem;
     }
 
     .videos {

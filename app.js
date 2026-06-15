@@ -19,7 +19,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const shareButton = document.querySelector('.nav-share-button');
     const prayerRequestTriggers = document.querySelectorAll('.prayer-request-trigger');
-    const AUTO_PRAYER_POPUP_DELAY_MS = 1200;
+    const requestedPrayerPopupDelay = Number.parseInt(document.body.dataset.prayerPopupDelay || '', 10);
+    const AUTO_PRAYER_POPUP_DELAY_MS = Number.isFinite(requestedPrayerPopupDelay) && requestedPrayerPopupDelay >= 0
+        ? requestedPrayerPopupDelay
+        : 1200;
     const mobileButtonLabelMediaQuery = window.matchMedia('(max-width: 560px)');
     let videoCards = Array.from(document.querySelectorAll('.video-card'));
     const videosContainer = document.querySelector('.videos-container');
