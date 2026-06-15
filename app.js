@@ -67,7 +67,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         console.warn('YouTube API key missing: publish dates cannot be fetched. Add window.YOUTUBE_API_KEY or <meta name="youtube-api-key" content="...">.');
     }
     const youtubeMetadataCache = new Map();
-    const heroFeaturedIframe = document.querySelector('.hero-featured-video iframe');
+    const heroFeaturedVideo = document.querySelector('.hero-featured-video');
+    const heroFeaturedMedia = document.querySelector('.hero-featured-media');
+    let heroFeaturedIframe = heroFeaturedMedia?.querySelector('iframe') || null;
     const heroFeaturedDate = document.querySelector('.hero-featured-date');
     const heroYouTubeHandle = '@PoweredXPrayers';
     const heroYouTubeUsername = 'PoweredXPrayers';
@@ -1338,6 +1340,37 @@ document.addEventListener('DOMContentLoaded', async function () {
         return descriptionText.replace(/\s+/g, ' ').trim();
     };
 
+    const getYouTubeWatchUrl = function (videoId) {
+        return videoId ? `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}` : '';
+    };
+
+    const getYouTubeThumbnailUrl = function (videoId) {
+        return videoId ? `https://img.youtube.com/vi/${encodeURIComponent(videoId)}/hqdefault.jpg` : '';
+    };
+
+    const setHeroFeaturedIframe = function (videoId, titleText) {
+        if (!heroFeaturedMedia || !videoId) {
+            return;
+        }
+
+        const safeTitle = titleText || 'Latest upload from PoweredXPrayers';
+        heroFeaturedMedia.innerHTML = `<iframe width="100%" height="300" src="https://www.youtube.com/embed/${encodeURIComponent(videoId)}" title="${safeTitle.replace(/"/g, '&quot;')}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        heroFeaturedIframe = heroFeaturedMedia.querySelector('iframe');
+    };
+
+    const setHeroFeaturedPreview = function (videoId, titleText) {
+        if (!heroFeaturedMedia || !videoId) {
+            return;
+        }
+
+        const safeTitle = titleText || 'Latest upload from PoweredXPrayers';
+        const watchUrl = getYouTubeWatchUrl(videoId);
+        const thumbnailUrl = getYouTubeThumbnailUrl(videoId);
+        const escapedTitle = safeTitle.replace(/"/g, '&quot;');
+        heroFeaturedMedia.innerHTML = `<a class="video-preview-link hero-preview-link" href="${watchUrl}" target="_blank" rel="noopener noreferrer" data-youtube-id="${videoId}" aria-label="Watch ${escapedTitle} on YouTube"><img src="${thumbnailUrl}" alt="${escapedTitle} preview" loading="lazy" /><span class="video-preview-play" aria-hidden="true"></span></a>`;
+        heroFeaturedIframe = null;
+    };
+
     const normalizeSearchText = function (text) {
         return (text || '').toLowerCase().replace(/\s+/g, ' ').trim();
     };
@@ -1899,11 +1932,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     };
 
     const syncHeroFeaturedDateFromIframe = async function () {
-        if (!heroFeaturedIframe || !heroFeaturedDate) {
+        if (!heroFeaturedVideo || !heroFeaturedDate) {
             return;
         }
 
-        const currentHeroVideoId = extractYouTubeVideoId(heroFeaturedIframe.getAttribute('src') || '');
+        const currentHeroVideoId = extractYouTubeVideoId(heroFeaturedIframe?.getAttribute('src') || '') || heroFeaturedVideo.querySelector('.hero-preview-link')?.dataset.youtubeId || '';
         if (!currentHeroVideoId) {
             heroFeaturedDate.textContent = '';
             return;
@@ -1914,7 +1947,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     };
 
     const attachHeroVideoFromFeed = async function () {
-        if (!heroFeaturedIframe) {
+        if (!heroFeaturedVideo) {
             return;
         }
 
@@ -1929,36 +1962,49 @@ document.addEventListener('DOMContentLoaded', async function () {
         const latestEntry = latestFromRss || latestFromUser || latestFromApi;
 
         if (latestEntry?.videoId) {
+            const latestMetadata = await fetchYouTubeMetadata(latestEntry.videoId, channelId);
+            const latestTitle = latestEntry.title || latestMetadata?.title || 'Latest upload from PoweredXPrayers';
             const latestIsEmbeddable = await isEmbeddableYouTubeVideoId(latestEntry.videoId);
             if (latestIsEmbeddable) {
-                heroFeaturedIframe.src = `https://www.youtube.com/embed/${encodeURIComponent(latestEntry.videoId)}`;
+                setHeroFeaturedIframe(latestEntry.videoId, latestTitle);
                 if (heroFeaturedDate) {
-                    heroFeaturedDate.textContent = formatUploadDateLabel(latestEntry.publishedAt || '');
+                    heroFeaturedDate.textContent = formatUploadDateLabel(latestEntry.publishedAt || latestMetadata?.publishedAt || '');
                 }
                 return;
             }
+
+            setHeroFeaturedPreview(latestEntry.videoId, latestTitle);
+            if (heroFeaturedDate) {
+                heroFeaturedDate.textContent = formatUploadDateLabel(latestEntry.publishedAt || latestMetadata?.publishedAt || '');
+            }
+            return;
         }
 
         const newestEmbeddable = await findNewestEmbeddableUpload(channelId);
         if (newestEmbeddable?.videoId) {
-            heroFeaturedIframe.src = `https://www.youtube.com/embed/${encodeURIComponent(newestEmbeddable.videoId)}`;
+            const newestEmbeddableMetadata = await fetchYouTubeMetadata(newestEmbeddable.videoId, channelId);
+            const newestEmbeddableTitle = newestEmbeddable.title || newestEmbeddableMetadata?.title || 'Latest upload from PoweredXPrayers';
+            setHeroFeaturedIframe(newestEmbeddable.videoId, newestEmbeddableTitle);
             if (heroFeaturedDate) {
-                heroFeaturedDate.textContent = formatUploadDateLabel(newestEmbeddable.publishedAt || '');
+                heroFeaturedDate.textContent = formatUploadDateLabel(newestEmbeddable.publishedAt || newestEmbeddableMetadata?.publishedAt || '');
             }
             return;
         }
 
         const newestEmbeddableShortOrUpload = await findNewestEmbeddableUpload(channelId, { includeShorts: true });
         if (newestEmbeddableShortOrUpload?.videoId) {
-            heroFeaturedIframe.src = `https://www.youtube.com/embed/${encodeURIComponent(newestEmbeddableShortOrUpload.videoId)}`;
+            const newestEmbeddableShortMetadata = await fetchYouTubeMetadata(newestEmbeddableShortOrUpload.videoId, channelId);
+            const newestEmbeddableShortTitle = newestEmbeddableShortOrUpload.title || newestEmbeddableShortMetadata?.title || 'Latest upload from PoweredXPrayers';
+            setHeroFeaturedIframe(newestEmbeddableShortOrUpload.videoId, newestEmbeddableShortTitle);
             if (heroFeaturedDate) {
-                heroFeaturedDate.textContent = formatUploadDateLabel(newestEmbeddableShortOrUpload.publishedAt || '');
+                heroFeaturedDate.textContent = formatUploadDateLabel(newestEmbeddableShortOrUpload.publishedAt || newestEmbeddableShortMetadata?.publishedAt || '');
             }
             return;
         }
 
         if (heroUploadsPlaylistId) {
-            heroFeaturedIframe.src = `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(heroUploadsPlaylistId)}`;
+            heroFeaturedMedia.innerHTML = `<iframe width="100%" height="300" src="https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(heroUploadsPlaylistId)}" title="Latest uploads from PoweredXPrayers" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            heroFeaturedIframe = heroFeaturedMedia.querySelector('iframe');
         }
         if (heroFeaturedDate) {
             heroFeaturedDate.textContent = 'Latest uploads from PoweredXPrayers';

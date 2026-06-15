@@ -235,12 +235,20 @@ a.cashapp-button {
     background: #f8f3eb;
 }
 
-.hero-featured-video iframe {
+.hero-featured-media {
+    background: #111111;
+}
+
+.hero-featured-video iframe,
+.hero-featured-media .video-preview-link {
     width: 100%;
     display: block;
-    border: 0;
     aspect-ratio: 16 / 9;
     height: auto;
+}
+
+.hero-featured-video iframe {
+    border: 0;
 }
 
 .hero-featured-date {
