@@ -1615,9 +1615,13 @@ document.addEventListener('DOMContentLoaded', async function () {
                 const xmlDoc = parser.parseFromString(xmlText, 'application/xml');
 
                 return Array.from(xmlDoc.getElementsByTagName('entry')).map(function (entry) {
+                    const alternateLink = Array.from(entry.getElementsByTagName('link')).find(function (linkNode) {
+                        return linkNode.getAttribute('rel') === 'alternate';
+                    });
                     return {
                         videoId: entry.getElementsByTagName('yt:videoId')[0]?.textContent?.trim() || '',
                         title: entry.getElementsByTagName('title')[0]?.textContent?.trim() || '',
+                        link: alternateLink?.getAttribute('href')?.trim() || '',
                         description: entry.getElementsByTagName('media:description')[0]?.textContent?.trim() || '',
                         publishedAt: entry.getElementsByTagName('published')[0]?.textContent?.trim() || '',
                     };
@@ -1631,6 +1635,16 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         youtubeRssEntriesCache.set(channelId, entriesPromise);
         return entriesPromise;
+    };
+
+    const isYouTubeShortEntry = function (entry) {
+        if (!entry || typeof entry !== 'object') {
+            return false;
+        }
+
+        const entryLink = String(entry.link || '').toLowerCase();
+        const entryTitle = String(entry.title || '').toLowerCase();
+        return entryLink.includes('/shorts/') || entryTitle.includes('#shorts');
     };
 
     const fetchYouTubeRssMetadata = async function (videoId, channelId) {
@@ -1900,7 +1914,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         const channelId = await resolveChannelId() || await resolveChannelIdFromHeroVideo();
-        const latestFromRss = await getLatestVideoIdFromYouTubeRss(channelId);
+        const rssEntries = await fetchYouTubeRssEntries(channelId);
+        const latestStandardRssEntry = rssEntries.find(function (entry) {
+            return !isYouTubeShortEntry(entry);
+        }) || null;
+        const latestFromRss = latestStandardRssEntry || await getLatestVideoIdFromYouTubeRss(channelId);
         const latestFromUser = !latestFromRss && heroYouTubeUsername ? await getLatestVideoIdFromYouTubeRssByUser(heroYouTubeUsername) : null;
         const latestFromApi = !latestFromRss && !latestFromUser ? await getLatestVideoIdFromYouTubeApi(channelId) : null;
         const latestEntry = latestFromRss || latestFromUser || latestFromApi;
