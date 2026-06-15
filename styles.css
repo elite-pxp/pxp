@@ -1609,6 +1609,33 @@ a.cashapp-button {
     background: var(--black);
 }
 
+.free-journal-button {
+    animation: button-glow-pulse 1.35s ease-in-out infinite, free-journal-wiggle 2.2s ease-in-out infinite;
+}
+
+.free-journal-button::before {
+    content: "📖 ";
+}
+
+@keyframes free-journal-wiggle {
+    0%,
+    100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    20% {
+        transform: translateX(-1px) rotate(-1deg);
+    }
+    40% {
+        transform: translateX(2px) rotate(1deg);
+    }
+    60% {
+        transform: translateX(-2px) rotate(-1deg);
+    }
+    80% {
+        transform: translateX(1px) rotate(1deg);
+    }
+}
+
 .donate-button,
 .prayer-button,
 .cashapp-button {
@@ -1632,6 +1659,12 @@ a.cashapp-button {
         animation: none;
         transform: scale(1.03);
         box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .free-journal-button:hover {
+        animation: none;
+        transform: translateY(-2px) rotate(-1deg) scale(1.05);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
     }
 
     .download-button:hover {
