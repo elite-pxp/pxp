@@ -1877,10 +1877,15 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     };
 
-    const findNewestEmbeddableUpload = async function (channelId) {
+    const findNewestEmbeddableUpload = async function (channelId, options = {}) {
+        const includeShorts = options.includeShorts === true;
         const rssEntries = await fetchYouTubeRssEntries(channelId);
         for (const entry of rssEntries) {
             if (!entry?.videoId) {
+                continue;
+            }
+
+            if (!includeShorts && isYouTubeShortEntry(entry)) {
                 continue;
             }
 
@@ -1939,6 +1944,15 @@ document.addEventListener('DOMContentLoaded', async function () {
             heroFeaturedIframe.src = `https://www.youtube.com/embed/${encodeURIComponent(newestEmbeddable.videoId)}`;
             if (heroFeaturedDate) {
                 heroFeaturedDate.textContent = formatUploadDateLabel(newestEmbeddable.publishedAt || '');
+            }
+            return;
+        }
+
+        const newestEmbeddableShortOrUpload = await findNewestEmbeddableUpload(channelId, { includeShorts: true });
+        if (newestEmbeddableShortOrUpload?.videoId) {
+            heroFeaturedIframe.src = `https://www.youtube.com/embed/${encodeURIComponent(newestEmbeddableShortOrUpload.videoId)}`;
+            if (heroFeaturedDate) {
+                heroFeaturedDate.textContent = formatUploadDateLabel(newestEmbeddableShortOrUpload.publishedAt || '');
             }
             return;
         }
