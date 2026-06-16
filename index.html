@@ -15,8 +15,8 @@
     <link rel="shortcut icon" type="image/png" href="./images/icons/favicon-32x32.png?v=3" />
     <link rel="apple-touch-icon" sizes="180x180" href="./images/icons/apple-touch-icon.png?v=3" />
     <link rel="manifest" href="./site.webmanifest?v=4" />
-    <title>PXP Index | Powered by Prayer</title>
-    <link rel="stylesheet" href="./styles.css?v=23" />
+    <title>Powered by Prayer</title>
+    <link rel="stylesheet" href="./styles.css?v=21" />
     <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
@@ -40,16 +40,17 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P3D96HH2"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <!-- Sticky Header -->
     <header class="header">
         <div class="header-container">
             <nav class="header-nav">
-                <a href="./index.html" class="nav-brand">
+                <a href="#" class="nav-brand">
                     <span class="brand-icon" aria-hidden="true">
                         <img src="https://res.cloudinary.com/dozcy2jve/image/upload/v1778001970/images/Tuesday_Live_lzgelk.png" alt="" class="brand-icon-image" />
                     </span>
                     <span class="nav-brand-name">PoweredByPrayer</span>
                 </a>
-                <a href="#restore-days" class="nav-link nav-shop">Restore | 3 Days Fast</a>
+                <a href="./three-day-fasting-prayer.html" class="nav-link nav-shop">Restore | 3 Days Fast</a>
                 <a href="https://go.poweredxprayers.com/shop" class="nav-link" target="_blank" rel="noopener noreferrer">Shop</a>
                 <button type="button" class="nav-share-button" aria-label="Share this website" title="Share this website">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -64,167 +65,636 @@
         </div>
     </header>
 
-    <main class="focus-shell">
-        <section class="hero">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1 class="hero-title">A simple place to walk through the fast</h1>
-                    <p class="hero-description">
-                        We are using this page to keep the Restore Series clean and focused. Each day has a short summary, quick buttons, and a See more section if someone wants the full fasting details.
-                    </p>
-                    <div class="hero-actions">
-                        <a href="https://cash.app/$poweredxprayer?qr=1%20" class="donate-button" target="_blank" rel="noopener noreferrer">Donate</a>
-                        <a href="https://cash.app/$poweredxprayer?qr=1" class="cashapp-button" target="_blank" rel="noopener noreferrer">Via CashApp</a>
-                        <a
-                            href="https://drive.google.com/file/d/1Jb6Th2p3l32f9c2effAw7hbkxyX4zqSg/view?usp=sharing"
-                            class="prayer-button free-journal-button download-button"
-                            data-admin-override="true"
-                            data-admin-label="true"
-                        >Download Free Journal</a>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h2 class="hero-title"><span class="brand-name">Powered by Prayer</span> <span class="hero-title-line">Daily Prayer. Steady Faith.</span></h2>
+                <p class="hero-description">
+                    Christ-centered prayer and biblical encouragement to strengthen faith, grow spiritually, and renew your walk with God each day.
+                </p>
+                <div class="hero-actions">
+                    <a href="https://cash.app/$poweredxprayer?qr=1%20" class="donate-button" target="_blank" rel="noopener noreferrer">Donate</a>
+                    <a href="https://cash.app/$poweredxprayer?qr=1" class="cashapp-button" target="_blank" rel="noopener noreferrer">Via CashApp</a>
+                    <a href="#" class="prayer-button prayer-request-trigger">Prayer Request</a>
+                </div>
+            </div>
+            <div class="hero-featured-video">
+                <div class="hero-featured-media">
+                    <iframe
+                        width="100%"
+                        height="300"
+                        src="https://www.youtube.com/embed/videoseries?list=UU1qFfHXbdgzy188ILJFw68Q"
+                        title="Latest uploads from PoweredXPrayers"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="hero-featured-date">Latest uploads from PoweredXPrayers</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="videos" id="videos">
+        <div class="videos-container is-collapsed">
+            <div class="video-section-header">
+                <h2 class="section-title">Guided Prayer & Biblical Teaching</h2>
+                <div class="video-controls-wrap">
+                    <div class="video-search-wrap">
+                        <label for="video-search" class="sr-only">Search videos</label>
+                        <input
+                            id="video-search"
+                            class="video-search-input"
+                            type="search"
+                            placeholder="Search prayer sessions by title, date, or keyword."
+                            autocomplete="off"
+                        />
+                    </div>
+                    <div class="video-sort-wrap">
+                        <label for="video-sort" class="sr-only">Sort videos by date</label>
+                        <select id="video-sort" class="video-sort-select" aria-label="Sort videos by date">
+                            <option value="newest">Newest first</option>
+                            <option value="oldest">Oldest first</option>
+                        </select>
                     </div>
                 </div>
             </div>
-        </section>
+            <p class="video-search-empty" hidden>No videos match your search.</p>
+            <div class="video-grid">
+                <div class="video-card" data-admin-title="true" data-admin-date="true" data-admin-description="true">
+                    <div class="video-embed">
+                        <iframe
+                            width="100%"
+                            height="300"
+                            src="https://www.youtube.com/embed/QogDKTsxzUk"
+                            title="Name What the Locust Ate"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">Name What the Locust Ate</h3>
+                    <p class="video-date">Uploaded: June 9, 2026</p>
+                    <p class="video-description">
+                        A message from Shantal Long on "Name What the Locust Ate."
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="https://drive.google.com/file/d/1-V2vcY8TrdoinGM1pGhoS8S35_gv4jUL/view?usp=sharing" class="download-button">Download Study Notes</a>
+                    </div>
+                </div>
 
-        <section class="focus-section alt" id="restore-days">
-            <div class="videos-container">
-                <p class="focus-badge">The Journey</p>
-                <h2 class="section-title">Three days. One focused direction.</h2>
-                <div class="focus-day-grid">
-                    <article class="video-card" data-admin-title="true" data-admin-date="true" data-admin-description="true">
-                        <div class="focus-day-media">
-                            <a
-                                href="https://www.youtube.com/watch?v=5DqlEYUrBr0"
-                                class="video-preview-link"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="Watch Day 1 of the 3-Day Fasting Prayer"
-                            >
-                                <img
-                                    src="https://i.ytimg.com/vi/5DqlEYUrBr0/hqdefault.jpg"
-                                    alt="Watch Day 1 of the 3-Day Fasting Prayer"
-                                />
-                                <span class="play-button" aria-hidden="true">
-                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="currentColor">
-                                        <path d="M1 1.5v15l12-7.5L1 1.5z"></path>
-                                    </svg>
-                                </span>
+                <div class="video-card" data-admin-title="true">
+                    <div class="video-embed">
+                        <iframe
+                            width="100%"
+                            height="300"
+                            src="https://www.youtube.com/embed/VZygVRaDCUI"
+                            title="The Wall Is Up, Now Fill the City"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">The Wall Is Up, Now Fill the City</h3>
+                    <p class="video-date">Uploaded: May 26, 2026</p>
+                    <p class="video-description">
+                        A prophetic teaching from Shantal Long on building beyond the wall and filling the city with faith, prayer, and purpose.
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="https://drive.google.com/file/d/1AU4r3qAmzNDas3B6ZSVmHToU1VKnQ7a8/view?usp=sharing" class="download-button">Download Study Notes</a>
+                    </div>
+                </div>
+
+                <div class="video-card" data-admin-title="true">
+                    <div class="video-embed">
+                        <iframe
+                            width="100%"
+                            height="300"
+                            src="https://www.youtube.com/embed/Vz-MnpmWfl8?si=nTaI6o9puaUAmCuO"
+                            title="They Will Talk When You Start Building"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">They Will Talk When You Start Building</h3>
+                    <p class="video-date">Uploaded: May 19, 2026</p>
+                    <p class="video-description">
+                        🔥 THE REBUILD SERIES 🔥
+A powerful 4-week journey to reconnect, realign, and rebuild what God has assigned you to build.
+
+Join Prophetess Shantal Long every Friday at 7:45 AM LIVE on Facebook, TikTok &amp; YouTube as we grow together in faith, purpose, and breakthrough.
+
+✨ Week 1 – A New Beginning
+✨ Week 2 – Building with Purpose
+✨ Week 3 – Growing Through Community
+✨ Week 4 – Stepping Into What Heaven Prepared
+
+&ldquo;Stand in Sync&rdquo; and move with God&rsquo;s purpose for your life. 🙏🏽
+
+We&rsquo;re so grateful for every seed sown into this ministry. Your generosity helps us continue this work and reach more lives.
+
+If you feel led to give:
+• Square: https://square.link/u/N8O3IZOr
+
+• Cash App: $poweredxprayer
+
+Let&rsquo;s stand in faith together and believe for breakthrough. ✨
+
+#TheRebuildSeries #PoweredXPrayer #Faith #Prayer #Breakthrough #Rebuild #KingdomBuilders #ShantalLong #LivePrayer #StandInSync
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="https://drive.google.com/file/d/1_FjV8gHA8wT3PuarWWfvSWhPb7NnxdPi/view?usp=sharing" class="download-button">Download Study Notes</a>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe
+                            width="100%"
+                            height="300"
+                            src="https://www.youtube.com/embed/Zv4tzmP2OfI"
+                            title="Did You Count the Cost?"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">Did You Count the Cost?</h3>
+                    <p class="video-date">Uploaded: May 12, 2026</p>
+                    <p class="video-description">
+                        A timely word from today&apos;s upload with biblical encouragement and a call to count the cost in your walk with God.
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="https://drive.google.com/uc?export=download&id=1LCIsrskVxvef33XEBmbb6RQ1c6p_zHh7" class="download-button" target="_self" download="video-may-12-study-notes.pdf">Download Study Notes</a>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe 
+                            width="100%" 
+                            height="300" 
+                            src="https://www.youtube.com/embed/Jva-mSBFc9k" 
+                            title="R E B U I L D | A Series on Purpose, Process &amp; the Build God Assigned"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">R E B U I L D | A Series on Purpose, Process &amp; the Build God Assigned</h3>
+                    <p class="video-date">Uploaded: May 5, 2026</p>
+                    <p class="video-description">
+                        Week 1 message on purpose, process, and rebuilding what God assigned. A practical teaching from Nehemiah 1–2 to help you move from burden to action.
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="#" class="download-button">Download Study Notes</a>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe 
+                            width="100%" 
+                            height="300" 
+                            src="https://www.youtube.com/embed/-O99Y4kILG8" 
+                            title="RESET. REALIGN. GO FORTH.   with Shantal Long #poweredbyprayer"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">Reset, Realign, Go Forth with Shantal Long</h3>
+                    <p class="video-date">Uploaded: January 6, 2026</p>
+                    <p class="video-description">
+                        Step into a focused word on spiritual alignment, renewed thinking, and faith-led authority. This message offers biblical direction to help you release old patterns, pray with confidence, and move forward with clarity.
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="https://drive.google.com/uc?export=download&amp;id=1LyHUPEO-xrRe6R-xDYBQ5IZMPZiYJdc4" class="download-button" target="_self" download="video-1-study-notes.pdf">Download Study Notes</a>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe 
+                            width="100%" 
+                            height="300" 
+                            src="https://www.youtube.com/embed/1oi5xAgYyu4" 
+                            title="Motivational Video 2"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">Wednesday Session: Building a Consistent Prayer Life</h3>
+                    <p class="video-date">Uploaded: January 13, 2026</p>
+                    <p class="video-description">
+                        Learn simple, scriptural habits that help you stay rooted in daily prayer. This teaching supports spiritual growth, deeper faith, and a stronger personal walk with God throughout the week.
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing" class="download-button" target="_blank" rel="noopener noreferrer">Download Study Notes</a>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe 
+                            width="100%" 
+                            height="300" 
+                            src="https://www.youtube.com/embed/MlWYBkHROXc" 
+                            title="Motivational Video 3"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">Thursday Session: Discovering God&apos;s Purpose Through Scripture</h3>
+                    <p class="video-date">Uploaded: January 20, 2026</p>
+                    <p class="video-description">
+                        Explore biblical insight that helps you discern purpose and live with intention. Through prayer and Christian teaching, this session encourages a faithful life aligned with God&apos;s calling.
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing" class="download-button" target="_blank" rel="noopener noreferrer">Download Study Notes</a>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe 
+                            width="100%" 
+                            height="300" 
+                            src="https://www.youtube.com/embed/frqOolLffs8" 
+                            title="Motivational Video 4"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">Friday Session: Strengthening Spiritual Resilience</h3>
+                    <p class="video-date">Uploaded: January 27, 2026</p>
+                    <p class="video-description">
+                        Receive biblical encouragement for seasons of pressure and uncertainty. This prayer-focused message equips you to stand firm in faith, persevere with hope, and trust God through every challenge.
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing" class="download-button" target="_blank" rel="noopener noreferrer">Download Study Notes</a>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe 
+                            width="100%" 
+                            height="300" 
+                            src="https://www.youtube.com/embed/Hu5gbtZsbcg" 
+                            title="BREATHE AGAIN #poweredxprayer #prayerchangesthings #prayfirst"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">BREATHE AGAIN</h3>
+                    <p class="video-date">Uploaded: February 3, 2026</p>
+                    <p class="video-description">
+                        Reflect on the grace of God and how it reshapes the heart through prayer. This session blends biblical truth and spiritual encouragement to cultivate humility, peace, and renewed devotion.
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="https://drive.google.com/uc?export=download&id=1I5AvwxAb0mNBzNNh4hiTCE29BLIAvkrb" class="download-button" target="_self" download="video-5-study-notes.pdf">Download Study Notes</a>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe 
+                            width="100%" 
+                            height="300" 
+                            src="https://www.youtube.com/embed/jSADhcPqGpQ" 
+                            title="Releasing Authority with Shantal Long #poweredbyprayer"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">Releasing Authority with Shantal Long</h3>
+                    <p class="video-date">Uploaded: February 10, 2026</p>
+                    <p class="video-description">
+                        Enter the week refreshed through worship, thankful prayer, and scripture-based reflection. This message encourages spiritual renewal and a joyful faith anchored in God&apos;s presence.
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="https://drive.google.com/uc?export=download&id=1GBv-a-P-rjiCHT0pmwAdJ5MzwHELHnl3" class="download-button" target="_self" download="video-6-study-notes.pdf">Download Study Notes</a>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe 
+                            width="100%" 
+                            height="300" 
+                            src="https://www.youtube.com/embed/PlCeqAbGN9U" 
+                            title="Release the Old Identity with Shantal Long #poweredbyprayer"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">Release the Old Identity with Shantal Long</h3>
+                    <p class="video-date">Uploaded: February 17, 2026</p>
+                    <p class="video-description">
+                        Begin your week with a gratitude-centered prayer practice shaped by scripture. This teaching helps reframe your perspective, deepen faith, and build a steady heart of thanksgiving.
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="https://drive.google.com/uc?export=download&id=1pe_Aclxwe8HvvZAz_I9jZZ4ir0wKi3vr" class="download-button" target="_self" download="video-7-study-notes.pdf">Download Study Notes</a>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe 
+                            width="100%" 
+                            height="300" 
+                            src="https://www.youtube.com/embed/mYiw0rO3qSo" 
+                            title="Guard Your Release with Shantal Long #poweredbyprayer"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-card-body">
+                    <h3 class="video-title">Guard Your Release with Shantal Long</h3>
+                    <p class="video-date">Uploaded: February 24, 2026</p>
+                    <p class="video-description">
+                        Join a live gathering focused on shared prayer, unity, and biblical encouragement. This session highlights how Christian community strengthens faith, supports spiritual growth, and keeps believers grounded in truth.
+                    </p>
+                    </div>
+                    <div class="video-card-footer">
+                        <button type="button" class="toggle-description">See more</button>
+                        <a href="https://drive.google.com/uc?export=download&id=1gK87AXffTQoEjW0TPSH_7O9hGktPhoH4" class="download-button" target="_self" download="video-8-study-notes.pdf">Download Study Notes</a>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="video-expand-toggle" aria-expanded="false">See more Videos</button>
+
+            <div class="video-grid video-grid-extra">
+                <div class="video-card">
+                        <div class="video-embed">
+                            <iframe 
+                                width="100%" 
+                                height="300" 
+                                src="https://www.youtube.com/embed/aG4eU8LVzVU" 
+                                title="WHO IS YOUR SOURCE? with Shantal Long #poweredbyprayer"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-card-body">
+                        <h3 class="video-title">WHO IS YOUR SOURCE?</h3>
+                        <p class="video-date">Uploaded: March 3, 2026</p>
+                        <p class="video-description">
+                            Strengthen your confidence in prayer by standing on biblical promises. This session helps you pray with expectation, deepen trust, and stay grounded in God&apos;s faithfulness.
+                        </p>
+                        </div>
+                        <div class="video-card-footer">
+                            <button type="button" class="toggle-description">See more</button>
+                            <a href="https://drive.google.com/uc?export=download&amp;id=1pKFYjcXCWHf6bd7iU2dqwwHVluiJuzhy" class="download-button" target="_self" download="video-9-study-notes.pdf">Download Study Notes</a>
+                        </div>
+                    </div>
+
+                <div class="video-card">
+                        <div class="video-embed">
+                            <iframe 
+                                width="100%" 
+                                height="300" 
+                                src="https://www.youtube.com/embed/MZAiZZcdrZ4" 
+                                title="Stop Looking In The Wrong Places."
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-card-body">
+                        <h3 class="video-title">Stop Looking In The Wrong Places.</h3>
+                        <p class="video-date">Uploaded: March 10, 2026</p>
+                        <p class="video-description">
+                            In the middle of a busy week, return to peace through God&apos;s Word and steady prayer. Receive practical Christian encouragement to quiet anxiety and refocus your heart.
+                        </p>
+                        </div>
+                        <div class="video-card-footer">
+                            <button type="button" class="toggle-description">See more</button>
+                            <a href="https://drive.google.com/uc?export=download&amp;id=101uPt9Z1diznGWtctxKxRjyBrVSK7hXp" class="download-button" target="_self" download="video-10-study-notes.pdf">Download Study Notes</a>
+                        </div>
+                    </div>
+
+                <div class="video-card">
+                        <div class="video-embed">
+                            <iframe 
+                                width="100%" 
+                                height="300" 
+                                src="https://www.youtube.com/embed/QOqeESjDzmA" 
+                                title="Refocus: Live From the Throne"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-card-body">
+                        <h3 class="video-title">Refocus: Live From the Throne</h3>
+                        <p class="video-date">Uploaded: March 17, 2026</p>
+                        <p class="video-description">
+                            Learn how to remain steady when life feels uncertain. This prayer session offers biblical perspective and spiritual strength to walk forward with courage and faith.
+                        </p>
+                        </div>
+                        <div class="video-card-footer">
+                            <button type="button" class="toggle-description">See more</button>
+                            <a href="https://drive.google.com/uc?export=download&amp;id=1-ECjYUQ8gubX4RRZQ_QH9ekypcSO1q1s" class="download-button" target="_self" download="video-11-study-notes.pdf">Download Study Notes</a>
+                        </div>
+                    </div>
+
+                <div class="video-card">
+                        <div class="video-embed video-embed-preview">
+                            <a class="video-preview-link" href="https://www.youtube.com/watch?v=t2BAf6_z_zk" target="_blank" rel="noopener noreferrer" data-youtube-id="t2BAf6_z_zk" aria-label="Watch The Activation Moment - Decree &amp; Move on YouTube">
+                                <img src="https://img.youtube.com/vi/t2BAf6_z_zk/hqdefault.jpg" alt="The Activation Moment - Decree &amp; Move preview" loading="lazy" />
+                                <span class="video-preview-play" aria-hidden="true"></span>
                             </a>
                         </div>
                         <div class="video-card-body">
-                            <div class="focus-card-header">
-                                <span class="focus-day-label">Day 1</span>
-                                <p class="video-date">Uploaded: June 14, 2026</p>
-                            </div>
-                            <h3 class="video-title">🔥 TODAY IS THE DAY! 🔥</h3>
-                            <p class="focus-day-summary">
-                                Published now. Return to God through repentance, gratitude, and a renewed yes.
-                            </p>
-                            <div class="focus-actions">
-                                <a href="https://drive.google.com/file/d/1QBFJrcx6strokU7Ykq-1H5DtRZES1kSl/view?usp=sharing" class="download-button" target="_blank" rel="noopener noreferrer" data-admin-override="true">Study Notes</a>
-                            </div>
-                            <details class="focus-details">
-                                <summary>See more</summary>
-                                <div class="focus-details-copy">
-                                    <p>Today begins our 3-Day Fast for the Restore Series. We are taking intentional time to return to God, declare restoration, and believe Him for healing, wholeness, and renewal.</p>
-                                    <ul class="focus-list">
-                                        <li>Repentance</li>
-                                        <li>Renouncing wrong agreements, covenants, and idols</li>
-                                        <li>Keeping a heart posture of gratitude</li>
-                                        <li>Recalling what was lost</li>
-                                    </ul>
-                                    <p><strong>Joel 2:12</strong> - "Return to Me with all your heart..."</p>
-                                    <p><strong>Fasting directions:</strong> 6AM to 6PM, liquids only. After 6PM: soup, smoothies, salads, tuna, light meat.</p>
-                                    <p><strong>During the fast:</strong> Watch your ear gate, eye gate, and mouth gate. Remove anything you idolize or go to before speaking to God. Modify based on you and what God speaks to you.</p>
-                                    <p>This is not only about what we give up. It is about making room to hear God clearly. Return first. Restoration begins there.</p>
-                                </div>
-                            </details>
+                        <h3 class="video-title">The Activation Moment - Decree &amp; Move</h3>
+                        <p class="video-date">Uploaded: March 25, 2026</p>
+                        <p class="video-description">
+                            Close your day with thanksgiving, prayer, and reflection. This message helps you release burdens, celebrate God&apos;s goodness, and rest with renewed peace.
+                        </p>
                         </div>
-                    </article>
+                        <div class="video-card-footer">
+                            <button type="button" class="toggle-description">See more</button>
+                            <a href="https://drive.google.com/uc?export=download&amp;id=1WTW2OZtogO9SZR0M5U5tN0n9NibcoRx1" class="download-button" target="_self" download="video-12-study-notes.pdf">Download Study Notes</a>
+                        </div>
+                    </div>
 
-                    <article class="video-card">
-                        <div class="focus-day-media">
-                            <img
-                                src="https://res.cloudinary.com/dozcy2jve/image/upload/v1781550389/images/ChatGPT_Image_Jun_16_2026_03_05_51_AM_nlipbd.png"
-                                alt="Day 2 Restore Series graphic"
-                            />
-                            <span class="focus-day-overlay-text">Coming soon</span>
+                <div class="video-card">
+                        <div class="video-embed video-embed-preview">
+                            <a class="video-preview-link" href="https://www.youtube.com/watch?v=ZBJrPorLCyc" target="_blank" rel="noopener noreferrer" data-youtube-id="ZBJrPorLCyc" aria-label="Watch He Thought He Had Me... But Heaven Was Already There on YouTube">
+                                <img src="https://img.youtube.com/vi/ZBJrPorLCyc/hqdefault.jpg" alt="He Thought He Had Me... But Heaven Was Already There preview" loading="lazy" />
+                                <span class="video-preview-play" aria-hidden="true"></span>
+                            </a>
                         </div>
                         <div class="video-card-body">
-                            <div class="focus-card-header">
-                                <span class="focus-day-label">Day 2</span>
-                                <p class="video-date">June 16</p>
-                            </div>
-                            <h3 class="video-title">Declare &amp; Believe</h3>
-                            <p class="focus-day-summary">
-                                Speak in agreement with God and believe Him to restore what was lost.
-                            </p>
-                            <div class="focus-actions">
-                                <button type="button" class="download-button button-disabled" aria-disabled="true">Study Notes</button>
-                            </div>
-                            <details class="focus-details">
-                                <summary>See more</summary>
-                                <div class="focus-details-copy">
-                                    <p>We are continuing our 3-Day Fast for the Restore Series. From June 15 to June 17, we are fasting, praying, and setting our hearts before God as we believe Him to restore what was lost.</p>
-                                    <ul class="focus-list">
-                                        <li>Declaring restoration</li>
-                                        <li>Restoration over finances</li>
-                                        <li>Debt cancellation</li>
-                                        <li>Identity in Christ Jesus</li>
-                                    </ul>
-                                    <p><strong>Joel 2:25</strong> - "I will restore to you the years the locust has eaten..."</p>
-                                    <p><strong>Fasting directions:</strong> 6AM to 6PM, liquids only. After 6PM: soup, smoothies, salads, tuna, light meat.</p>
-                                    <p><strong>During the fast:</strong> Watch your ear gate, eye gate, and mouth gate. Remove anything you idolize or go to before speaking to God. Modify based on you and what God speaks to you.</p>
-                                    <p>Today, speak in agreement with what God promised. Do not let loss have the final word. Declare it. Believe it. God restores.</p>
-                                </div>
-                            </details>
+                        <h3 class="video-title">He Thought He Had Me... But Heaven Was Already There</h3>
+                        <p class="video-date">Uploaded: March 31, 2026</p>
+                        <p class="video-description">
+                            End your day with peaceful prayer and scripture reflection. This session helps settle anxious thoughts and restore quiet confidence in God&apos;s care.
+                        </p>
                         </div>
-                    </article>
+                        <div class="video-card-footer">
+                            <button type="button" class="toggle-description">See more</button>
+                            <a href="https://drive.google.com/uc?export=download&amp;id=1J3fBz0AZKNjZXxWXgTSemdSEeQqZ5Odt" class="download-button" target="_self" download="video-13-study-notes.pdf">Download Study Notes</a>
+                        </div>
+                    </div>
 
-                    <article class="video-card">
-                        <div class="focus-day-media">
-                            <img
-                                src="https://res.cloudinary.com/dozcy2jve/image/upload/v1781553538/images/ChatGPT_Image_Jun_16_2026_03_58_45_AM_ehey4s.png"
-                                alt="Day 3 Restore Series graphic"
-                            />
-                            <span class="focus-day-overlay-text">Coming soon</span>
+                <div class="video-card">
+                        <div class="video-embed">
+                            <iframe 
+                                width="100%" 
+                                height="300" 
+                                src="https://www.youtube.com/embed/I7DZerTI9hg" 
+                                title="Preparing Your Life to Walk in the Supernatural"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
                         </div>
                         <div class="video-card-body">
-                            <div class="focus-card-header">
-                                <span class="focus-day-label">Day 3</span>
-                                <p class="video-date">June 17</p>
-                            </div>
-                            <h3 class="video-title">Restored</h3>
-                            <p class="focus-day-summary">
-                                Receive prayer for healing, total wholeness, and renewal in every area.
-                            </p>
-                            <div class="focus-actions">
-                                <button type="button" class="download-button button-disabled" aria-disabled="true">Study Notes</button>
-                            </div>
-                            <details class="focus-details">
-                                <summary>See more</summary>
-                                <div class="focus-details-copy">
-                                    <p>Today is the final day of our 3-Day Fast for the Restore Series. From June 15 to June 17, we have been returning to God, declaring restoration, and believing Him for full healing and renewal.</p>
-                                    <ul class="focus-list">
-                                        <li>Healing over my mind</li>
-                                        <li>Healing over my spirit</li>
-                                        <li>Healing over my body</li>
-                                        <li>Healing over my soul</li>
-                                        <li>Total wholeness and renewal</li>
-                                    </ul>
-                                    <p><strong>Jeremiah 30:17</strong> - "I will restore health to you, and heal you of your wounds..."</p>
-                                    <p><strong>Fasting directions:</strong> 6AM to 6PM, liquids only. After 6PM: soup, smoothies, salads, tuna, light meat.</p>
-                                    <p><strong>During the fast:</strong> Watch your ear gate, eye gate, and mouth gate. Remove anything you idolize or go to before speaking to God. Modify based on you and what God speaks to you.</p>
-                                    <p>As we close this fast, stay open to what God is speaking. Restoration is not only what He does around you. It is also what He does within you. Restored. Whole. Renewed.</p>
-                                </div>
-                            </details>
+                        <h3 class="video-title">Preparing Your Life to Walk in the Supernatural</h3>
+                        <p class="video-date">Uploaded: April 7, 2026</p>
+                        <p class="video-description">
+                            Begin each morning with clear purpose through prayer. Receive biblical encouragement to align your decisions, attitude, and focus with God&apos;s wisdom.
+                        </p>
                         </div>
-                    </article>
-                </div>
+                        <div class="video-card-footer">
+                            <button type="button" class="toggle-description">See more</button>
+                            <a href="#" class="download-button">Download Study Notes</a>
+                        </div>
+                    </div>
+
+                <div class="video-card">
+                        <div class="video-embed">
+                            <iframe 
+                                width="100%" 
+                                height="300" 
+                                src="https://www.youtube.com/embed/CGpM9zMOX50" 
+                                title="WHAT ARE YOU BUILDING ON?"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-card-body">
+                        <h3 class="video-title">WHAT ARE YOU BUILDING ON?</h3>
+                        <p class="video-date">Uploaded: April 14, 2026</p>
+                        <p class="video-description">
+                            Build spiritual resilience by anchoring your heart in scripture. This teaching offers practical faith steps to remain steady through daily pressures.
+                        </p>
+                        </div>
+                        <div class="video-card-footer">
+                            <button type="button" class="toggle-description">See more</button>
+                            <a href="#" class="download-button">Download Study Notes</a>
+                        </div>
+                    </div>
+
+                <div class="video-card">
+                        <div class="video-embed">
+                            <iframe 
+                                width="100%" 
+                                height="300" 
+                                src="https://www.youtube.com/embed/7zyTup1sU2U" 
+                                title="IT'S TIME. I AM DOING A NEW THING - STEP OUT OF THE WINEPRESS"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-card-body">
+                        <h3 class="video-title">IT&apos;S TIME. I AM DOING A NEW THING - STEP OUT OF THE WINEPRESS</h3>
+                        <p class="video-date">Uploaded: April 21, 2026</p>
+                        <p class="video-description">
+                            Discover the strength of Christian community as you pray together and encourage one another. Grow deeper in faith through shared worship and truth.
+                        </p>
+                        </div>
+                        <div class="video-card-footer">
+                            <button type="button" class="toggle-description">See more</button>
+                            <a href="#" class="download-button">Download Study Notes</a>
+                        </div>
+                    </div>
+
+                <div class="video-card">
+                        <div class="video-embed">
+                            <iframe 
+                                width="100%" 
+                                height="300" 
+                                src="https://www.youtube.com/embed/aDlh_6UYVWY" 
+                                title="Victory Lap: Closing The Realignment Series With Joseph's Story"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-card-body">
+                        <h3 class="video-title">Victory Lap: Closing The Realignment Series With Joseph&apos;s Story</h3>
+                        <p class="video-date">Uploaded: April 28, 2026</p>
+                        <p class="video-description">
+                            Reflect on God&apos;s mercy and grace in everyday moments. This session encourages humility, gratitude, and trust through prayer-centered reflection.
+                        </p>
+                        </div>
+                        <div class="video-card-footer">
+                            <button type="button" class="toggle-description">See more</button>
+                            <a href="#" class="download-button">Download Study Notes</a>
+                        </div>
+                    </div>
+
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand-section">
@@ -233,9 +703,9 @@
                 <p class="footer-copyright">© 2026 <span class="brand-name">Powered by Prayer</span>. All rights reserved.</p>
             </div>
             <div class="footer-links">
-                <a href="./index.html" class="footer-link">PXP Index</a>
-                <a href="https://www.youtube.com/@PoweredXPrayers" class="footer-link" target="_blank" rel="noopener noreferrer">YouTube Channel</a>
-                <a href="mailto:poweredbyprayer247@gmail.com?subject=Prayer%20Request" class="footer-link">Prayer Request</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+                <a href="#" class="footer-link">Contact</a>
                 <div class="footer-social-row">
                     <div class="footer-quick-actions">
                         <a href="https://cash.app/$poweredxprayer?qr=1%20" class="footer-action-icon" aria-label="Donate" title="Donate" target="_blank" rel="noopener noreferrer">
@@ -253,27 +723,27 @@
                         </a>
                     </div>
                     <div class="footer-social">
-                        <a href="https://www.facebook.com/poweredxprayer/" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.instagram.com/thepoweredxprayer/" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12.017 0C8.396 0 7.996.014 6.79.067 5.584.12 4.652.309 3.864.64c-.788.331-1.456.983-2.024 1.55C1.272 2.758.62 3.426.289 4.214.126 4.66.067 5.076.04 5.78c-.027.704-.067 1.104-.067 4.725 0 3.621.04 4.021.067 4.725.027.704.086 1.12.249 1.566.331.788.983 1.456 1.55 2.024.568.568 1.236 1.22 1.55 1.55.416.163.832.222 1.566.249.704.027 1.104.067 4.725.067 3.621 0 4.021-.04 4.725-.067.704-.027 1.12-.086 1.566-.249.788-.331 1.456-.983 2.024-1.55.568-.568 1.22-1.236 1.55-1.55.163-.416.222-.832.249-1.566.027-.704.067-1.104.067-4.725 0-3.621-.04-4.021-.067-4.725-.027-.704-.086-1.12-.249-1.566-.331-.788-.983-1.456-1.55-2.024C17.242 1.272 16.574.62 15.786.289 15.34.126 14.924.067 14.22.04 13.516.013 13.116 0 9.495 0h-2.522zm4.478 1.418c.705 0 1.254.571 1.254 1.276 0 .705-.549 1.276-1.254 1.276-.705 0-1.276-.571-1.276-1.276 0-.705.571-1.276 1.276-1.276zm-4.478 2.732c3.621 0 6.552 2.931 6.552 6.552s-2.931 6.552-6.552 6.552-6.552-2.931-6.552-6.552 2.931-6.552 6.552-6.552zm0 1.418c-2.836 0-5.134 2.298-5.134 5.134s2.298 5.134 5.134 5.134 5.134-2.298 5.134-5.134-2.298-5.134-5.134-5.134z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.tiktok.com/@poweredbyprayer7" class="social-icon" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.youtube.com/@PoweredXPrayers" class="social-icon" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                            </svg>
-                        </a>
-                    </div>
+                    <a href="https://www.facebook.com/poweredxprayer/" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/thepoweredxprayer/" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.017 0C8.396 0 7.996.014 6.79.067 5.584.12 4.652.309 3.864.64c-.788.331-1.456.983-2.024 1.55C1.272 2.758.62 3.426.289 4.214.126 4.66.067 5.076.04 5.78c-.027.704-.067 1.104-.067 4.725 0 3.621.04 4.021.067 4.725.027.704.086 1.12.249 1.566.331.788.983 1.456 1.55 2.024.568.568 1.236 1.22 1.55 1.55.416.163.832.222 1.566.249.704.027 1.104.067 4.725.067 3.621 0 4.021-.04 4.725-.067.704-.027 1.12-.086 1.566-.249.788-.331 1.456-.983 2.024-1.55.568-.568 1.22-1.236 1.55-1.55.163-.416.222-.832.249-1.566.027-.704.067-1.104.067-4.725 0-3.621-.04-4.021-.067-4.725-.027-.704-.086-1.12-.249-1.566-.331-.788-.983-1.456-1.55-2.024C17.242 1.272 16.574.62 15.786.289 15.34.126 14.924.067 14.22.04 13.516.013 13.116 0 9.495 0h-2.522zm4.478 1.418c.705 0 1.254.571 1.254 1.276 0 .705-.549 1.276-1.254 1.276-.705 0-1.276-.571-1.276-1.276 0-.705.571-1.276 1.276-1.276zm-4.478 2.732c3.621 0 6.552 2.931 6.552 6.552s-2.931 6.552-6.552 6.552-6.552-2.931-6.552-6.552 2.931-6.552 6.552-6.552zm0 1.418c-2.836 0-5.134 2.298-5.134 5.134s2.298 5.134 5.134 5.134 5.134-2.298 5.134-5.134-2.298-5.134-5.134-5.134z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@poweredbyprayer7" class="social-icon" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.youtube.com/@PoweredXPrayers" class="social-icon" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+                </div>
                 </div>
                 <div class="footer-logo-corner">
                     <img src="https://res.cloudinary.com/dozcy2jve/image/upload/v1778001970/images/Tuesday_Live_lzgelk.png" alt="PXP Logo" class="footer-pxp-logo" />
@@ -281,6 +751,13 @@
             </div>
         </div>
     </footer>
+
+    <div class="rss-strip" role="complementary" aria-label="Live RSS updates">
+        <span class="rss-strip-label">RSS</span>
+        <a href="https://www.ibelieve.com/devotionals/featured/a-prayer-to-notice-hidden-wonders.html" class="rss-strip-item" target="_blank" rel="noopener noreferrer">Latest: A Prayer to Notice Hidden Wonders - Your Daily Prayer - April 12</a>
+        <a href="https://www.ibelieve.com/rss/" class="rss-strip-source" target="_blank" rel="noopener noreferrer">Feed</a>
+    </div>
+
     <script src="./app.js?v=69"></script>
 </body>
 </html>
