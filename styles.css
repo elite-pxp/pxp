@@ -1271,6 +1271,23 @@ a.cashapp-button {
     line-height: 1;
 }
 
+.play-button-link::before {
+    content: "\25B6";
+}
+
+.play-button-link {
+    position: relative;
+    width: 100%;
+    border: 1px solid rgba(218, 194, 113, 0.46);
+    box-shadow:
+        0 0 0 1px rgba(218, 194, 113, 0.12),
+        0 10px 24px rgba(49, 78, 40, 0.18),
+        0 0 12px rgba(255, 219, 126, 0.16);
+    animation: watch-fast-gold-glow 2.8s ease-in-out infinite;
+    white-space: normal;
+    text-align: center;
+}
+
 .cashapp-button {
     display: inline-flex;
     align-items: center;
@@ -1704,6 +1721,23 @@ a.cashapp-button {
     content: "📖 ";
 }
 
+@keyframes watch-fast-gold-glow {
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 1px rgba(218, 194, 113, 0.12),
+            0 10px 24px rgba(49, 78, 40, 0.18),
+            0 0 12px rgba(255, 219, 126, 0.16);
+    }
+    50% {
+        box-shadow:
+            0 0 0 1px rgba(218, 194, 113, 0.26),
+            0 10px 24px rgba(49, 78, 40, 0.22),
+            0 0 24px rgba(255, 219, 126, 0.34),
+            0 0 40px rgba(218, 194, 113, 0.16);
+    }
+}
+
 @keyframes free-journal-glow {
     0%,
     100% {
@@ -1808,6 +1842,11 @@ a.cashapp-button {
         padding: 0.62rem 0.9rem;
         font-size: 0.8rem;
         line-height: 1.18;
+    }
+
+    .play-button-link {
+        justify-content: center;
+        gap: 0.48rem;
     }
 
     .hero-featured-video {
@@ -2286,6 +2325,11 @@ a.cashapp-button {
         font-size: 0.82rem;
         min-height: 2.45rem;
         padding: 0.66rem 1.1rem;
+    }
+
+    .play-button-link {
+        font-size: 0.8rem;
+        line-height: 1.2;
     }
 
     .footer-brand,
