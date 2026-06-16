@@ -1308,6 +1308,10 @@ a.cashapp-button {
     height: 100%;
 }
 
+.back-home-button::before {
+    content: none;
+}
+
 .hero-fast-button::after {
     content: "";
     position: absolute;
