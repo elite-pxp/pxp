@@ -1290,6 +1290,10 @@ a.cashapp-button {
     overflow: hidden;
 }
 
+.hero-fast-button::before {
+    content: none;
+}
+
 .hero-fast-button-icon {
     display: inline-flex;
     align-items: center;
