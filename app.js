@@ -1378,9 +1378,13 @@ document.addEventListener('DOMContentLoaded', async function () {
         return (text || '').toLowerCase().replace(/\s+/g, ' ').trim();
     };
 
+    const getVideoDatePrefix = function (card) {
+        return (card?.dataset?.datePrefix || 'Uploaded').trim() || 'Uploaded';
+    };
+
     const parseVideoCardDate = function (card) {
         const dateText = card.querySelector('.video-date')?.textContent || '';
-        const dateMatch = dateText.match(/Uploaded:\s*(.+)$/i);
+        const dateMatch = dateText.match(/^(?:Uploaded|Premiered):\s*(.+)$/i);
         if (!dateMatch) {
             return 0;
         }
@@ -2217,7 +2221,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     return;
                 }
 
-                dateLabel.textContent = `Uploaded: ${formattedDate}`;
+                dateLabel.textContent = `${getVideoDatePrefix(card)}: ${formattedDate}`;
                 sortVideoCardsByDate(videoSortSelect?.value || 'newest');
                 applyVideoSearchFilter();
             });
