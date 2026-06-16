@@ -1748,12 +1748,48 @@ a.cashapp-button {
     }
 
     .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
         justify-content: center;
+        width: 100%;
+        max-width: 28rem;
+        margin-inline: auto;
+        gap: 0.45rem;
+    }
+
+    .hero-actions .donate-button,
+    .hero-actions .prayer-button,
+    .hero-actions .cashapp-button {
+        width: 100%;
+        text-align: center;
+        min-height: 2.35rem;
+        padding: 0.62rem 0.9rem;
+        font-size: 0.8rem;
+        line-height: 1.18;
     }
 
     .hero-featured-video {
         max-width: 42rem;
         margin-inline: auto;
+    }
+
+    .focus-shell .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+        max-width: 28rem;
+        margin-inline: auto;
+        gap: 0.45rem;
+    }
+
+    .focus-shell .hero-actions .donate-button,
+    .focus-shell .hero-actions .prayer-button,
+    .focus-shell .hero-actions .cashapp-button {
+        width: 100%;
+        min-height: 2.35rem;
+        padding: 0.62rem 0.9rem;
+        font-size: 0.8rem;
+        line-height: 1.18;
     }
 
     .video-grid {
@@ -2001,8 +2037,8 @@ a.cashapp-button {
     .hero-actions {
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.5rem;
+        grid-template-columns: 1fr;
+        gap: 0.45rem;
         align-items: stretch;
     }
 
@@ -2011,9 +2047,9 @@ a.cashapp-button {
     .hero-actions .cashapp-button {
         width: 100%;
         text-align: center;
-        min-height: 2.2rem;
-        padding: 0.52rem 0.7rem;
-        font-size: 0.76rem;
+        min-height: 2.35rem;
+        padding: 0.62rem 0.9rem;
+        font-size: 0.8rem;
         line-height: 1.18;
     }
 
@@ -2254,9 +2290,11 @@ body.force-mobile-view .hero-text {
 body.force-mobile-view .hero-actions {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem;
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
     align-items: stretch;
+    max-width: 28rem;
+    margin-inline: auto;
 }
 
 body.force-mobile-view .hero-actions .donate-button,
@@ -2264,9 +2302,9 @@ body.force-mobile-view .hero-actions .prayer-button,
 body.force-mobile-view .hero-actions .cashapp-button {
     width: 100%;
     text-align: center;
-    min-height: 2.2rem;
-    padding: 0.52rem 0.7rem;
-    font-size: 0.76rem;
+    min-height: 2.35rem;
+    padding: 0.62rem 0.9rem;
+    font-size: 0.8rem;
     line-height: 1.18;
 }
 
