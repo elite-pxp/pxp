@@ -1277,6 +1277,48 @@ a.cashapp-button {
     line-height: 1;
 }
 
+.hero-fast-button {
+    position: relative;
+    isolation: isolate;
+    border: 1px solid rgba(218, 194, 113, 0.46);
+    box-shadow:
+        0 0 0 1px rgba(218, 194, 113, 0.1),
+        0 10px 24px rgba(49, 78, 40, 0.18);
+    overflow: hidden;
+}
+
+.hero-fast-button::after {
+    content: "";
+    position: absolute;
+    inset: -20% auto -20% -18%;
+    width: 42%;
+    background: linear-gradient(
+        90deg,
+        rgba(218, 194, 113, 0) 0%,
+        rgba(218, 194, 113, 0.12) 24%,
+        rgba(255, 231, 160, 0.75) 52%,
+        rgba(218, 194, 113, 0.18) 76%,
+        rgba(218, 194, 113, 0) 100%
+    );
+    filter: blur(7px);
+    transform: skewX(-18deg);
+    animation: fasting-button-glow 3.2s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes fasting-button-glow {
+    0%,
+    100% {
+        opacity: 0.55;
+        transform: translateX(0) skewX(-18deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(16%) skewX(-18deg);
+    }
+}
+
 .admin-overlay {
     position: fixed;
     inset: 0;
