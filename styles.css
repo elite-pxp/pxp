@@ -1685,29 +1685,39 @@ a.cashapp-button {
 }
 
 .free-journal-button {
-    animation: button-glow-pulse 1.35s ease-in-out infinite, free-journal-wiggle 2.2s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid rgba(218, 194, 113, 0.58);
+    background:
+        linear-gradient(180deg, rgba(49, 78, 40, 0.98), rgba(42, 68, 33, 0.98)) padding-box,
+        radial-gradient(120% 120% at 50% 120%, rgba(255, 219, 126, 0.72) 0%, rgba(255, 219, 126, 0.28) 24%, rgba(96, 164, 124, 0.24) 46%, rgba(96, 164, 124, 0) 72%) border-box;
+    background-clip: padding-box, border-box;
+    box-shadow:
+        0 0 0 1px rgba(96, 164, 124, 0.12),
+        0 10px 24px rgba(49, 78, 40, 0.18),
+        0 0 0 0 rgba(255, 219, 126, 0.08);
+    animation: free-journal-glow 2.8s ease-in-out infinite;
 }
 
 .free-journal-button::before {
     content: "📖 ";
 }
 
-@keyframes free-journal-wiggle {
+@keyframes free-journal-glow {
     0%,
     100% {
-        transform: translateX(0) rotate(0deg);
+        box-shadow:
+            0 0 0 1px rgba(96, 164, 124, 0.12),
+            0 10px 24px rgba(49, 78, 40, 0.18),
+            0 0 10px rgba(255, 219, 126, 0.12);
     }
-    20% {
-        transform: translateX(-1px) rotate(-1deg);
-    }
-    40% {
-        transform: translateX(2px) rotate(1deg);
-    }
-    60% {
-        transform: translateX(-2px) rotate(-1deg);
-    }
-    80% {
-        transform: translateX(1px) rotate(1deg);
+    50% {
+        box-shadow:
+            0 0 0 1px rgba(218, 194, 113, 0.24),
+            0 10px 24px rgba(49, 78, 40, 0.22),
+            0 0 22px rgba(255, 219, 126, 0.28),
+            0 0 18px rgba(96, 164, 124, 0.2);
     }
 }
 
