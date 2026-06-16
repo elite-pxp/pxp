@@ -2312,6 +2312,10 @@ body.force-mobile-view .hero-text {
     text-align: center;
 }
 
+body.force-mobile-view .focus-shell .nav-brand-name {
+    display: none;
+}
+
 body.force-mobile-view .hero-actions {
     width: 100%;
     display: grid;
