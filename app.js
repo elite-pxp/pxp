@@ -3,34 +3,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     const ADMIN_STORAGE_KEY = 'pxpAdminContent';
     const ADMIN_SESSION_KEY = 'pxpAdminUnlocked';
     const ADMIN_CONTENT_URL = './content/admin-content.json';
-    const CACHE_RESET_KEY = 'pxpCacheResetV1';
 
     if ('serviceWorker' in navigator) {
-        try {
-            if (!window.sessionStorage.getItem(CACHE_RESET_KEY)) {
-                const registrations = await navigator.serviceWorker.getRegistrations();
-                await Promise.all(registrations.map(function (registration) {
-                    return registration.unregister();
-                }));
-
-                if ('caches' in window) {
-                    const cacheKeys = await window.caches.keys();
-                    await Promise.all(cacheKeys.map(function (key) {
-                        return window.caches.delete(key);
-                    }));
-                }
-
-                window.sessionStorage.setItem(CACHE_RESET_KEY, '1');
-                window.location.reload();
-                return;
-            }
-
-            navigator.serviceWorker.register('./service-worker.js').catch(function (error) {
-                console.warn('Service worker registration failed:', error);
-            });
-        } catch (error) {
-            console.warn('Service worker cache reset failed:', error);
-        }
+        navigator.serviceWorker.register('./service-worker.js').catch(function (error) {
+            console.warn('Service worker registration failed:', error);
+        });
     }
 
     const currentUrl = new URL(window.location.href);
