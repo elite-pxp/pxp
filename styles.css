@@ -1872,11 +1872,16 @@ a.cashapp-button {
         gap: 0.7rem;
     }
 
+    .nav-shop {
+        margin-left: 0;
+    }
+
     .nav-brand {
         font-size: 0.96rem;
         letter-spacing: 0.01em;
         gap: 0.45rem;
         min-width: 0;
+        margin-right: auto;
     }
 
     .brand-icon {
