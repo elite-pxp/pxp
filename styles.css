@@ -1277,7 +1277,9 @@ a.cashapp-button {
 
 .play-button-link {
     position: relative;
-    width: 100%;
+    width: auto;
+    min-width: 15.5rem;
+    align-self: center;
     border: 1px solid rgba(218, 194, 113, 0.46);
     box-shadow:
         0 0 0 1px rgba(218, 194, 113, 0.12),
@@ -1845,6 +1847,8 @@ a.cashapp-button {
     }
 
     .play-button-link {
+        width: 100%;
+        min-width: 0;
         justify-content: center;
         gap: 0.48rem;
     }
