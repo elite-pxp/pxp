@@ -227,7 +227,7 @@ a.cashapp-button {
     display: flex;
     align-items: center;
     gap: 0.7rem;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     margin-top: 0.9rem;
 }
 
@@ -1226,7 +1226,7 @@ a.cashapp-button {
     display: inline-block;
     background: var(--black);
     color: white;
-    padding: 0.72rem 1.28rem;
+    padding: 0.68rem 1.02rem;
     border-radius: 8px;
     font-weight: 700;
     font-size: clamp(0.84rem, 0.16vw + 0.8rem, 0.92rem);
@@ -1234,7 +1234,8 @@ a.cashapp-button {
     letter-spacing: 0.012em;
     transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
     min-height: 2.5rem;
-    white-space: nowrap;
+    white-space: normal;
+    text-align: center;
 }
 
 .donate-button {
@@ -1695,6 +1696,24 @@ a.cashapp-button {
 }
 
 @media (max-width: 900px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        width: min(100%, 42rem);
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .hero-featured-video {
+        max-width: 42rem;
+        margin-inline: auto;
+    }
+
     .video-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
