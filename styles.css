@@ -1965,7 +1965,7 @@ a.cashapp-button {
     }
 
     .focus-shell .nav-brand-name {
-        max-width: 7.2rem;
+        display: none;
     }
 
     .focus-shell .hero-title {
