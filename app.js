@@ -17,6 +17,50 @@ document.addEventListener('DOMContentLoaded', async function () {
         document.body.classList.add('force-mobile-view');
     }
 
+    const preservePreviewParamsOnInternalLinks = function () {
+        const previewParams = [];
+        if (forceMobileView) {
+            previewParams.push(['mobile', '1']);
+        }
+        if (useLocalAdminOverrides) {
+            previewParams.push(['adminPreview', '1']);
+        }
+        if (!previewParams.length) {
+            return;
+        }
+
+        const links = Array.from(document.querySelectorAll('a[href]'));
+        links.forEach(function (link) {
+            const href = link.getAttribute('href');
+            if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) {
+                return;
+            }
+
+            let targetUrl;
+            try {
+                targetUrl = new URL(href, currentUrl.href);
+            } catch (error) {
+                return;
+            }
+
+            if (targetUrl.origin !== currentUrl.origin) {
+                return;
+            }
+
+            const isHtmlPage = targetUrl.pathname.endsWith('.html') || targetUrl.pathname.endsWith('/');
+            if (!isHtmlPage) {
+                return;
+            }
+
+            previewParams.forEach(function (entry) {
+                targetUrl.searchParams.set(entry[0], entry[1]);
+            });
+            link.href = targetUrl.pathname + targetUrl.search + targetUrl.hash;
+        });
+    };
+
+    preservePreviewParamsOnInternalLinks();
+
     const shareButton = document.querySelector('.nav-share-button');
     const prayerRequestTriggers = document.querySelectorAll('.prayer-request-trigger');
     const requestedPrayerPopupDelay = Number.parseInt(document.body.dataset.prayerPopupDelay || '', 10);
