@@ -70,10 +70,10 @@ body:has(iframe[id^="popup-Ed7R0udrrYcJrtyRNIZz"]) {
 .ep-overlay[id^="popup-Ed7R0udrrYcJrtyRNIZz"] iframe[id^="popup-Ed7R0udrrYcJrtyRNIZz"] {
     border-radius: 14px !important;
     box-shadow: 0 22px 70px rgba(18, 32, 15, 0.24) !important;
-    height: min(72vh, 560px) !important;
-    max-height: 560px !important;
-    max-width: 480px !important;
-    width: min(92vw, 480px) !important;
+    height: min(90vh, 900px) !important;
+    max-height: 900px !important;
+    max-width: 720px !important;
+    width: min(94vw, 720px) !important;
 }
 
 button,
