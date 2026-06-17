@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         iframe.setAttribute('data-layout-iframe-id', popupInstanceId);
         iframe.setAttribute('data-form-id', formId);
         iframe.title = 'Form - Get Your Free Restore Series Journal';
-        iframe.setAttribute('data-modal-height', '900');
+        iframe.setAttribute('data-modal-height', '560');
         document.body.appendChild(iframe);
 
         const script = document.createElement('script');

@@ -54,6 +54,28 @@ img {
     display: block;
 }
 
+body:has(iframe[id^="popup-Ed7R0udrrYcJrtyRNIZz"]) {
+    overflow: auto !important;
+}
+
+.ep-overlay[id^="popup-Ed7R0udrrYcJrtyRNIZz"] {
+    align-items: center !important;
+    background: rgba(49, 78, 40, 0.34) !important;
+    backdrop-filter: blur(3px);
+    display: flex !important;
+    justify-content: center !important;
+    padding: 1.5rem !important;
+}
+
+.ep-overlay[id^="popup-Ed7R0udrrYcJrtyRNIZz"] iframe[id^="popup-Ed7R0udrrYcJrtyRNIZz"] {
+    border-radius: 14px !important;
+    box-shadow: 0 22px 70px rgba(18, 32, 15, 0.24) !important;
+    height: min(72vh, 560px) !important;
+    max-height: 560px !important;
+    max-width: 480px !important;
+    width: min(92vw, 480px) !important;
+}
+
 button,
 a.button,
 a.download-button,
