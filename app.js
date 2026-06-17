@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const ADMIN_STORAGE_KEY = 'pxpAdminContent';
     const ADMIN_SESSION_KEY = 'pxpAdminUnlocked';
     const ADMIN_CONTENT_URL = './content/admin-content.json';
+    const FREE_JOURNAL_FORM_ID = 'Ed7R0udrrYcJrtyRNIZz';
 
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js').catch(function (error) {
@@ -375,8 +376,54 @@ document.addEventListener('DOMContentLoaded', async function () {
         document.body.appendChild(script);
     };
 
+    const cleanupClosedFreeJournalPopup = function () {
+        const popupBaseId = `popup-${FREE_JOURNAL_FORM_ID}`;
+        const now = Date.now();
+        document.querySelectorAll(`.ep-overlay[id^="${popupBaseId}"]`).forEach(function (overlay) {
+            if (!overlay.dataset.pxpJournalOverlaySeenAt) {
+                overlay.dataset.pxpJournalOverlaySeenAt = String(now);
+                return;
+            }
+
+            const overlayAgeMs = now - Number(overlay.dataset.pxpJournalOverlaySeenAt || now);
+            if (overlayAgeMs < 500) {
+                return;
+            }
+
+            const frame = overlay.querySelector(`iframe[id^="${popupBaseId}"]`);
+            const overlayStyle = window.getComputedStyle(overlay);
+            const frameStyle = frame ? window.getComputedStyle(frame) : null;
+            const frameRect = frame ? frame.getBoundingClientRect() : null;
+            const overlayIsHidden = overlay.hidden || overlayStyle.display === 'none' || overlayStyle.visibility === 'hidden' || overlayStyle.opacity === '0';
+            const frameIsHidden = !frame || frame.hidden || frameStyle?.display === 'none' || frameStyle?.visibility === 'hidden' || frameRect?.width === 0 || frameRect?.height === 0;
+
+            if (overlayIsHidden || frameIsHidden) {
+                overlay.remove();
+            }
+        });
+    };
+
+    const watchFreeJournalPopupCleanup = function () {
+        if (!document.body) {
+            return;
+        }
+
+        const observer = new MutationObserver(function () {
+            window.requestAnimationFrame(cleanupClosedFreeJournalPopup);
+        });
+        observer.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['aria-hidden', 'class', 'hidden', 'style'],
+            childList: true,
+            subtree: true,
+        });
+        window.addEventListener('message', function () {
+            window.setTimeout(cleanupClosedFreeJournalPopup, 100);
+        });
+    };
+
     const openFreeJournalPopup = function () {
-        const formId = 'Ed7R0udrrYcJrtyRNIZz';
+        const formId = FREE_JOURNAL_FORM_ID;
         const popupBaseId = `popup-${formId}`;
         const popupInstanceId = `${popupBaseId}-${Date.now()}`;
 
@@ -1366,6 +1413,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     await initializeAdminContent();
     applyAdminContent();
     attachSecretAdminTrigger();
+    watchFreeJournalPopupCleanup();
     prayerRequestTriggers.forEach(function (trigger) {
         trigger.addEventListener('click', function (event) {
             event.preventDefault();

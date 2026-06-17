@@ -61,7 +61,6 @@ body:has(iframe[id^="popup-Ed7R0udrrYcJrtyRNIZz"]) {
 .ep-overlay[id^="popup-Ed7R0udrrYcJrtyRNIZz"] {
     align-items: center !important;
     background: rgba(49, 78, 40, 0.34) !important;
-    backdrop-filter: blur(3px);
     display: flex !important;
     justify-content: center !important;
     padding: 1.5rem !important;

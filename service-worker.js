@@ -1,13 +1,13 @@
-const CACHE_VERSION = 'pxp-v65';
+const CACHE_VERSION = 'pxp-v66';
 const APP_SHELL_CACHE = `app-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 
 const APP_SHELL_FILES = [
   './',
   './index.html',
-  './styles.css?v=30',
+  './styles.css?v=31',
   './three-day-fasting-prayer.html',
-  './app.js?v=75',
+  './app.js?v=76',
   './site.webmanifest?v=4',
   './images/icons/favicon-32x32.png?v=3',
   './images/icons/apple-touch-icon.png?v=3',
