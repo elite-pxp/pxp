@@ -256,6 +256,23 @@ a.cashapp-button {
     margin-top: 0.9rem;
 }
 
+.hero:not(.focus-hero) .hero-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(100%, 31rem);
+    align-items: stretch;
+}
+
+.hero:not(.focus-hero) .hero-actions .donate-button,
+.hero:not(.focus-hero) .hero-actions .prayer-request-trigger,
+.hero:not(.focus-hero) .hero-actions .cashapp-button {
+    width: 100%;
+    min-height: 3rem;
+    height: 3rem;
+    padding: 0.58rem 0.78rem;
+    line-height: 1.12;
+}
+
 .hero-featured-video {
     width: 100%;
     max-width: 34rem;
@@ -1498,11 +1515,14 @@ a.cashapp-button {
 
 .play-button-link {
     position: relative;
-    width: auto;
-    min-width: 14rem;
-    max-width: 18rem;
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
     align-self: center;
     justify-self: center;
+    overflow: hidden;
+    isolation: isolate;
     border: 1px solid rgba(218, 194, 113, 0.46);
     box-shadow:
         0 0 0 1px rgba(218, 194, 113, 0.12),
@@ -1511,6 +1531,20 @@ a.cashapp-button {
     animation: watch-fast-gold-glow 2.8s ease-in-out infinite;
     white-space: normal;
     text-align: center;
+    font-size: clamp(0.98rem, 0.35vw + 0.94rem, 1.08rem);
+    min-height: 3rem;
+}
+
+.play-button-link::after {
+    content: "";
+    position: absolute;
+    inset: -45% auto -45% -35%;
+    z-index: 1;
+    width: 34%;
+    transform: rotate(18deg);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.46), transparent);
+    animation: watch-fast-shine 2.25s ease-in-out infinite;
+    pointer-events: none;
 }
 
 .cashapp-button {
@@ -1977,6 +2011,24 @@ a.cashapp-button {
             0 10px 24px rgba(49, 78, 40, 0.22),
             0 0 22px rgba(255, 219, 126, 0.28),
             0 0 18px rgba(96, 164, 124, 0.2);
+    }
+}
+
+@keyframes watch-fast-shine {
+    0% {
+        left: -40%;
+        opacity: 0;
+    }
+    18% {
+        opacity: 1;
+    }
+    52% {
+        left: 112%;
+        opacity: 0.85;
+    }
+    100% {
+        left: 112%;
+        opacity: 0;
     }
 }
 
@@ -2793,4 +2845,29 @@ body.force-mobile-view .rss-strip {
     width: auto;
     padding: 0.42rem 0.52rem;
     gap: 0.45rem;
+}
+
+.hero:not(.focus-hero) .hero-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(100%, 31rem);
+}
+
+.hero:not(.focus-hero) .play-button-link {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    min-height: 3.25rem;
+    height: 3.25rem;
+    padding: 0.72rem 1rem;
+    line-height: 1.1;
+}
+
+@media (max-width: 560px) {
+    .hero:not(.focus-hero) .hero-actions,
+    body.force-mobile-view .hero:not(.focus-hero) .hero-actions {
+        grid-template-columns: 1fr;
+        max-width: 28rem;
+    }
 }
