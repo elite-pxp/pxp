@@ -63,10 +63,17 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const shareButton = document.querySelector('.nav-share-button');
     const prayerRequestTriggers = document.querySelectorAll('.prayer-request-trigger');
+    const disableAutoPrayerPopup = document.body.dataset.disablePrayerPopupAuto === 'true';
     const requestedPrayerPopupDelay = Number.parseInt(document.body.dataset.prayerPopupDelay || '', 10);
-    const AUTO_PRAYER_POPUP_DELAY_MS = Number.isFinite(requestedPrayerPopupDelay) && requestedPrayerPopupDelay >= 0
-        ? requestedPrayerPopupDelay
-        : 20000;
+    const AUTO_PRAYER_POPUP_DELAY_MS = disableAutoPrayerPopup
+        ? null
+        : Number.isFinite(requestedPrayerPopupDelay) && requestedPrayerPopupDelay >= 0
+            ? requestedPrayerPopupDelay
+            : 20000;
+    const requestedFreeJournalPopupDelay = Number.parseInt(document.body.dataset.freeJournalPopupDelay || '', 10);
+    const AUTO_FREE_JOURNAL_POPUP_DELAY_MS = Number.isFinite(requestedFreeJournalPopupDelay) && requestedFreeJournalPopupDelay >= 0
+        ? requestedFreeJournalPopupDelay
+        : null;
     const mobileButtonLabelMediaQuery = window.matchMedia('(max-width: 560px)');
     let videoCards = Array.from(document.querySelectorAll('.video-card'));
     const videosContainer = document.querySelector('.videos-container');
@@ -363,6 +370,65 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         const script = document.createElement('script');
         script.id = 'pxp-prayer-popup-script';
+        script.src = `https://link.poweredxprayers.com/js/form_embed.js?v=${Date.now()}`;
+        script.async = true;
+        document.body.appendChild(script);
+    };
+
+    const openFreeJournalPopup = function () {
+        const formId = 'Ed7R0udrrYcJrtyRNIZz';
+        const popupBaseId = `popup-${formId}`;
+        const popupInstanceId = `${popupBaseId}-${Date.now()}`;
+
+        Array.from(document.querySelectorAll(`iframe[id^="${popupBaseId}"]`)).forEach(function (frame) {
+            frame.remove();
+        });
+
+        const existingScript = document.getElementById('pxp-free-journal-popup-script');
+        if (existingScript) {
+            existingScript.remove();
+        }
+
+        try {
+            Object.keys(window.localStorage).forEach(function (key) {
+                if (key.includes(formId) || key.includes(popupBaseId)) {
+                    window.localStorage.removeItem(key);
+                }
+            });
+            Object.keys(window.sessionStorage).forEach(function (key) {
+                if (key.includes(formId) || key.includes(popupBaseId)) {
+                    window.sessionStorage.removeItem(key);
+                }
+            });
+        } catch (error) {
+            // Ignore storage cleanup errors in restricted contexts.
+        }
+
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://link.poweredxprayers.com/widget/form/Ed7R0udrrYcJrtyRNIZz';
+        iframe.style.display = 'none';
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        iframe.style.borderRadius = '3px';
+        iframe.id = popupInstanceId;
+        iframe.setAttribute('data-layout', "{'id':'POPUP'}");
+        iframe.setAttribute('data-trigger-type', 'alwaysShow');
+        iframe.setAttribute('data-trigger-value', '');
+        iframe.setAttribute('data-activation-type', 'alwaysActivated');
+        iframe.setAttribute('data-activation-value', '');
+        iframe.setAttribute('data-deactivation-type', 'neverDeactivate');
+        iframe.setAttribute('data-deactivation-value', '');
+        iframe.setAttribute('data-form-name', 'Form - Get Your Free Restore Series Journal');
+        iframe.setAttribute('data-height', 'undefined');
+        iframe.setAttribute('data-layout-iframe-id', popupInstanceId);
+        iframe.setAttribute('data-form-id', formId);
+        iframe.title = 'Form - Get Your Free Restore Series Journal';
+        iframe.setAttribute('data-modal-height', '900');
+        document.body.appendChild(iframe);
+
+        const script = document.createElement('script');
+        script.id = 'pxp-free-journal-popup-script';
         script.src = `https://link.poweredxprayers.com/js/form_embed.js?v=${Date.now()}`;
         script.async = true;
         document.body.appendChild(script);
@@ -1307,9 +1373,24 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     });
 
-    window.setTimeout(function () {
-        autoOpenPrayerRequestPopup();
-    }, AUTO_PRAYER_POPUP_DELAY_MS);
+    document.querySelectorAll('.free-journal-popup-trigger, .focus-hero-book-link').forEach(function (trigger) {
+        trigger.addEventListener('click', function (event) {
+            event.preventDefault();
+            openFreeJournalPopup();
+        });
+    });
+
+    if (AUTO_FREE_JOURNAL_POPUP_DELAY_MS !== null) {
+        window.setTimeout(function () {
+            openFreeJournalPopup();
+        }, AUTO_FREE_JOURNAL_POPUP_DELAY_MS);
+    }
+
+    if (AUTO_PRAYER_POPUP_DELAY_MS !== null) {
+        window.setTimeout(function () {
+            autoOpenPrayerRequestPopup();
+        }, AUTO_PRAYER_POPUP_DELAY_MS);
+    }
 
     const setShareButtonFeedback = function (message, timeoutMs) {
         if (!shareButton) {
