@@ -1373,11 +1373,21 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     });
 
-    document.querySelectorAll('.free-journal-popup-trigger, .focus-hero-book-link').forEach(function (trigger) {
-        trigger.addEventListener('click', function (event) {
-            event.preventDefault();
-            openFreeJournalPopup();
-        });
+    const freeJournalPopupSelector = '.free-journal-popup-trigger, .focus-hero-book-link';
+    document.querySelectorAll(freeJournalPopupSelector).forEach(function (trigger) {
+        trigger.setAttribute('href', '#');
+        trigger.removeAttribute('target');
+        trigger.removeAttribute('rel');
+    });
+
+    document.addEventListener('click', function (event) {
+        const trigger = event.target.closest(freeJournalPopupSelector);
+        if (!trigger) {
+            return;
+        }
+
+        event.preventDefault();
+        openFreeJournalPopup();
     });
 
     if (AUTO_FREE_JOURNAL_POPUP_DELAY_MS !== null) {
