@@ -107,8 +107,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         QogDKTsxzUk: 'https://drive.google.com/file/d/1-V2vcY8TrdoinGM1pGhoS8S35_gv4jUL/view?usp=sharing',
         blfU1dO9p94: 'https://drive.google.com/file/d/1WE4GbXCxkfpFxXlmAYxyjxc6-EElXz7D/view?usp=drive_link',
     };
-    const unavailableStudyNotesYouTubeIds = new Set(['9lBcgWMiE7g']);
-    const unavailableStudyNotesLabel = 'Study Notes Not Available';
+    const unavailableStudyNotesYouTubeIds = new Set(['9lBcgWMiE7g', 'v-QutT_sr9k']);
     const uploadDateLabelsByYouTubeId = {
         '-O99Y4kILG8': 'Uploaded: January 6, 2026',
         '1oi5xAgYyu4': 'Uploaded: January 13, 2026',
@@ -1726,6 +1725,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         button.dataset.studyNotesModalDownloadLabel = 'Download';
         button.dataset.studyNotesShouldDownload = shouldDownload ? 'true' : 'false';
         button.dataset.studyNotesFileName = `${videoId}-study-notes.pdf`;
+        delete button.dataset.studyNotesDisabled;
+        delete button.dataset.studyNotesUnavailable;
+        delete button.dataset.studyNotesUnavailableClicked;
         button.removeAttribute('download');
         button.removeAttribute('target');
         button.removeAttribute('rel');
@@ -1736,9 +1738,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         button.removeAttribute('download');
         button.removeAttribute('target');
         button.removeAttribute('rel');
-        button.dataset.studyNotesUnavailable = 'true';
+        button.dataset.studyNotesDisabled = 'true';
+        delete button.dataset.studyNotesUnavailable;
         delete button.dataset.studyNotesDownloadUrl;
         delete button.dataset.studyNotesPreviewUrl;
+        delete button.dataset.studyNotesUnavailableClicked;
     };
 
     const getEmbeddedYouTubeVideoId = function (card) {
@@ -1805,11 +1809,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         const label = useCompactLabel ? 'Study Notes' : 'Download Study Notes';
         document.querySelectorAll('.download-button').forEach(function (button) {
             if (button.dataset.adminLabel === 'true') {
-                return;
-            }
-
-            if (button.dataset.studyNotesUnavailableClicked === 'true') {
-                button.textContent = unavailableStudyNotesLabel;
                 return;
             }
 
@@ -2428,12 +2427,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         if (studyNotesUnavailable && !hasCustomAdminStudyNotesLink) {
             syncUnavailableStudyNotesButton(button);
-
-            button.addEventListener('click', function (event) {
-                event.preventDefault();
-                button.dataset.studyNotesUnavailableClicked = 'true';
-                button.textContent = unavailableStudyNotesLabel;
-            });
             return;
         }
 
@@ -2454,7 +2447,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     document.addEventListener('click', function (event) {
         const button = event.target.closest('.download-button');
-        if (!button || button.dataset.studyNotesUnavailable === 'true') {
+        if (!button) {
             return;
         }
         if (button.dataset.studyNotesDisabled === 'true') {
