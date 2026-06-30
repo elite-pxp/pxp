@@ -105,10 +105,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         'Vz-MnpmWfl8': 'https://drive.google.com/file/d/1_FjV8gHA8wT3PuarWWfvSWhPb7NnxdPi/view?usp=sharing',
         VZygVRaDCUI: 'https://drive.google.com/file/d/1AU4r3qAmzNDas3B6ZSVmHToU1VKnQ7a8/view?usp=sharing',
         QogDKTsxzUk: 'https://drive.google.com/file/d/1-V2vcY8TrdoinGM1pGhoS8S35_gv4jUL/view?usp=sharing',
-        '9lBcgWMiE7g': 'https://drive.google.com/file/d/1-V2vcY8TrdoinGM1pGhoS8S35_gv4jUL/view?usp=drive_link',
-        blfU1dO9p94: 'https://drive.google.com/file/d/1-V2vcY8TrdoinGM1pGhoS8S35_gv4jUL/view?usp=drive_link',
+        blfU1dO9p94: 'https://drive.google.com/file/d/1WE4GbXCxkfpFxXlmAYxyjxc6-EElXz7D/view?usp=drive_link',
     };
-    const unavailableStudyNotesYouTubeIds = new Set([]);
+    const unavailableStudyNotesYouTubeIds = new Set(['9lBcgWMiE7g']);
     const unavailableStudyNotesLabel = 'Study Notes Not Available';
     const uploadDateLabelsByYouTubeId = {
         '-O99Y4kILG8': 'Uploaded: January 6, 2026',
