@@ -2193,11 +2193,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         if (heroUploadsPlaylistId) {
-            heroFeaturedMedia.innerHTML = `<iframe width="100%" height="300" src="https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(heroUploadsPlaylistId)}" title="Latest uploads from PoweredXPrayers" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            heroFeaturedMedia.innerHTML = `<iframe width="100%" height="300" src="https://www.youtube.com/embed/O6oe-i_SrSo" title="PoweredXPrayers live stream" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             heroFeaturedIframe = heroFeaturedMedia.querySelector('iframe');
         }
         if (heroFeaturedDate) {
-            heroFeaturedDate.textContent = 'Latest uploads from PoweredXPrayers';
+            heroFeaturedDate.textContent = 'PoweredXPrayers live stream';
         }
     };
 
