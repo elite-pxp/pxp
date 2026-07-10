@@ -2684,6 +2684,16 @@ a.cashapp-button {
     }
 }
 
+@media (max-width: 460px) {
+    .nav-external-shop {
+        display: none;
+    }
+
+    .nav-brand-name {
+        display: none;
+    }
+}
+
 @media (max-width: 400px) {
     .video-grid {
         grid-template-columns: 1fr;

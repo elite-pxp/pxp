@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1f14">
+<link rel="icon" type="image/png" sizes="32x32" href="./images/icons/favicon-32x32.png?v=3">
+<link rel="apple-touch-icon" sizes="180x180" href="./images/icons/apple-touch-icon.png?v=3">
+<link rel="manifest" href="./site.webmanifest?v=4">
+<title>Cultivate Your Eden | Powered by Prayer</title>
+<style>
+  :root{
+    --navy:#0f1a2b;
+    --navy-2:#16233a;
+    --forest:#0d1f14;
+    --forest-2:#12301c;
+    --gold:#c9a227;
+    --gold-light:#e8d28a;
+    --cream:#f4efe1;
+    --crimson:#7a1f2e;
+    --crimson-light:#a8384a;
+    --leaf:#4a7a4f;
+    --ink:#e9e4d4;
+    --muted:#a9a598;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #1a2e22 0%, transparent 60%),
+      linear-gradient(180deg,var(--forest) 0%, var(--navy) 55%, var(--forest) 100%);
+    color:var(--ink);
+    font-family: 'Iowan Old Style','Palatino Linotype',Georgia,serif;
+    min-height:100vh;
+    padding:0 0 60px 0;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 0;}
+
+  .page-nav{
+    max-width:640px;margin:0 auto;padding:16px 18px 0;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+  }
+  .home-link{
+    display:inline-flex;align-items:center;gap:7px;color:var(--gold-light);
+    font-size:12px;font-weight:600;letter-spacing:.8px;text-decoration:none;
+    text-transform:uppercase;padding:8px 11px;border-radius:999px;
+    border:1px solid rgba(201,162,39,.28);background:rgba(255,255,255,.025);
+    transition:border-color .2s ease,background .2s ease,color .2s ease;
+  }
+  .home-link:hover,.home-link:focus-visible{
+    color:var(--cream);border-color:rgba(201,162,39,.65);background:rgba(201,162,39,.08);
+  }
+  .home-link:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+  .page-brand{color:var(--muted);font-size:11px;letter-spacing:1px;text-transform:uppercase;}
+
+  /* Header */
+  .crown{font-size:30px;text-align:center;letter-spacing:2px;filter:drop-shadow(0 0 8px rgba(201,162,39,.5));}
+  h1{
+    text-align:center;font-size:34px;letter-spacing:3px;margin:6px 0 2px;
+    background:linear-gradient(180deg,#f3e3a8,var(--gold) 55%,#8a6c14);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 1px 0 rgba(0,0,0,.3);
+    font-weight:700;
+  }
+  .kicker{text-align:center;color:var(--gold-light);letter-spacing:4px;font-size:12px;text-transform:uppercase;margin-bottom:14px;font-family:Georgia,serif;}
+  .tagline{text-align:center;font-style:italic;color:var(--ink);font-size:15px;line-height:1.5;margin:10px auto 4px;max-width:420px;}
+  .tagline b{color:var(--gold);font-style:normal;letter-spacing:.5px;}
+  .verse{text-align:center;color:var(--muted);font-size:12.5px;margin-bottom:20px;letter-spacing:.3px;}
+
+  /* Stats bar */
+  .stats{
+    display:flex;gap:10px;background:rgba(255,255,255,.03);
+    border:1px solid rgba(201,162,39,.25);border-radius:14px;
+    padding:14px 10px;margin-bottom:20px;
+  }
+  .stat{flex:1;text-align:center;}
+  .stat .num{font-size:22px;color:var(--gold);font-weight:700;}
+  .stat .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:2px;}
+  .dots{display:flex;justify-content:center;gap:5px;margin-top:6px;}
+  .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);}
+  .dot.on{background:var(--gold);box-shadow:0 0 6px rgba(201,162,39,.7);}
+
+  .overall{margin-bottom:22px;}
+  .overall-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+  .overall-top span{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+  .overall-top strong{color:var(--gold-light);font-size:13px;font-family:'Helvetica Neue',Arial,sans-serif;}
+  .bar-track{height:8px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--leaf),var(--gold));border-radius:5px;transition:width .4s ease;}
+
+  /* Category card */
+  .cat{
+    border:1px solid rgba(201,162,39,.3);
+    border-radius:16px;overflow:hidden;margin-bottom:14px;
+    background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.01));
+  }
+  .cat-head{
+    display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;
+    user-select:none;
+  }
+  .cat-icon{font-size:22px;width:32px;text-align:center;}
+  .cat-title{flex:1;}
+  .cat-title .name{font-size:17px;color:var(--gold-light);letter-spacing:.5px;}
+  .cat-title .anti{font-size:10.5px;color:var(--crimson-light);text-transform:uppercase;letter-spacing:1.2px;font-family:'Helvetica Neue',Arial,sans-serif;margin-top:1px;}
+  .cat-progress{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:var(--muted);white-space:nowrap;}
+  .chev{color:var(--gold);transition:transform .25s ease;font-size:14px;}
+  .cat.open .chev{transform:rotate(90deg);}
+
+  .cat-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .cat.open .cat-body{max-height:1400px;}
+  .cat-inner{padding:2px 16px 16px;}
+  .verse-line{font-size:12.5px;font-style:italic;color:var(--muted);border-left:2px solid var(--gold);padding-left:10px;margin:0 0 14px;}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media (max-width:480px){.cols{grid-template-columns:1fr;}}
+
+  .col h4{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+    margin:0 0 8px;display:flex;align-items:center;gap:6px;
+  }
+  .col.cultivate h4{color:var(--leaf);}
+  .col.uproot h4{color:var(--crimson-light);}
+
+  .item{
+    display:flex;align-items:flex-start;gap:9px;padding:7px 0;cursor:pointer;
+    font-size:14px;line-height:1.35;
+  }
+  .box{
+    width:17px;height:17px;min-width:17px;border-radius:5px;margin-top:1px;
+    border:1.5px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;
+    transition:all .2s ease;
+  }
+  .col.cultivate .box{border-color:rgba(74,122,79,.6);}
+  .col.uproot .box{border-color:rgba(168,56,74,.6);}
+  .item.checked .box{background:var(--leaf);border-color:var(--leaf);}
+  .col.uproot .item.checked .box{background:var(--crimson-light);border-color:var(--crimson-light);}
+  .box svg{width:11px;height:11px;opacity:0;transform:scale(.5);transition:all .15s ease;}
+  .item.checked .box svg{opacity:1;transform:scale(1);}
+  .item span.txt{color:var(--ink);opacity:.92;}
+  .item.checked span.txt{opacity:.55;text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3);}
+
+  .uproot-note{font-size:10.5px;color:var(--muted);font-family:'Helvetica Neue',Arial,sans-serif;margin:8px 0 0;font-style:italic;}
+
+  /* Reflection */
+  .reflect{
+    border:1px solid rgba(201,162,39,.3);border-radius:16px;padding:18px 16px;margin:22px 0 14px;
+    background:rgba(255,255,255,.02);
+  }
+  .reflect h3{margin:0 0 4px;color:var(--gold-light);font-size:15px;letter-spacing:.5px;}
+  .reflect p.sub{font-size:12.5px;color:var(--muted);margin:0 0 12px;font-style:italic;}
+  textarea{
+    width:100%;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.15);
+    border-radius:10px;color:var(--ink);padding:10px 12px;font-family:inherit;font-size:14px;
+    resize:vertical;min-height:56px;
+  }
+  textarea:focus{outline:none;border-color:var(--gold);}
+  label.fieldlabel{display:block;font-family:'Helvetica Neue',Arial,sans-serif;font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:14px 0 6px;}
+  label.fieldlabel:first-of-type{margin-top:0;}
+
+  /* Declaration */
+  .decl{
+    text-align:center;padding:22px 18px;border-radius:16px;margin:22px 0 10px;
+    background:linear-gradient(180deg,var(--crimson),#5a1621);
+    border:1px solid rgba(201,162,39,.4);
+  }
+  .decl p{font-style:italic;color:var(--cream);font-size:14.5px;line-height:1.6;margin:0;}
+
+  .footer-row{display:flex;justify-content:center;gap:12px;margin-top:18px;}
+  button.reset{
+    background:transparent;border:1px solid rgba(255,255,255,.25);color:var(--muted);
+    font-family:'Helvetica Neue',Arial,sans-serif;font-size:11.5px;letter-spacing:1px;
+    padding:9px 16px;border-radius:20px;cursor:pointer;transition:all .2s ease;text-transform:uppercase;
+  }
+  button.reset:hover{border-color:var(--crimson-light);color:var(--crimson-light);}
+  button.reset.confirming{border-color:var(--crimson-light);color:var(--crimson-light);background:rgba(122,31,46,.15);}
+
+  .saved-flag{
+    position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--gold);color:#241b02;font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:12px;font-weight:600;padding:8px 16px;border-radius:20px;
+    opacity:0;transition:all .3s ease;pointer-events:none;letter-spacing:.5px;
+  }
+  .saved-flag.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  .date-pill{
+    text-align:center;font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;
+    color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;
+  }
+</style>
+</head>
+<body>
+<nav class="page-nav" aria-label="Page navigation">
+  <a class="home-link" href="./index.html" aria-label="Back to Powered by Prayer home">
+    <span aria-hidden="true">&#8592;</span>
+    <span>Home</span>
+  </a>
+  <span class="page-brand">Powered by Prayer</span>
+</nav>
+<div class="wrap">
+  <div class="crown">&#9819;</div>
+  <h1>Cultivate Your Eden</h1>
+  <div class="kicker">Reign Series &middot; The Garden</div>
+  <p class="tagline">We don't just visit His presence&hellip; <b>we reign from it.</b></p>
+  <p class="verse">"In Your presence is fullness of joy; at Your right hand are pleasures forevermore." — Psalm 16:11</p>
+
+  <div class="date-pill" id="datePill"></div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="num" id="streakNum">0</div>
+      <div class="lbl">Day Streak</div>
+    </div>
+    <div class="stat">
+      <div class="num" id="todayNum">0</div>
+      <div class="lbl">Today</div>
+    </div>
+    <div class="stat">
+      <div class="lbl" style="margin-bottom:6px;">Last 7 Days</div>
+      <div class="dots" id="weekDots"></div>
+    </div>
+  </div>
+
+  <div class="overall">
+    <div class="overall-top"><span>Today's Cultivation</span><strong id="overallText">0 / 0</strong></div>
+    <div class="bar-track"><div class="bar-fill" id="overallBar" style="width:0%"></div></div>
+  </div>
+
+  <div id="categories"></div>
+
+  <div class="reflect">
+    <h3>Reflection for Today</h3>
+    <p class="sub">What am I waiting to see before I say thank you? What "how" have I been carrying that was never mine to carry?</p>
+    <label class="fieldlabel">Reflection</label>
+    <textarea id="reflection" placeholder="Write a line or two..."></textarea>
+    <label class="fieldlabel">This week I will&hellip;</label>
+    <textarea id="commitment" placeholder="One concrete action..."></textarea>
+  </div>
+
+  <div class="decl">
+    <p>"I am planted by the river. I cultivate what's in my hand instead of despising it.<br>I release what doesn't belong in my garden. I reign from His presence, not toward it.<br>In Jesus' name, Amen."</p>
+  </div>
+
+  <div class="footer-row">
+    <button class="reset" id="resetBtn">Reset Today</button>
+  </div>
+</div>
+
+<div class="saved-flag" id="savedFlag">Saved</div>
+
+<script>
+const DATA = [
+  { key:'presence', name:"God's Presence", anti:'Spiritual Distractions', icon:'&#9813;',
+    verse:'"In Your presence is fullness of joy." — Psalm 16:11',
+    cultivate:['Begin your day with God','Create a daily prayer rhythm','Worship before you worry','Make room to hear God','Remain connected to the Source'],
+    uproot:['Starting the day consumed by your phone','Visiting God only during a crisis','Allowing busyness to replace intimacy','Rushing out of His presence','Trying to produce without God'] },
+  { key:'garden', name:'Your Garden', anti:'Garden Destroyers', icon:'&#127795;',
+    verse:'"Above all else, guard your heart, for everything you do flows from it." — Proverbs 4:23',
+    cultivate:['Guard your heart','Protect your peace','Water the Word daily','Cultivate gratitude','Remove unhealthy weeds','Be intentional about your environment'],
+    uproot:['Bitterness and unforgiveness','Entertaining confusion','Feeding fear and negativity','Constant complaining','Ignoring unhealthy patterns','Allowing everyone access to your garden'] },
+  { key:'words', name:'Your Words', anti:'Corrupt Seeds', icon:'&#128264;',
+    verse:'"The tongue has the power of life and death." — Proverbs 18:21',
+    cultivate:['Speak life','Declare God\u2019s promises','Speak with faith','Encourage others','Praise before you see it'],
+    uproot:['Speaking death over yourself','Rehearsing the problem repeatedly','Agreeing with fear','Gossip and harmful conversations','Complaining while you wait'] },
+  { key:'authority', name:'Kingdom Authority', anti:'Shrinking Back', icon:'&#128737;',
+    verse:'"I have given you authority... nothing will harm you." — Luke 10:19',
+    cultivate:['Know who you are in Christ','Walk in humility and boldness','Use your authority through prayer','Obey God with confidence','Take responsibility for your territory'],
+    uproot:['Questioning what God has already spoken','Confusing humility with hiding','Giving fear authority over your decisions','Delayed obedience','Waiting for someone else to cultivate it'] },
+  { key:'faith', name:'Faith & Fruitfulness', anti:'Forcing the Harvest', icon:'&#127815;',
+    verse:'"Though the fig tree does not bud... yet I will rejoice." — Habakkuk 3:17\u201318',
+    cultivate:['Trust God with the "how"','Stay planted','Give thanks while you wait','Rejoice before manifestation','Expect fruit in God\u2019s timing'],
+    uproot:['Trying to control every outcome','Moving because growth feels slow','Complaining because you cannot see fruit','Depending only on physical evidence','Comparing your garden to someone else\u2019s'] },
+  { key:'river', name:'The River', anti:'Spiritual Dryness', icon:'&#128167;',
+    verse:'"Rivers of living water will flow from within." — John 7:38',
+    cultivate:['Stay connected to Living Water','Allow God to refresh you','Let His presence flow through you','Carry life wherever you go','Trust the Source — not just the resource'],
+    uproot:['Pouring from an empty place','Refusing to rest','Becoming a reservoir with no outflow','Allowing circumstances to stop your flow','Depending on people more than God'] },
+];
+
+const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+function todayStr(){
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function dateKey(d){
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function fmtDisplay(){
+  const d = new Date();
+  return d.toLocaleDateString('en-US',{weekday:'long', month:'long', day:'numeric'});
+}
+
+let state = { checks:{}, reflection:'', commitment:'' };
+let totalItems = 0;
+DATA.forEach(c => totalItems += c.cultivate.length + c.uproot.length);
+const STORAGE_PREFIX = 'pxp-eden:';
+
+function readSavedDay(key){
+  const value = window.localStorage.getItem(STORAGE_PREFIX + key);
+  return value ? JSON.parse(value) : null;
+}
+
+function writeSavedDay(key, value){
+  window.localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(value));
+}
+
+function showSaved(){
+  const f = document.getElementById('savedFlag');
+  f.classList.add('show');
+  clearTimeout(showSaved._t);
+  showSaved._t = setTimeout(()=>f.classList.remove('show'), 900);
+}
+
+async function loadToday(){
+  try{
+    const parsed = readSavedDay('checkin:'+todayStr());
+    if(parsed){
+      state = { checks: parsed.checks||{}, reflection: parsed.reflection||'', commitment: parsed.commitment||'' };
+    }
+  }catch(e){ /* no entry yet for today */ }
+  document.getElementById('reflection').value = state.reflection;
+  document.getElementById('commitment').value = state.commitment;
+}
+
+async function saveToday(){
+  try{
+    writeSavedDay('checkin:'+todayStr(), state);
+    showSaved();
+  }catch(e){ console.error('Storage error', e); }
+}
+
+function render(){
+  const wrap = document.getElementById('categories');
+  wrap.innerHTML = '';
+  let todayChecked = 0;
+
+  DATA.forEach((cat, ci) => {
+    const catTotal = cat.cultivate.length + cat.uproot.length;
+    let catChecked = 0;
+    cat.cultivate.forEach((_,i)=>{ if(state.checks[cat.key+'-c-'+i]) catChecked++; });
+    cat.uproot.forEach((_,i)=>{ if(state.checks[cat.key+'-u-'+i]) catChecked++; });
+    todayChecked += catChecked;
+
+    const el = document.createElement('div');
+    el.className = 'cat' + (ci===0 ? ' open' : '');
+    el.innerHTML = `
+      <div class="cat-head" data-toggle="${cat.key}">
+        <div class="cat-icon">${cat.icon}</div>
+        <div class="cat-title">
+          <div class="name">${cat.name}</div>
+          <div class="anti">vs. ${cat.anti}</div>
+        </div>
+        <div class="cat-progress">${catChecked}/${catTotal}</div>
+        <div class="chev">&#10148;</div>
+      </div>
+      <div class="cat-body">
+        <div class="cat-inner">
+          <p class="verse-line">${cat.verse}</p>
+          <div class="cols">
+            <div class="col cultivate">
+              <h4>&#10003; Cultivate</h4>
+              ${cat.cultivate.map((t,i)=>itemHtml(cat.key,'c',i,t)).join('')}
+            </div>
+            <div class="col uproot">
+              <h4>&#10005; Uproot</h4>
+              ${cat.uproot.map((t,i)=>itemHtml(cat.key,'u',i,t)).join('')}
+              <p class="uproot-note">Check it when you catch it and let it go — that's a win, not a failure.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    wrap.appendChild(el);
+  });
+
+  // stats
+  document.getElementById('todayNum').textContent = todayChecked;
+  document.getElementById('overallText').textContent = todayChecked + ' / ' + totalItems;
+  document.getElementById('overallBar').style.width = Math.round((todayChecked/totalItems)*100) + '%';
+
+  // bind toggles
+  wrap.querySelectorAll('.cat-head').forEach(h=>{
+    h.addEventListener('click', ()=>{
+      h.closest('.cat').classList.toggle('open');
+    });
+  });
+  wrap.querySelectorAll('.item').forEach(it=>{
+    it.addEventListener('click', (e)=>{
+      const id = it.getAttribute('data-id');
+      state.checks[id] = !state.checks[id];
+      saveToday();
+      render();
+      // keep the same category open after re-render
+      const catKey = id.split('-')[0];
+      const catEl = [...document.querySelectorAll('.cat-head')].find(h=>h.dataset.toggle===catKey);
+      if(catEl) catEl.closest('.cat').classList.add('open');
+    });
+  });
+}
+
+function itemHtml(catKey, kind, idx, text){
+  const id = catKey+'-'+kind+'-'+idx;
+  const checked = !!state.checks[id];
+  return `<div class="item ${checked?'checked':''}" data-id="${id}">
+      <div class="box">${CHECK_SVG}</div>
+      <span class="txt">${text}</span>
+    </div>`;
+}
+
+async function computeStreakAndWeek(){
+  const dots = document.getElementById('weekDots');
+  dots.innerHTML = '';
+  let streak = 0;
+  let streakBroken = false;
+  const dayResults = [];
+
+  for(let i=0;i<7;i++){
+    const d = new Date();
+    d.setDate(d.getDate()-i);
+    const key = 'checkin:'+dateKey(d);
+    let hasActivity = false;
+    try{
+      const parsed = readSavedDay(key);
+      if(parsed){
+        const anyChecked = parsed.checks && Object.values(parsed.checks).some(v=>v);
+        hasActivity = !!anyChecked;
+      }
+    }catch(e){ hasActivity = false; }
+    dayResults.push(hasActivity);
+    if(!streakBroken){
+      if(hasActivity){ streak++; } else { streakBroken = true; }
+    }
+  }
+  // render dots oldest->newest (reverse dayResults which is newest->oldest)
+  dayResults.slice().reverse().forEach(has=>{
+    const d = document.createElement('div');
+    d.className = 'dot' + (has ? ' on' : '');
+    dots.appendChild(d);
+  });
+  document.getElementById('streakNum').textContent = streak;
+}
+
+document.getElementById('reflection').addEventListener('input', (e)=>{
+  state.reflection = e.target.value;
+});
+document.getElementById('reflection').addEventListener('blur', saveToday);
+document.getElementById('commitment').addEventListener('input', (e)=>{
+  state.commitment = e.target.value;
+});
+document.getElementById('commitment').addEventListener('blur', saveToday);
+
+const resetBtn = document.getElementById('resetBtn');
+let confirming = false;
+resetBtn.addEventListener('click', async ()=>{
+  if(!confirming){
+    confirming = true;
+    resetBtn.textContent = 'Tap again to confirm';
+    resetBtn.classList.add('confirming');
+    setTimeout(()=>{
+      confirming = false;
+      resetBtn.textContent = 'Reset Today';
+      resetBtn.classList.remove('confirming');
+    }, 3000);
+    return;
+  }
+  state = { checks:{}, reflection:'', commitment:'' };
+  document.getElementById('reflection').value = '';
+  document.getElementById('commitment').value = '';
+  await saveToday();
+  render();
+  computeStreakAndWeek();
+  confirming = false;
+  resetBtn.textContent = 'Reset Today';
+  resetBtn.classList.remove('confirming');
+});
+
+document.getElementById('datePill').textContent = fmtDisplay();
+
+(async function init(){
+  await loadToday();
+  render();
+  computeStreakAndWeek();
+})();
+</script>
+</body>
+</html>
