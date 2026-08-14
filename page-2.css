@@ -188,6 +188,29 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
   .benefits span{animation:none;opacity:1;transform:none}
   .benefits span:not(:first-child){display:none}
 }
+
+/* Mobile hero actions: one full-width lead CTA, three equal secondary CTAs. */
+@media(max-width:720px){
+  .hero-actions{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:8px;
+  }
+  .hero-actions .button-primary{
+    grid-column:1/-1;
+  }
+  .hero-actions .button-light{
+    grid-column:auto;
+    min-height:48px;
+    padding:8px 5px;
+    gap:4px;
+    font-size:clamp(10px,2.8vw,13px);
+    line-height:1.08;
+  }
+  .hero-actions .button-light span{
+    flex:0 0 auto;
+    font-size:12px;
+  }
+}
 .pathways article:active{transform:translateY(-1px) scale(1.015)}
 @media(max-width:720px){
   .pathways article{min-height:170px;padding:16px 14px 13px}
