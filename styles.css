@@ -2923,6 +2923,11 @@ body.force-mobile-view .rss-strip {
     pointer-events: none;
 }
 
+/* Page 1: temporarily hide every video-card Study Notes action. */
+.video-card .download-button {
+    display: none !important;
+}
+
 @media (max-width: 560px) {
     .focus-shell .focus-hero-actions,
     body.force-mobile-view .focus-shell .focus-hero-actions {
