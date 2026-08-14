@@ -144,6 +144,74 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
   }
 }
 
+/* Square shop artwork and polished category CTAs. */
+.shop-grid img{
+  width:100%;
+  height:auto;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  object-position:center;
+}
+.shop-grid article>a{
+  position:relative;
+  isolation:isolate;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:92px;
+  min-height:36px;
+  margin-top:5px;
+  padding:8px 13px;
+  overflow:hidden;
+  border:1px solid rgba(207,157,59,.72);
+  border-radius:6px;
+  background:var(--green);
+  color:#fffaf0;
+  font:600 11px var(--sans);
+  text-decoration:none;
+  box-shadow:0 6px 14px rgba(6,61,45,.15);
+  transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease;
+}
+.shop-grid article>a::after{
+  content:"";
+  position:absolute;
+  inset:-45% auto -45% -45%;
+  z-index:-1;
+  width:38%;
+  transform:rotate(18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+  animation:shop-cta-shine 4.2s ease-in-out infinite;
+  pointer-events:none;
+}
+.shop-grid article:nth-child(2)>a::after{animation-delay:.35s}
+.shop-grid article:nth-child(3)>a::after{animation-delay:.7s}
+.shop-grid article:nth-child(4)>a::after{animation-delay:1.05s}
+.shop-grid article:nth-child(5)>a::after{animation-delay:1.4s}
+.shop-grid article:nth-child(6)>a::after{animation-delay:1.75s}
+.shop-grid article>a:hover,
+.shop-grid article>a:focus-visible{
+  transform:translateY(-2px);
+  background:#0a513d;
+  box-shadow:0 9px 19px rgba(6,61,45,.24);
+}
+.shop-grid article>a:focus-visible{
+  outline:3px solid rgba(207,157,59,.55);
+  outline-offset:2px;
+}
+.shop-grid article>a:active{
+  transform:translateY(1px) scale(.98);
+  box-shadow:0 3px 8px rgba(6,61,45,.2);
+}
+@keyframes shop-cta-shine{
+  0%,66%{left:-45%;opacity:0}
+  72%{opacity:1}
+  88%,100%{left:125%;opacity:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .shop-grid article>a::after{animation:none}
+  .shop-grid article>a{transition:none}
+}
+
 /* Replace the mobile benefits panel with one softly rotating phrase. */
 @media(max-width:720px){
   .benefits{
@@ -564,4 +632,10 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
     place-items:center;
     padding-inline:12px;
   }
+}
+
+/* Keep category artwork square after all responsive image rules. */
+.shop-grid img{
+  height:auto;
+  aspect-ratio:1/1;
 }
