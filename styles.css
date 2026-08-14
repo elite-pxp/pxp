@@ -133,6 +133,11 @@ a.cashapp-button {
     white-space: nowrap;
 }
 
+.nav-brand-name b {
+    color: #cf9d3b;
+    font-weight: 700;
+}
+
 .brand-icon {
     display: inline-flex;
     align-items: center;
