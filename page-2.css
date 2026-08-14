@@ -396,3 +396,41 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
     place-items:center;
   }
 }
+
+/* On touch-sized screens, let visitors control the Transformation carousel. */
+@media(max-width:720px){
+  .series-marquee{
+    width:calc(100% + 36px);
+    margin-inline:-18px;
+    padding:6px 18px 16px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    overscroll-behavior-inline:contain;
+    scroll-snap-type:x mandatory;
+    scroll-padding-inline:18px;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+    -webkit-mask-image:none;
+    mask-image:none;
+    touch-action:pan-x pan-y;
+  }
+  .series-marquee::-webkit-scrollbar{display:none}
+  .series-track{
+    gap:0;
+    animation:none;
+  }
+  .series-set{gap:14px}
+  .series-set[aria-hidden="true"]{display:none}
+  .series-set article{
+    flex:0 0 min(72vw,260px);
+    width:min(72vw,260px);
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+  }
+  .series-set article b{
+    min-height:34px;
+    display:inline-grid;
+    place-items:center;
+    padding-inline:12px;
+  }
+}
