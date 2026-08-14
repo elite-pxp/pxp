@@ -262,21 +262,28 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
 /* Seamless 365 Days of Transformation carousel. */
 .series-marquee{
   width:100%;
-  overflow:hidden;
+  overflow-x:auto;
+  overflow-y:hidden;
   padding:6px 0 14px;
+  overscroll-behavior-inline:contain;
+  scroll-snap-type:x proximity;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
   mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
 }
+.series-marquee::-webkit-scrollbar{display:none}
 .series-track{
   display:flex;
   width:max-content;
   gap:14px;
-  animation:series-loop 42s linear infinite;
+  animation:none;
 }
 .series-set{
   display:flex;
   gap:14px;
 }
+.series-set[aria-hidden="true"]{display:none}
 .series-marquee:hover .series-track,
 .series-marquee:focus-within .series-track{
   animation-play-state:paused;
@@ -291,6 +298,7 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
   border-radius:10px;
   background:#0a3f30;
   box-shadow:0 8px 20px rgba(0,0,0,.18);
+  scroll-snap-align:start;
 }
 .series-set article>a{
   position:relative;
@@ -298,12 +306,14 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
   width:100%;
   height:100%;
   cursor:pointer;
+  -webkit-user-drag:none;
 }
 .series-set img{
   width:100%;
   height:100%;
   object-fit:cover;
   transition:transform .28s ease,filter .28s ease;
+  -webkit-user-drag:none;
 }
 .series-set article span{
   position:absolute;
@@ -375,6 +385,16 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
   .series-track{animation:none}
   .series-set[aria-hidden="true"]{display:none}
   .series-set img{transition:none}
+}
+
+@media(min-width:721px) and (pointer:fine){
+  .series-marquee{cursor:grab}
+  .series-marquee.is-dragging{
+    cursor:grabbing;
+    user-select:none;
+    scroll-snap-type:none;
+  }
+  .series-marquee.is-dragging .series-track{animation-play-state:paused}
 }
 
 /* Six-item Shop by Category grid. */
