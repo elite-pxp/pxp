@@ -351,3 +351,48 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
     margin-inline:auto;
   }
 }
+
+/* Mobile pathway carousel: one focused card with neighboring content in reach. */
+@media(max-width:720px){
+  .pathways{
+    --mobile-card-width:min(82vw,320px);
+    display:grid;
+    grid-template-columns:none;
+    grid-auto-flow:column;
+    grid-auto-columns:var(--mobile-card-width);
+    gap:14px;
+    width:100%;
+    padding:18px calc((100vw - var(--mobile-card-width))/2) 24px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    overscroll-behavior-inline:contain;
+    scroll-snap-type:x mandatory;
+    scroll-padding-inline:calc((100vw - var(--mobile-card-width))/2);
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+    touch-action:pan-x pan-y;
+  }
+  .pathways::-webkit-scrollbar{display:none}
+  .pathways article{
+    width:100%;
+    min-height:156px;
+    height:156px;
+    padding:15px 14px 13px;
+    scroll-snap-align:center;
+    scroll-snap-stop:always;
+  }
+  .pathways h3{
+    margin-bottom:7px;
+    font-size:20px;
+  }
+  .pathways p{
+    margin-bottom:10px;
+    font-size:12px;
+    line-height:1.22;
+  }
+  .pathways article>a{
+    min-height:34px;
+    display:grid;
+    place-items:center;
+  }
+}
