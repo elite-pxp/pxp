@@ -2876,10 +2876,30 @@ body.force-mobile-view .rss-strip {
 }
 
 @media (max-width: 560px) {
+    .hero-title .brand-name {
+        display: inline;
+        white-space: normal;
+    }
+
     .hero:not(.focus-hero) .hero-actions,
     body.force-mobile-view .hero:not(.focus-hero) .hero-actions {
-        grid-template-columns: 1fr;
-        max-width: 28rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: 31rem;
+        gap: 0.5rem;
+    }
+
+    .hero:not(.focus-hero) .hero-actions .donate-button,
+    .hero:not(.focus-hero) .hero-actions .cashapp-button,
+    .hero:not(.focus-hero) .hero-actions .prayer-request-trigger,
+    body.force-mobile-view .hero:not(.focus-hero) .hero-actions .donate-button,
+    body.force-mobile-view .hero:not(.focus-hero) .hero-actions .cashapp-button,
+    body.force-mobile-view .hero:not(.focus-hero) .hero-actions .prayer-request-trigger {
+        min-height: 3rem;
+        height: 3rem;
+        padding: 0.5rem 0.25rem;
+        gap: 0.25rem;
+        font-size: clamp(0.64rem, 2.8vw, 0.78rem);
+        line-height: 1.08;
     }
 }
 
