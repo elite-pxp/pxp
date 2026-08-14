@@ -303,3 +303,6 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
   font-size:clamp(27px,2.6vw,34px);
   line-height:1.04;
 }
+
+/* The transformation artwork already contains its own month and series copy. */
+.series-set article span{display:none}
