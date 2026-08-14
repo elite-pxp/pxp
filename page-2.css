@@ -174,7 +174,7 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
   position:relative;
   flex:0 0 clamp(150px,15vw,205px);
   width:clamp(150px,15vw,205px);
-  aspect-ratio:1;
+  aspect-ratio:4/5;
   overflow:hidden;
   border:1px solid var(--gold);
   border-radius:10px;
@@ -304,5 +304,11 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
   line-height:1.04;
 }
 
-/* The transformation artwork already contains its own month and series copy. */
-.series-set article span{display:none}
+/* The artwork contains the month and title; retain only supporting copy and CTA. */
+.series-set article span{
+  display:block;
+  padding:48px 10px 9px;
+  background:linear-gradient(transparent,rgba(2,53,37,.96));
+}
+.series-set article small,
+.series-set article strong{display:none}
