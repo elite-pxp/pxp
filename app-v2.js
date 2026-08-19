@@ -205,12 +205,12 @@ document.addEventListener('DOMContentLoaded', () => {
     4: { title: 'Kingdom Builder Handbook' }
   };
   const trainingsProductImages = [
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591f762745222aad645.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591f762745222aad645.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/699cc567d0716b216f4ad50b.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/699cc39ad0716b76214a3d3e.png',
   ];
   const trainingsDetails = {
-    0: { title: 'Training Course 01' },
-    1: { title: 'Training Course 02' }
+    0: { title: 'A Guide to Launching Your Childcare Center', desc: 'Launch your dream childcare center with confidence and clarity. This comprehensive guide walks you through every step from planning to opening.', link: 'https://go.poweredxprayers.com/product-details/product/aguidetolaunchingyourchildcarecenter' },
+    1: { title: 'The Wealth Room Next Level Now!', desc: 'Build, scale, and position to exit. The Wealth Room is your roadmap to financial growth and kingdom wealth building.', link: 'https://go.poweredxprayers.com/product-details/product/thewealthroom' }
   };
   let shopModalOpener = null;
   let productModalOpener = null;
@@ -284,10 +284,17 @@ document.addEventListener('DOMContentLoaded', () => {
     shopModalGrid.innerHTML = Array.from({length:count},(_,index) => {
       const productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : isEbooks ? (ebooksProductImages[index] || ebooksProductImages[0]) : isTrainings ? (trainingsProductImages[index] || trainingsProductImages[0]) : thumbnail;
       const detail = isApparel ? apparelDetails[index] : isEbooks ? ebooksDetails[index] : isTrainings ? trainingsDetails[index] : null;
+      const productLink = detail?.link || null;
       const productName = detail ? detail.title : `Product ${String(index + 1).padStart(2,'0')}`;
-      return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${displayCategory}</small><h3>${productName}</h3><span>${isApparel ? 'View product details' : 'Details coming soon'}</span></div></button>`;
+      return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"${productLink ? ` data-product-link="${productLink}"` : ''}><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${displayCategory}</small><h3>${productName}</h3><span>${isApparel ? 'View product details' : productLink ? 'View product' : 'Details coming soon'}</span></div></button>`;
     }).join('');
-    if (isApparel) shopModalGrid.querySelectorAll('.shop-template-card').forEach(card => card.addEventListener('click',() => openProductModal(card)));
+    shopModalGrid.querySelectorAll('.shop-template-card').forEach(card => {
+      if (isApparel) card.addEventListener('click',() => openProductModal(card));
+      else {
+        const link = card.dataset.productLink;
+        if (link) card.addEventListener('click', () => window.open(link, '_blank'));
+      }
+    });
     shopModalOpener = categoryCard;
     shopModal.hidden = false;
     document.body.classList.add('series-modal-open');
