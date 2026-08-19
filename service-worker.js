@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'pxp-v68';
+const CACHE_VERSION = 'pxp-v69';
 const APP_SHELL_CACHE = `app-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 
@@ -43,7 +43,7 @@ self.addEventListener('activate', (event) => {
 const isHttpRequest = (request) => request.url.startsWith('http');
 const isCoreAssetRequest = (requestUrl) => {
   const pathname = requestUrl.pathname || '';
-  return pathname.endsWith('/index.html') || pathname.endsWith('/app.js') || pathname.endsWith('/styles.css');
+  return pathname.endsWith('/index.html') || pathname.endsWith('/app.js') || pathname.endsWith('/styles.css') || pathname.endsWith('/page-2.html') || pathname.endsWith('/app-v2.js') || pathname.endsWith('/page-2.css');
 };
 
 self.addEventListener('fetch', (event) => {

@@ -7,7 +7,7 @@
   <meta name="description" content="Christ-centered prayer, biblical teaching, and daily encouragement from Powered x Prayer.">
   <link rel="icon" href="./images/icons/favicon-32x32.png">
   <script>document.documentElement.classList.add('beta-locked');</script>
-  <link rel="stylesheet" href="./page-2.css?v=75">
+  <link rel="stylesheet" href="./page-2.css?v=79">
   <link rel="stylesheet" href="./lib/pxp-flip-reader/styles/reader.css?v=1">
   <title>Powered x Prayer — Faith. Transformation. Purpose.</title>
 </head>
@@ -37,13 +37,15 @@
     </a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span><span class="sr-only">Menu</span></button>
     <nav id="main-nav" class="main-nav" aria-label="Main navigation">
-      <a class="active" href="#top">Home</a>
+      <a class="nav-item-hidden active" href="#top">Home</a>
       <a href="#transformation">365 Days of Transformation</a>
-      <a href="#wealth">Wealth Room</a>
-      <a href="https://go.poweredxprayers.com/shop" target="_blank" rel="noopener">Shop</a>
-      <a href="#events">Events</a>
-      <a href="#resources">Resources</a>
-      <a href="#about">About</a>
+      <a href="#wealth-resources">Wealth Room</a>
+      <a class="nav-item-hidden" href="#shop">Shop</a>
+      <a class="nav-item-hidden" href="#events">Events</a>
+      <a class="nav-item-hidden" href="#free-resources">Resources</a>
+      <a class="nav-item-hidden" href="#about">About</a>
+      <a href="./three-day-fasting-prayer.html">3 Days Fast</a>
+      <a href="./Cultivate%20Your%20Eden.html">Cultivate Your Eden</a>
       <a class="nav-profile" href="#connect" aria-label="Connect with us">✦</a>
     </nav>
   </header>
@@ -80,11 +82,11 @@
 
     <section class="pathways section-pad" aria-labelledby="pathways-title">
       <h2 class="sr-only" id="pathways-title">Explore Powered x Prayer</h2>
-      <article><span class="card-icon">P</span><h3>365 Days of<br>Transformation</h3><p>Journey through eight R’s of transformation with prayers, study guides, and practical teaching.</p><span class="pathway-action" aria-disabled="true">Explore Series</span></article>
-      <article id="wealth"><span class="card-icon">◇</span><h3>Wealth Room</h3><p>Biblical wisdom and tools to help you build, manage, and multiply God’s resources.</p><span class="pathway-action" aria-disabled="true">Enter Room</span></article>
-      <article><span class="card-icon">♙</span><h3>Shop</h3><p>Browse faith-based products, books, apparel, courses, and free resources.</p><span class="pathway-action" aria-disabled="true">Shop Now</span></article>
-      <article id="events"><span class="card-icon">▣</span><h3>Events</h3><p>Join upcoming webinars, live prayer, and conferences designed to equip and inspire.</p><span class="pathway-action" aria-disabled="true">View Events</span></article>
-      <article id="resources"><span class="card-icon">▱</span><h3>Resources</h3><p>Access devotionals, prayer guides, articles, videos, study notes, and more.</p><span class="pathway-action" aria-disabled="true">Explore Resources</span></article>
+      <article><span class="card-icon">P</span><h3>365 Days of<br>Transformation</h3><p>Journey through eight R’s of transformation with prayers, study guides, and practical teaching.</p><a class="pathway-action" href="#transformation">Explore Series</a></article>
+      <article><span class="card-icon">◇</span><h3>Wealth Room</h3><p>Biblical wisdom and tools to help you build, manage, and multiply God’s resources.</p><a class="pathway-action" href="#wealth-resources">Enter Room</a></article>
+      <article><span class="card-icon">♙</span><h3>Shop</h3><p>Browse faith-based products, books, apparel, courses, and free resources.</p><a class="pathway-action" href="#shop">Shop Now</a></article>
+      <article id="events" class="pathway-coming-soon" aria-label="Events, coming soon"><span class="card-icon">▣</span><h3>Events</h3><p>Upcoming webinars, live prayer, and conferences will be announced soon.</p><span class="pathway-action pathway-action-coming-soon">Coming Soon</span></article>
+      <article><span class="card-icon">▱</span><h3>Resources</h3><p>Access devotionals, prayer guides, articles, videos, study notes, and more.</p><a class="pathway-action" href="#free-resources">Explore Resources</a></article>
     </section>
 
     <section class="transformation" id="transformation">
@@ -116,15 +118,15 @@
       <div class="benefits"><span><i aria-hidden="true">▧</i><b>Daily Prayers &amp; Teachings</b></span><span><i aria-hidden="true">☷</i><b>Worksheets &amp; Activities</b></span><span><i aria-hidden="true">♕</i><b>Action Steps for Real Life</b></span><span><i aria-hidden="true">◷</i><b>Track Your Progress</b></span></div>
     </section>
 
-    <section class="shop section-pad">
+    <section class="shop section-pad" id="shop">
       <div class="section-heading light"><div><p class="kicker">Faith-filled resources</p><h2>Shop by Category</h2></div><a class="outline-button" href="https://go.poweredxprayers.com/shop" target="_blank" rel="noopener">View All Products</a></div>
       <div class="shop-grid">
-        <article class="shop-category-trigger" data-shop-category="Apparel" data-shop-count="10" tabindex="0" role="button"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dec8a6a03cda067e5dc4.png" alt="Powered x Prayer apparel collection"><h3>Apparel</h3><a href="#apparel">View Apparel</a></article>
-        <article class="shop-category-trigger" data-shop-category="Trainings &amp; Courses" data-shop-count="5" tabindex="0" role="button"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591f762745222aad645.png" alt="Powered x Prayer training and courses"><h3>Trainings &amp; Courses</h3><a href="#trainings">View Trainings</a></article>
-        <article class="shop-category-trigger" data-shop-category="E-Books" data-shop-count="5" tabindex="0" role="button"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591f762745222aad65a.png" alt="Powered x Prayer eBooks"><h3>E-Books</h3><a href="#ebooks">View E-Books</a></article>
-        <article class="shop-category-trigger" data-shop-category="Family Resources" data-shop-count="5" tabindex="0" role="button"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591255b571c8e4470b6.png" alt="Powered x Prayer family resources"><h3>Family Resources</h3><a href="#family-resources">View Resources</a></article>
-        <article class="shop-category-trigger" data-shop-category="Wealth Resources" data-shop-count="5" tabindex="0" role="button"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591cf50f900f2858d78.png" alt="Powered x Prayer wealth resources"><h3>Wealth Resources</h3><a href="#wealth-resources">View Resources</a></article>
-        <article class="study-library-trigger" tabindex="0" role="button"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f15d6a6a03cda069da7a1.png" alt="Powered x Prayer free resources and study notes"><h3>Free Resources</h3><a href="#study-notes-library">Open Library</a></article>
+        <article class="shop-category-trigger" data-shop-category="Apparel" data-shop-count="13" tabindex="0" role="button"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dec8a6a03cda067e5dc4.png" alt="Powered x Prayer apparel collection"><h3>Apparel</h3><a href="#apparel">View Apparel</a></article>
+        <article class="shop-category-coming-soon" aria-label="Trainings and Courses, coming soon"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591f762745222aad645.png" alt="Powered x Prayer training and courses"><h3>Trainings &amp; Courses</h3><span>Coming Soon</span></article>
+        <article class="shop-category-coming-soon" aria-label="E-Books, coming soon"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591f762745222aad65a.png" alt="Powered x Prayer eBooks"><h3>E-Books</h3><span>Coming Soon</span></article>
+        <article class="shop-category-coming-soon" aria-label="Family Resources, coming soon"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591255b571c8e4470b6.png" alt="Powered x Prayer family resources"><h3>Family Resources</h3><span>Coming Soon</span></article>
+        <article class="shop-category-coming-soon" id="wealth-resources" aria-label="Wealth Resources, coming soon"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591cf50f900f2858d78.png" alt="Powered x Prayer wealth resources"><h3>Wealth Resources</h3><span>Coming Soon</span></article>
+        <article class="study-library-trigger" id="free-resources" tabindex="0" role="button"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f15d6a6a03cda069da7a1.png" alt="Powered x Prayer free resources and study notes"><h3>Free Resources</h3><a href="#study-notes-library">Open Library</a></article>
       </div>
     </section>
   </main>
@@ -194,7 +196,7 @@
       <blockquote>“I can do all this through Him who gives me strength.”<small>Philippians 4:13</small></blockquote>
     </div>
   </footer>
-  <script src="./app-v2.js?v=72"></script>
+  <script src="./app-v2.js?v=75"></script>
   <script type="module" src="./resources-dashboard-reader.js?v=6"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -203,6 +205,21 @@
       var grid = modal.querySelector('.shop-modal-grid');
       var title = modal.querySelector('#shop-modal-title');
       var opener = null;
+      var apparelProductImages = [
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png',
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8389c1a6a03cda06aead34.png',
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a84532afcf70e5609352a0d.png',
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a84532296d2b224d32e0555.png',
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a845322d07034adc2b19e8e.png',
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3dd07034adc2aac1e2.png',
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3dd1abe28fc92d6d8f.png',
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3d7998683b3c7443b8.png'
+      ];
+      var apparelCardDetails = {
+        2: { title: 'Reign in the Spirit Daily Hoodie', desc: 'Wear the word of God as a declaration of spiritual authority. Featuring "REIGN IN THE SPIRIT DAILY" with Romans 5:17, this hoodie is a daily reminder that through Christ we reign in life and walk in the power of the Holy Spirit.' },
+        3: { title: 'Reign in the Spirit Daily Flame Hoodie', desc: 'Carry the fire of the Spirit wherever you go. This flame-edition hoodie displays "REIGN IN THE SPIRIT DAILY" alongside Romans 5:17 with a bold flame graphic — a declaration of faith, passion, and the life-giving power of Christ.' },
+        4: { title: 'Rooted in Christ Hoodie', desc: 'Your identity begins with your Creator. This tree-root design pairs "ROOTED IN CHRIST" with the declaration "My Identity Begins With My Creator" — a reminder to stay grounded in faith and anchored in who God says you are.' }
+      };
       function openShop(card) {
         var category = card.dataset.shopCategory;
         var count = parseInt(card.dataset.shopCount, 10) || 5;
@@ -210,8 +227,11 @@
         var image = isApparel ? 'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png' : card.querySelector('img').src;
         title.textContent = category;
         grid.innerHTML = Array.from({length: count}, function (_, index) {
-          var productImage = isApparel && index === 1 ? 'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82ed6699074f5ef68b531d.png' : image;
-          return '<article class="shop-template-card' + (isApparel ? ' is-apparel' : '') + '"><img src="' + productImage + '" alt="' + category + ' product ' + (index + 1) + '"><div><small>' + category + '</small><h3>Product ' + String(index + 1).padStart(2, '0') + '</h3><span>Details coming soon</span></div></article>';
+          var productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : image;
+          var detail = isApparel && apparelCardDetails[index];
+          var productName = detail ? detail.title : ('Product ' + String(index + 1).padStart(2, '0'));
+          var productDesc = detail ? detail.desc : 'Details coming soon';
+          return '<article class="shop-template-card' + (isApparel ? ' is-apparel' : '') + '"><img src="' + productImage + '" alt="' + productName + '"><div><small>' + category + '</small><h3>' + productName + '</h3><span>' + productDesc + '</span></div></article>';
         }).join('');
         opener = card;
         modal.hidden = false;

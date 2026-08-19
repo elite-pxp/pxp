@@ -175,7 +175,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const productModalTitle = productModal?.querySelector('#product-modal-title');
   const apparelProductImages = [
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82ed6699074f5ef68b531d.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8389c1a6a03cda06aead34.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8433ca81b49c99f245b8c5.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8433ca45dbba232f9ea0d4.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8433ca81b49c99f245b8cd.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3dd07034adc2aac1e2.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3dd1abe28fc92d6d8f.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3d7998683b3c7443b8.png',
   ];
   let shopModalOpener = null;
   let productModalOpener = null;

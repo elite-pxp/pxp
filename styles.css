@@ -10,14 +10,14 @@
 }
 
 :root {
-    --black: #314e28;
-    --white: #ffffff;
-    --tan: #dac271;
-    --beige: #e8dcc0;
-    --off-white: #f4f0e3;
-    --gray: #4f6148;
-    --emerald: #65ca92;
-    --aqua-forest: #60a47c;
+    --black: #063d2d;
+    --white: #fffaf0;
+    --tan: #cf9d3b;
+    --beige: #ead7ad;
+    --off-white: #f8f1df;
+    --gray: #486155;
+    --emerald: #0a513d;
+    --aqua-forest: #14634b;
     --shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
     --font-heading: "Cormorant Garamond", Georgia, serif;
     --font-body: "Manrope", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -548,7 +548,7 @@ a.cashapp-button {
 
 .focus-section {
     padding: clamp(2.2rem, 4.5vw, 3.4rem) 2rem;
-    background: #f4f0e3;
+    background: var(--off-white);
 }
 
 .focus-section.alt {
@@ -638,8 +638,8 @@ a.cashapp-button {
     aspect-ratio: 16 / 9;
     padding: 1rem;
     background:
-        radial-gradient(circle at top, rgba(218, 194, 113, 0.28), transparent 52%),
-        linear-gradient(135deg, #1f2f1b 0%, #314e28 100%);
+        radial-gradient(circle at top, rgba(207, 157, 59, 0.28), transparent 52%),
+        linear-gradient(135deg, #023525 0%, #063d2d 100%);
     color: var(--off-white);
     text-align: center;
     border-bottom: 1px solid rgba(49, 78, 40, 0.08);
@@ -1342,7 +1342,7 @@ a.cashapp-button {
 .footer-description {
     font-family: var(--font-body);
     font-size: clamp(0.95rem, 0.25vw + 0.9rem, 1rem);
-    color: #24361f;
+    color: var(--black);
     max-width: 520px;
     margin-bottom: 1rem;
     line-height: 1.58;
@@ -1350,7 +1350,7 @@ a.cashapp-button {
 }
 
 .footer-copyright {
-    color: #24361f;
+    color: var(--black);
     font-size: clamp(0.86rem, 0.2vw + 0.82rem, 0.95rem);
     line-height: 1.32;
     letter-spacing: 0.004em;
@@ -1381,7 +1381,7 @@ a.cashapp-button {
 }
 
 .footer-link {
-    color: #1f2f1b;
+    color: var(--black);
     font-size: clamp(0.9rem, 0.25vw + 0.84rem, 0.98rem);
     line-height: 1.28;
     letter-spacing: 0.004em;
