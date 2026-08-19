@@ -82,11 +82,11 @@
 
     <section class="pathways section-pad" aria-labelledby="pathways-title">
       <h2 class="sr-only" id="pathways-title">Explore Powered x Prayer</h2>
-      <article><span class="card-icon">P</span><h3>365 Days of<br>Transformation</h3><p>Journey through eight R’s of transformation with prayers, study guides, and practical teaching.</p><a class="pathway-action" href="#transformation">Explore Series</a></article>
-      <article><span class="card-icon">◇</span><h3>Wealth Room</h3><p>Biblical wisdom and tools to help you build, manage, and multiply God’s resources.</p><a class="pathway-action" href="#wealth-resources">Enter Room</a></article>
-      <article><span class="card-icon">♙</span><h3>Shop</h3><p>Browse faith-based products, books, apparel, courses, and free resources.</p><a class="pathway-action" href="#shop">Shop Now</a></article>
-      <article id="events" class="pathway-coming-soon" aria-label="Events, coming soon"><span class="card-icon">▣</span><h3>Events</h3><p>Upcoming webinars, live prayer, and conferences will be announced soon.</p><span class="pathway-action pathway-action-coming-soon">Coming Soon</span></article>
-      <article><span class="card-icon">▱</span><h3>Resources</h3><p>Access devotionals, prayer guides, articles, videos, study notes, and more.</p><a class="pathway-action" href="#free-resources">Explore Resources</a></article>
+      <article><span class="card-icon">P</span><h3>365 Days of<br>Transformation</h3><p>Journey through eight R’s of transformation with prayers, study guides, and practical teaching.</p><span class="pathway-action" aria-disabled="true">Explore Series</span></article>
+      <article id="wealth"><span class="card-icon">◇</span><h3>Wealth Room</h3><p>Biblical wisdom and tools to help you build, manage, and multiply God’s resources.</p><span class="pathway-action" aria-disabled="true">Enter Room</span></article>
+      <article><span class="card-icon">♙</span><h3>Shop</h3><p>Browse faith-based products, books, apparel, courses, and free resources.</p><span class="pathway-action" aria-disabled="true">Shop Now</span></article>
+      <article id="events"><span class="card-icon">▣</span><h3>Events</h3><p>Join upcoming webinars, live prayer, and conferences designed to equip and inspire.</p><span class="pathway-action" aria-disabled="true">View Events</span></article>
+      <article id="resources"><span class="card-icon">▱</span><h3>Resources</h3><p>Access devotionals, prayer guides, articles, videos, study notes, and more.</p><span class="pathway-action" aria-disabled="true">Explore Resources</span></article>
     </section>
 
     <section class="transformation" id="transformation">
@@ -231,7 +231,7 @@
           var detail = isApparel && apparelCardDetails[index];
           var productName = detail ? detail.title : ('Product ' + String(index + 1).padStart(2, '0'));
           var productDesc = detail ? detail.desc : 'Details coming soon';
-          return '<article class="shop-template-card' + (isApparel ? ' is-apparel' : '') + '"><img src="' + productImage + '" alt="' + productName + '"><div><small>' + category + '</small><h3>' + productName + '</h3><span>' + productDesc + '</span></div></article>';
+          return '<article class="shop-template-card' + (isApparel ? ' is-apparel' : '') + '"><img src="' + productImage + '" alt="' + productName + '"><div><small>' + category + '</small><h3>' + productName + '</h3><span>' + productDesc + '</span></div></article>';'
         }).join('');
         opener = card;
         modal.hidden = false;
