@@ -453,14 +453,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let isSeriesDragging = false;
   let didSeriesDrag = false;
 
-  const runSeriesLoop = time => {
-    if (autoSeriesEnabled && !reducedMotionQuery.matches && previousFrameTime) {
-      seriesMarquee.classList.add('is-auto-moving');
-      seriesMarquee.scrollLeft += Math.min(1.15, (time - previousFrameTime) * .04);
-      if (loopWidth && seriesMarquee.scrollLeft >= loopWidth) seriesMarquee.scrollLeft -= loopWidth;
-    }
-    previousFrameTime = time;
-    seriesFrame = window.requestAnimationFrame(runSeriesLoop);
+  const runSeriesLoop = () => {
+    // Auto-scroll disabled — manual scrolling only
   };
 
   const pauseSeriesLoopForInteraction = () => {
@@ -470,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
       seriesMarquee.scrollLeft = Math.min(manualMaxScroll, Math.max(0, seriesMarquee.scrollLeft - loopWidth));
     }
     window.clearTimeout(resumeTimer);
-    resumeTimer = window.setTimeout(() => { autoSeriesEnabled = true; }, 3000);
+    // Auto-scroll permanently disabled
   };
 
   ['pointerdown', 'touchstart', 'wheel'].forEach(eventName =>
