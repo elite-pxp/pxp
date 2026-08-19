@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let resumeTimer;
   let loopWidth = 0;
   let manualMaxScroll = 0;
-  let autoSeriesEnabled = true;
+  let autoSeriesEnabled = false;
   let previousFrameTime = 0;
   let dragStartX = 0;
   let dragStartScroll = 0;
@@ -521,28 +521,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const track = seriesMarquee.querySelector('.series-track');
     track?.querySelectorAll('.series-set[aria-hidden="true"]').forEach(set => set.remove());
     if (track) {
-      const primarySet = track.querySelector('.series-set');
-      const loopClone = primarySet?.cloneNode(true);
-      if (primarySet && loopClone) {
-        loopClone.classList.add('is-loop-clone');
-        loopClone.setAttribute('aria-hidden','true');
-        loopClone.querySelectorAll('a').forEach(link => {
-          link.setAttribute('tabindex','-1');
-          link.addEventListener('click', event => {
-            event.preventDefault();
-            primarySet.querySelector(`[data-series-month="${link.dataset.seriesMonth}"]`)?.click();
-          });
-        });
-        track.append(loopClone);
-        const measureSeries = () => {
-          loopWidth = primarySet.getBoundingClientRect().width + 14;
-          manualMaxScroll = Math.max(0, loopWidth - 14 - seriesMarquee.clientWidth);
-        };
-        measureSeries();
-        window.addEventListener('resize', measureSeries);
-      }
+      track.querySelectorAll('.series-set[aria-hidden="true"]').forEach(set => set.remove());
       seriesMarquee.scrollLeft = 0;
-      seriesFrame = window.requestAnimationFrame(runSeriesLoop);
     }
   }
 
