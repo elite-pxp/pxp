@@ -545,4 +545,32 @@ document.addEventListener('DOMContentLoaded', () => {
       seriesFrame = window.requestAnimationFrame(runSeriesLoop);
     }
   }
+
+  /* ---- Hero video: fetch latest upload from YouTube RSS ---- */
+  const heroIframe = document.querySelector('.hero-video-panel iframe');
+  if (heroIframe) {
+    const channelId = 'UC1qFfHXbdgzy188ILJFw68Q';
+    const rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
+    fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(rssUrl))
+      .then(function (r) { return r.text(); })
+      .then(function (xml) {
+        var doc = new DOMParser().parseFromString(xml, 'application/xml');
+        var entries = Array.from(doc.getElementsByTagName('entry'));
+        for (var i = 0; i < entries.length; i++) {
+          var entry = entries[i];
+          var link = entry.getElementsByTagName('link')[0];
+          var href = link ? link.getAttribute('href') || '' : '';
+          var title = entry.getElementsByTagName('title')[0];
+          var titleText = title ? title.textContent : '';
+          if (href.includes('/shorts/') || titleText.toLowerCase().includes('#shorts')) continue;
+          var vid = entry.getElementsByTagName('yt:videoId')[0];
+          if (vid && vid.textContent) {
+            heroIframe.src = 'https://www.youtube.com/embed/' + vid.textContent.trim();
+            return;
+          }
+        }
+      })
+      .catch(function () {});
+  }
+
 });
