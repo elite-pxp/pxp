@@ -184,7 +184,11 @@ document.addEventListener('DOMContentLoaded', () => {
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3d7998683b3c7443b8.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a859672d8b5c2f24d5df00f.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a859672cf3baae49e5b4cd3.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a859672d8b5c2f24d5deeb9.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cab7b3a1bcf4faa7fc8f.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabbb3a1bcf4faa7fce6.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb949d6f49c33b7805.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb4627440f8a00434d.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb13371323040c8786.png',
   ];
   const ebooksProductImages = [
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c1447bf72d964f602.png',
@@ -249,7 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
     4: { title: 'Rooted in Christ Hoodie', desc: 'Your identity begins with your Creator. This tree-root design pairs "ROOTED IN CHRIST" with the declaration "My Identity Begins With My Creator" \u2014 a reminder to stay grounded in faith and anchored in who God says you are.' },
     8: { title: 'Let Me Pray About It Hoodie', desc: 'A reminder to take it to God first. The Let Me Pray About It Hoodie represents a lifestyle of prayer, faith, and seeking God before making your next move.' },
     9: { title: 'Let Me Pray About It Crewneck', desc: 'Before the answer, the decision, or the response, pray about it. This Powered X Prayer crewneck is a simple reminder to seek God first and let prayer lead the way.' },
-    10: { title: 'God, I Trust You Crewneck', desc: 'A statement of faith for every season. The God, I Trust You Crewneck is inspired by Psalm 56:3 and reminds us to place our trust in God when fear and uncertainty try to take over.' }
+    10: { title: 'God, I Trust You Crewneck', desc: 'A statement of faith for every season. The God, I Trust You Crewneck is inspired by Psalm 56:3 and reminds us to place our trust in God when fear and uncertainty try to take over.' },
+    11: { title: 'Faith Boldly Driven Hoodie', desc: 'Wear your purpose with boldness. The Driven Hoodie from the Faith Boldly collection is a declaration that your faith drives every step, every decision, and every season of your life.' },
+    12: { title: 'Faith Boldly Reign Hoodie', desc: 'Carry the message of spiritual authority. The Reign Hoodie from the Faith Boldly collection declares that through Christ, you reign in life every single day.' },
+    13: { title: 'Faith Boldly Faith Sees Hoodie', desc: 'See beyond what the eyes can show. The Faith Sees Hoodie from the Faith Boldly collection reminds us to look through the lens of faith and trust what God has spoken over your future.' },
+    14: { title: 'Faith Boldly Pray Hoodie', desc: 'Prayer changes everything. The Pray Hoodie from the Faith Boldly collection is a bold reminder to bring every situation to God and let faith lead the way.' }
   };
 
   const openShopModal = categoryCard => {
@@ -258,13 +266,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const count = Number.parseInt(categoryCard.dataset.shopCount,10) || 5;
     const isApparel = category === 'Apparel';
     const isEbooks = category === 'E-Books';
+    const displayCategory = isEbooks ? 'E-Book / Physical Book' : category;
     const thumbnail = isApparel ? 'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png' : categoryCard.querySelector('img')?.src;
-    shopModalTitle.textContent = category;
+    shopModalTitle.textContent = displayCategory;
     shopModalGrid.innerHTML = Array.from({length:count},(_,index) => {
       const productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : isEbooks ? (ebooksProductImages[index] || ebooksProductImages[0]) : thumbnail;
       const detail = isApparel ? apparelDetails[index] : isEbooks ? ebooksDetails[index] : null;
       const productName = detail ? detail.title : `Product ${String(index + 1).padStart(2,'0')}`;
-      return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${category}</small><h3>${productName}</h3><span>${isApparel ? 'View product details' : 'Details coming soon'}</span></div></button>`;
+      return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${displayCategory}</small><h3>${productName}</h3><span>${isApparel ? 'View product details' : 'Details coming soon'}</span></div></button>`;
     }).join('');
     if (isApparel) shopModalGrid.querySelectorAll('.shop-template-card').forEach(card => card.addEventListener('click',() => openProductModal(card)));
     shopModalOpener = categoryCard;
