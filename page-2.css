@@ -827,3 +827,12 @@ html.beta-locked body>footer{visibility:hidden}
 html{scroll-behavior:smooth}
 .pathway-action{display:block;margin-top:auto;background:var(--paper);color:var(--ink);padding:9px;border-radius:4px;text-align:center;font-size:14px;font-weight:600;text-decoration:none;transition:opacity .2s}
 .pathway-action:hover{opacity:.85}
+
+.events-calendar{background:#fffaf0;border:1px solid #dec795;border-radius:12px;padding:clamp(20px,3vw,36px);max-width:700px;margin:0 auto}
+.events-calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #e8dcc4}
+.events-calendar-header h3{margin:0;font-size:24px;color:#174432;font-style:italic}
+.events-empty{text-align:center;padding:clamp(30px,4vw,60px) 20px}
+.events-empty-icon{font-size:48px;margin-bottom:16px}
+.events-empty h4{margin:0 0 12px;font-size:22px;color:#174432}
+.events-empty p{margin:0 0 8px;color:#667265;font-size:15px;line-height:1.5}
+.events-empty-note{color:#b48129;font-style:italic;font-size:13px!important;margin-top:16px!important}
