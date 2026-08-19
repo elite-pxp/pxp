@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const noteAction = note
           ? `<button class="series-study-notes" type="button" data-note-index="${noteIndex}">Preview Study Notes</button>`
           : '<span class="series-study-notes-unavailable">Study notes unavailable</span>';
-        return `<article class="series-live-card"><iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div><span class="series-week-folder">${month.name} Study Notes</span><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p><div class="series-card-actions"><a href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">Watch Teaching</a>${noteAction}</div></div></article>`;
+        return `<article class="series-live-card"><iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p></div></article>`;
       }).join('');
       modal.querySelectorAll('.series-study-notes').forEach(button => button.addEventListener('click', () => {
         const note = studyNotes[Number(button.dataset.noteIndex)];
