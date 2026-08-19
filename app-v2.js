@@ -176,13 +176,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const apparelProductImages = [
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8389c1a6a03cda06aead34.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8433ca81b49c99f245b8c5.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8433ca45dbba232f9ea0d4.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8433ca81b49c99f245b8cd.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a84532afcf70e5609352a0d.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a84532296d2b224d32e0555.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a845322d07034adc2b19e8e.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3dd07034adc2aac1e2.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3dd1abe28fc92d6d8f.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3d7998683b3c7443b8.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82ed6699074f5ef68b531d.png',
   ];
   let shopModalOpener = null;
   let productModalOpener = null;
@@ -197,13 +196,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const openProductModal = productCard => {
     if (!productModal || !productModalTitle) return;
     const productNumber = Number.parseInt(productCard.dataset.productIndex,10) + 1;
-    productModalTitle.textContent = 'Restored by Jesus Hoodie';
+    const cardTitle = productCard.querySelector('h3')?.textContent || `Product ${String(productNumber).padStart(2,'0')}`;
+    productModalTitle.textContent = cardTitle;
     const productKicker = productModal.querySelector('.product-detail-copy .kicker');
     if (productKicker) productKicker.textContent = `Powered X Prayer Apparel · Product ${String(productNumber).padStart(2,'0')}`;
     const productImage = productModal.querySelector('.product-detail-media img');
     if (productImage) {
       productImage.src = productCard.dataset.productImage;
-      productImage.alt = `Powered X Prayer apparel product ${String(productNumber).padStart(2,'0')}`;
+      productImage.alt = cardTitle;
     }
     productModalOpener = productCard;
     productModal.hidden = false;
@@ -228,7 +228,15 @@ document.addEventListener('DOMContentLoaded', () => {
     shopModalTitle.textContent = category;
     shopModalGrid.innerHTML = Array.from({length:count},(_,index) => {
       const productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : thumbnail;
-      return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"><img src="${productImage}" alt="${category} product ${index + 1}" loading="lazy"><div><small>${category}</small><h3>Product ${String(index + 1).padStart(2,'0')}</h3><span>${isApparel ? 'View product details' : 'Details coming soon'}</span></div></button>`;
+      const apparelDetails = {
+        2: { title: 'Reign in the Spirit Daily Hoodie', desc: 'Wear the word of God as a declaration of spiritual authority. Featuring "REIGN IN THE SPIRIT DAILY" with Romans 5:17, this hoodie is a daily reminder that through Christ we reign in life and walk in the power of the Holy Spirit.' },
+        3: { title: 'Reign in the Spirit Daily Flame Hoodie', desc: 'Carry the fire of the Spirit wherever you go. This flame-edition hoodie displays "REIGN IN THE SPIRIT DAILY" alongside Romans 5:17 with a bold flame graphic \u2014 a declaration of faith, passion, and the life-giving power of Christ.' },
+        4: { title: 'Rooted in Christ Hoodie', desc: 'Your identity begins with your Creator. This tree-root design pairs "ROOTED IN CHRIST" with the declaration "My Identity Begins With My Creator" \u2014 a reminder to stay grounded in faith and anchored in who God says you are.' }
+      };
+      const detail = isApparel && apparelDetails[index];
+      const productName = detail ? detail.title : `Product ${String(index + 1).padStart(2,'0')}`;
+      const productDesc = detail ? detail.desc : (isApparel ? 'View product details' : 'Details coming soon');
+      return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${category}</small><h3>${productName}</h3><span>${productDesc}</span></div></button>`;
     }).join('');
     if (isApparel) shopModalGrid.querySelectorAll('.shop-template-card').forEach(card => card.addEventListener('click',() => openProductModal(card)));
     shopModalOpener = categoryCard;
