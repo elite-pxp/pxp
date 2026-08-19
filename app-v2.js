@@ -105,7 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
       ['Vy6zqh8eZIc','Reign in the Spirit','July 28, 2026','Let the Holy Spirit lead, sharpen your discernment, and teach you to reign through Christ.'] ]},
     august: { name:'August', series:'REFLECT', theme:'See Clearly. Live Intentionally.', videos:[
       ['fDxOYQK8YJg','The Mirror, Seeing Yourself the Way God Sees You','August 4, 2026',"Look into the mirror of God's Word and allow the Holy Spirit to transform your heart."],
-      ['cs00kGDEXew','REFLECT Week 2: REVEAL — Who Am I Really?','August 11, 2026',"Replace earthly labels with Heaven's language and receive your identity in Christ."] ]}
+      ['cs00kGDEXew','REFLECT Week 2: REVEAL — Who Am I Really?','August 11, 2026',"Replace earthly labels with Heaven's language and receive your identity in Christ."],
+      ['ZukSJ5lNPkQ','Every Stage Is Preparing You','August 18, 2026',"The Weight of His Glory is a call to look at the process differently. The pressure, the pain, the waiting, and the hidden places are not wasted when God is forming something eternal in you."] ]}
   };
   let activeSeriesModal = null;
   let seriesModalOpener = null;
