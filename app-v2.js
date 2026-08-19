@@ -186,6 +186,20 @@ document.addEventListener('DOMContentLoaded', () => {
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a859672cf3baae49e5b4cd3.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a859672d8b5c2f24d5deeb9.png',
   ];
+  const ebooksProductImages = [
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c1447bf72d964f602.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c949d6f49c3238903.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c8bea83db8de4c06f.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c62d760a82d19a940.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91cb3a1bcf4fa84f019.png',
+  ];
+  const ebooksDetails = {
+    0: { title: '3-Day Fasting Prayer Guide' },
+    1: { title: 'Cultivate Your Eden Devotional' },
+    2: { title: 'Restore Series Journal' },
+    3: { title: 'Faith Over Fear Study' },
+    4: { title: 'Kingdom Builder Handbook' }
+  };
   let shopModalOpener = null;
   let productModalOpener = null;
 
@@ -243,11 +257,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const category = categoryCard.dataset.shopCategory;
     const count = Number.parseInt(categoryCard.dataset.shopCount,10) || 5;
     const isApparel = category === 'Apparel';
+    const isEbooks = category === 'E-Books';
     const thumbnail = isApparel ? 'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png' : categoryCard.querySelector('img')?.src;
     shopModalTitle.textContent = category;
     shopModalGrid.innerHTML = Array.from({length:count},(_,index) => {
-      const productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : thumbnail;
-      const detail = isApparel && apparelDetails[index];
+      const productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : isEbooks ? (ebooksProductImages[index] || ebooksProductImages[0]) : thumbnail;
+      const detail = isApparel ? apparelDetails[index] : isEbooks ? ebooksDetails[index] : null;
       const productName = detail ? detail.title : `Product ${String(index + 1).padStart(2,'0')}`;
       return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${category}</small><h3>${productName}</h3><span>${isApparel ? 'View product details' : 'Details coming soon'}</span></div></button>`;
     }).join('');

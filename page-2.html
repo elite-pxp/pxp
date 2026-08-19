@@ -228,6 +228,20 @@
         9: { title: 'Let Me Pray About It Crewneck', desc: 'Before the answer, the decision, or the response, pray about it. This Powered X Prayer crewneck is a simple reminder to seek God first and let prayer lead the way.' },
         10: { title: 'God, I Trust You Crewneck', desc: 'A statement of faith for every season. The God, I Trust You Crewneck is inspired by Psalm 56:3 and reminds us to place our trust in God when fear and uncertainty try to take over.' }
       };
+      var ebooksProductImages = [
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c1447bf72d964f602.png',
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c949d6f49c3238903.png',
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c8bea83db8de4c06f.png',
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c62d760a82d19a940.png',
+        'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91cb3a1bcf4fa84f019.png'
+      ];
+      var ebooksCardDetails = {
+        0: { title: '3-Day Fasting Prayer Guide' },
+        1: { title: 'Cultivate Your Eden Devotional' },
+        2: { title: 'Restore Series Journal' },
+        3: { title: 'Faith Over Fear Study' },
+        4: { title: 'Kingdom Builder Handbook' }
+      };
       function openShop(card) {
         var category = card.dataset.shopCategory;
         var count = parseInt(card.dataset.shopCount, 10) || 5;
@@ -235,8 +249,9 @@
         var image = isApparel ? 'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png' : card.querySelector('img').src;
         title.textContent = category;
         grid.innerHTML = Array.from({length: count}, function (_, index) {
-          var productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : image;
-          var detail = isApparel && apparelCardDetails[index];
+          var isEbooks = category === 'E-Books';
+          var productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : isEbooks ? (ebooksProductImages[index] || ebooksProductImages[0]) : image;
+          var detail = isApparel ? apparelCardDetails[index] : isEbooks ? ebooksCardDetails[index] : null;
           var productName = detail ? detail.title : ('Product ' + String(index + 1).padStart(2, '0'));
           var productDesc = detail ? detail.desc : 'Details coming soon';
           return '<article class="shop-template-card' + (isApparel ? ' is-apparel' : '') + '"><img src="' + productImage + '" alt="' + productName + '"><div><small>' + category + '</small><h3>' + productName + '</h3><span>' + productDesc + '</span></div></article>';'
