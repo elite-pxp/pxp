@@ -328,6 +328,15 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
 }
 
 /* Seamless 365 Days of Transformation carousel. */
+
+.series-marquee{position:relative;scrollbar-width:none;-ms-overflow-style:none}
+.series-marquee::before,.series-marquee::after{content:'';position:absolute;top:0;bottom:0;width:40px;z-index:2;pointer-events:none;transition:opacity .3s}
+.series-marquee::before{left:0;background:linear-gradient(to right,#064332,transparent)}
+.series-marquee::after{right:0;background:linear-gradient(to left,#022f23,transparent)}
+.series-marquee.scroll-left::before{opacity:0}
+.series-marquee.scroll-right::after{opacity:0}
+.series-marquee{cursor:grab}
+.series-marquee:active{cursor:grabbing}
 .series-marquee{
   width:100%;
   overflow-x:auto;
@@ -447,7 +456,16 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
   .series-track{animation-duration:34s}
 }
 @media(prefers-reduced-motion:reduce){
-  .series-marquee{
+  
+.series-marquee{position:relative;scrollbar-width:none;-ms-overflow-style:none}
+.series-marquee::before,.series-marquee::after{content:'';position:absolute;top:0;bottom:0;width:40px;z-index:2;pointer-events:none;transition:opacity .3s}
+.series-marquee::before{left:0;background:linear-gradient(to right,#064332,transparent)}
+.series-marquee::after{right:0;background:linear-gradient(to left,#022f23,transparent)}
+.series-marquee.scroll-left::before{opacity:0}
+.series-marquee.scroll-right::after{opacity:0}
+.series-marquee{cursor:grab}
+.series-marquee:active{cursor:grabbing}
+.series-marquee{
     overflow-x:auto;
     mask-image:none;
     -webkit-mask-image:none;
@@ -458,7 +476,16 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
 }
 
 @media(min-width:721px) and (pointer:fine){
-  .series-marquee{cursor:grab}
+  
+.series-marquee{position:relative;scrollbar-width:none;-ms-overflow-style:none}
+.series-marquee::before,.series-marquee::after{content:'';position:absolute;top:0;bottom:0;width:40px;z-index:2;pointer-events:none;transition:opacity .3s}
+.series-marquee::before{left:0;background:linear-gradient(to right,#064332,transparent)}
+.series-marquee::after{right:0;background:linear-gradient(to left,#022f23,transparent)}
+.series-marquee.scroll-left::before{opacity:0}
+.series-marquee.scroll-right::after{opacity:0}
+.series-marquee{cursor:grab}
+.series-marquee:active{cursor:grabbing}
+.series-marquee{cursor:grab}
   .series-marquee.is-dragging{
     cursor:grabbing;
     user-select:none;
@@ -600,7 +627,16 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
 
 /* On touch-sized screens, let visitors control the Transformation carousel. */
 @media(max-width:720px){
-  .series-marquee{
+  
+.series-marquee{position:relative;scrollbar-width:none;-ms-overflow-style:none}
+.series-marquee::before,.series-marquee::after{content:'';position:absolute;top:0;bottom:0;width:40px;z-index:2;pointer-events:none;transition:opacity .3s}
+.series-marquee::before{left:0;background:linear-gradient(to right,#064332,transparent)}
+.series-marquee::after{right:0;background:linear-gradient(to left,#022f23,transparent)}
+.series-marquee.scroll-left::before{opacity:0}
+.series-marquee.scroll-right::after{opacity:0}
+.series-marquee{cursor:grab}
+.series-marquee:active{cursor:grabbing}
+.series-marquee{
     width:calc(100% + 36px);
     margin-inline:-18px;
     padding:6px 18px 16px;

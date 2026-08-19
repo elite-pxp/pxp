@@ -520,6 +520,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+
+  /* ---- Scroll position hints for series marquee ---- */
+  if (seriesMarquee) {
+    const updateScrollHints = () => {
+      const maxScroll = seriesMarquee.scrollWidth - seriesMarquee.clientWidth;
+      seriesMarquee.classList.toggle('scroll-left', seriesMarquee.scrollLeft <= 5);
+      seriesMarquee.classList.toggle('scroll-right', seriesMarquee.scrollLeft >= maxScroll - 5);
+    };
+    seriesMarquee.addEventListener('scroll', updateScrollHints, { passive: true });
+    updateScrollHints();
+  }
+
   /* ---- Hero video: fetch latest upload via YouTube Data API ---- */
   const heroIframe = document.querySelector('.hero-video-panel iframe');
   if (heroIframe) {
