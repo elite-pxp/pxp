@@ -480,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dragStartX = event.clientX;
     dragStartScroll = seriesMarquee.scrollLeft;
     seriesMarquee.classList.add('is-dragging');
-    seriesMarquee.setPointerCapture(event.pointerId);
+
   });
 
   seriesMarquee?.addEventListener('pointermove', event => {
@@ -495,16 +495,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isSeriesDragging) return;
     isSeriesDragging = false;
     seriesMarquee.classList.remove('is-dragging');
-    if (seriesMarquee.hasPointerCapture(event.pointerId)) {
-      seriesMarquee.releasePointerCapture(event.pointerId);
-    }
+
   };
 
   seriesMarquee?.addEventListener('pointerup', endSeriesDrag);
   seriesMarquee?.addEventListener('pointercancel', endSeriesDrag);
-  seriesMarquee?.addEventListener('scroll', () => {
-    if (!autoSeriesEnabled && seriesMarquee.scrollLeft > manualMaxScroll) seriesMarquee.scrollLeft = manualMaxScroll;
-  }, { passive: true });
+
   seriesMarquee?.addEventListener('dragstart', event => event.preventDefault());
   seriesMarquee?.addEventListener('click', event => {
     if (!didSeriesDrag) return;
