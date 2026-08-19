@@ -353,7 +353,7 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
 .series-track{
   display:flex;
   width:max-content;
-  gap:10px;
+  gap:14px;
   animation:none;
 }
 .series-set{
@@ -369,8 +369,8 @@ footer{background:var(--deep);color:#fff7e5}.values{padding:18px clamp(28px,4vw,
 }
 .series-set article{
   position:relative;
-  flex:0 0 clamp(110px,12vw,155px);
-  width:clamp(110px,12vw,155px);
+  flex:0 0 clamp(140px,16vw,200px);
+  width:clamp(140px,16vw,200px);
   aspect-ratio:4/5;
   overflow:hidden;
   border:1px solid var(--gold);
