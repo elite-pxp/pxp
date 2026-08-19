@@ -193,13 +193,18 @@ document.addEventListener('DOMContentLoaded', () => {
     productModalOpener = null;
   };
 
+  const defaultProductDesc = 'A faith-forward hoodie created as a wearable reminder that God restores what life tried to destroy. Final fabric, fit, and care details will be added before checkout activated.';
+
   const openProductModal = productCard => {
     if (!productModal || !productModalTitle) return;
     const productNumber = Number.parseInt(productCard.dataset.productIndex,10) + 1;
     const cardTitle = productCard.querySelector('h3')?.textContent || `Product ${String(productNumber).padStart(2,'0')}`;
+    const detail = apparelDetails[productNumber - 1];
     productModalTitle.textContent = cardTitle;
     const productKicker = productModal.querySelector('.product-detail-copy .kicker');
     if (productKicker) productKicker.textContent = `Powered X Prayer Apparel · Product ${String(productNumber).padStart(2,'0')}`;
+    const productDescEl = productModal.querySelector('.product-description');
+    if (productDescEl) productDescEl.textContent = detail ? detail.desc : defaultProductDesc;
     const productImage = productModal.querySelector('.product-detail-media img');
     if (productImage) {
       productImage.src = productCard.dataset.productImage;
@@ -219,6 +224,12 @@ document.addEventListener('DOMContentLoaded', () => {
     shopModalOpener = null;
   };
 
+  const apparelDetails = {
+    2: { title: 'Reign in the Spirit Daily Hoodie', desc: 'Wear the word of God as a declaration of spiritual authority. Featuring "REIGN IN THE SPIRIT DAILY" with Romans 5:17, this hoodie is a daily reminder that through Christ we reign in life and walk in the power of the Holy Spirit.' },
+    3: { title: 'Reign in the Spirit Daily Flame Hoodie', desc: 'Carry the fire of the Spirit wherever you go. This flame-edition hoodie displays "REIGN IN THE SPIRIT DAILY" alongside Romans 5:17 with a bold flame graphic \u2014 a declaration of faith, passion, and the life-giving power of Christ.' },
+    4: { title: 'Rooted in Christ Hoodie', desc: 'Your identity begins with your Creator. This tree-root design pairs "ROOTED IN CHRIST" with the declaration "My Identity Begins With My Creator" \u2014 a reminder to stay grounded in faith and anchored in who God says you are.' }
+  };
+
   const openShopModal = categoryCard => {
     if (!shopModal || !shopModalTitle || !shopModalGrid) return;
     const category = categoryCard.dataset.shopCategory;
@@ -228,15 +239,9 @@ document.addEventListener('DOMContentLoaded', () => {
     shopModalTitle.textContent = category;
     shopModalGrid.innerHTML = Array.from({length:count},(_,index) => {
       const productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : thumbnail;
-      const apparelDetails = {
-        2: { title: 'Reign in the Spirit Daily Hoodie', desc: 'Wear the word of God as a declaration of spiritual authority. Featuring "REIGN IN THE SPIRIT DAILY" with Romans 5:17, this hoodie is a daily reminder that through Christ we reign in life and walk in the power of the Holy Spirit.' },
-        3: { title: 'Reign in the Spirit Daily Flame Hoodie', desc: 'Carry the fire of the Spirit wherever you go. This flame-edition hoodie displays "REIGN IN THE SPIRIT DAILY" alongside Romans 5:17 with a bold flame graphic \u2014 a declaration of faith, passion, and the life-giving power of Christ.' },
-        4: { title: 'Rooted in Christ Hoodie', desc: 'Your identity begins with your Creator. This tree-root design pairs "ROOTED IN CHRIST" with the declaration "My Identity Begins With My Creator" \u2014 a reminder to stay grounded in faith and anchored in who God says you are.' }
-      };
       const detail = isApparel && apparelDetails[index];
       const productName = detail ? detail.title : `Product ${String(index + 1).padStart(2,'0')}`;
-      const productDesc = detail ? detail.desc : (isApparel ? 'View product details' : 'Details coming soon');
-      return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${category}</small><h3>${productName}</h3><span>${productDesc}</span></div></button>`;
+      return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${category}</small><h3>${productName}</h3><span>${isApparel ? 'View product details' : 'Details coming soon'}</span></div></button>`;
     }).join('');
     if (isApparel) shopModalGrid.querySelectorAll('.shop-template-card').forEach(card => card.addEventListener('click',() => openProductModal(card)));
     shopModalOpener = categoryCard;
