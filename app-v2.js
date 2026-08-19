@@ -546,26 +546,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ---- Hero video: fetch latest upload from YouTube RSS ---- */
+  /* ---- Hero video: fetch latest upload via YouTube Data API ---- */
   const heroIframe = document.querySelector('.hero-video-panel iframe');
   if (heroIframe) {
-    const channelId = 'UC1qFfHXbdgzy188ILJFw68Q';
-    const rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
-    fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(rssUrl))
-      .then(function (r) { return r.text(); })
-      .then(function (xml) {
-        var doc = new DOMParser().parseFromString(xml, 'application/xml');
-        var entries = Array.from(doc.getElementsByTagName('entry'));
-        for (var i = 0; i < entries.length; i++) {
-          var entry = entries[i];
-          var link = entry.getElementsByTagName('link')[0];
-          var href = link ? link.getAttribute('href') || '' : '';
-          var title = entry.getElementsByTagName('title')[0];
-          var titleText = title ? title.textContent : '';
-          if (href.includes('/shorts/') || titleText.toLowerCase().includes('#shorts')) continue;
-          var vid = entry.getElementsByTagName('yt:videoId')[0];
-          if (vid && vid.textContent) {
-            heroIframe.src = 'https://www.youtube.com/embed/' + vid.textContent.trim();
+    const ytApiKey = 'AIzaSyAWqLX8uRQUhzGTruyCnE5l5-0pcsfd6VY';
+    const uploadsPlaylistId = 'UU1qFfHXbdgzy188ILJFw68Q';
+    fetch('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=' + uploadsPlaylistId + '&maxResults=5&key=' + ytApiKey)
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data.items || !data.items.length) return;
+        for (var i = 0; i < data.items.length; i++) {
+          var item = data.items[i];
+          var title = item.snippet.title || '';
+          if (title.toLowerCase().includes('#shorts')) continue;
+          var videoId = item.snippet.resourceId ? item.snippet.resourceId.videoId : null;
+          if (videoId) {
+            heroIframe.src = 'https://www.youtube.com/embed/' + videoId;
+            var dateEl = document.querySelector('.hero-video-panel span');
+            if (dateEl && item.snippet.publishedAt) {
+              var d = new Date(item.snippet.publishedAt);
+              dateEl.textContent = 'Latest Upload \u2014 ' + d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            }
             return;
           }
         }
