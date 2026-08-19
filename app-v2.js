@@ -198,11 +198,11 @@ document.addEventListener('DOMContentLoaded', () => {
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91cb3a1bcf4fa84f019.png',
   ];
   const ebooksDetails = {
-    0: { title: 'The Process', desc: 'A faith-driven guide to personal transformation. Discover the spiritual principles that lead you from where you are to where God is taking you.', link: 'https://go.poweredxprayers.com/product-details/product/theprocess' },
-    1: { title: 'Stop Wishing, Start Building Wealth', desc: 'Biblical wisdom and practical strategy to help you build, manage, and multiply Gods resources. Stop waiting and start building.', link: 'https://go.poweredxprayers.com/product-details/product/thewealthroom' },
-    2: { title: 'Stop Wishing, Start Working (With Power!)', desc: 'A 40-day prayer strategy binder that turns your prayers into profitable action. Build, position, and prepare to exit with purpose.', link: 'https://go.poweredxprayers.com/product-details/product/6928982fcd500e536d818a98' },
-    3: { title: 'The Story of David', desc: 'A brave and inspiring journey through the life of David. Learn about courage, faith, and trusting God through every season.', link: 'https://go.poweredxprayers.com/product-details/product/693aeeed6850553ebe2600b3' },
-    4: { title: 'AI in Action', desc: 'Shaping tomorrows success with todays technology. A practical guide to leveraging AI for kingdom impact and personal growth.', link: 'https://go.poweredxprayers.com/product-details/product/6928980790b2c4352e2261e8' }
+    0: { title: 'The Process', desc: 'A faith-driven guide to personal transformation. Discover the spiritual principles that lead you from where you are to where God is taking you.', link: 'https://go.poweredxprayers.com/product-details/product/theprocess', type: 'ebook' },
+    1: { title: 'Stop Wishing, Start Building Wealth', desc: 'Biblical wisdom and practical strategy to help you build, manage, and multiply Gods resources. Stop waiting and start building.', link: 'https://go.poweredxprayers.com/product-details/product/thewealthroom', type: 'ebook' },
+    2: { title: 'Stop Wishing, Start Working (With Power!)', desc: 'A 40-day prayer strategy binder that turns your prayers into profitable action. Build, position, and prepare to exit with purpose.', link: 'https://go.poweredxprayers.com/product-details/product/6928982fcd500e536d818a98', type: 'both' },
+    3: { title: 'The Story of David', desc: 'A brave and inspiring journey through the life of David. Learn about courage, faith, and trusting God through every season.', link: 'https://go.poweredxprayers.com/product-details/product/693aeeed6850553ebe2600b3', type: 'ebook' },
+    4: { title: 'AI in Action', desc: 'Shaping tomorrows success with todays technology. A practical guide to leveraging AI for kingdom impact and personal growth.', link: 'https://go.poweredxprayers.com/product-details/product/6928980790b2c4352e2261e8', type: 'ebook' }
   };
   const trainingsProductImages = [
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/699cc567d0716b216f4ad50b.png',
@@ -285,8 +285,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : isEbooks ? (ebooksProductImages[index] || ebooksProductImages[0]) : isTrainings ? (trainingsProductImages[index] || trainingsProductImages[0]) : thumbnail;
       const detail = isApparel ? apparelDetails[index] : isEbooks ? ebooksDetails[index] : isTrainings ? trainingsDetails[index] : null;
       const productLink = detail?.link || null;
+      const productType = detail?.type || null;
+      const cardLabel = isEbooks ? (productType === 'both' ? 'E-Book / Physical Book' : 'E-Book') : displayCategory;
       const productName = detail ? detail.title : `Product ${String(index + 1).padStart(2,'0')}`;
-      return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"${productLink ? ` data-product-link="${productLink}"` : ''}><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${displayCategory}</small><h3>${productName}</h3><span>${isApparel ? 'View product details' : productLink ? 'Get Your Copy' : 'Details coming soon'}</span></div></button>`;
+      return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"${productLink ? ` data-product-link="${productLink}"` : ''}><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${isEbooks ? cardLabel : displayCategory}</small><h3>${productName}</h3><span>${isApparel ? 'View product details' : productLink ? 'Get Your Copy' : 'Details coming soon'}</span></div></button>`;
     }).join('');
     shopModalGrid.querySelectorAll('.shop-template-card').forEach(card => {
       if (isApparel) card.addEventListener('click',() => openProductModal(card));
