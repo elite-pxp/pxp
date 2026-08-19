@@ -228,6 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const apparelDetails = {
+    0: { title: 'Restored by Jesus Hoodie', desc: 'A faith-forward hoodie created as a wearable reminder that God restores what life tried to destroy. Final fabric, fit, and care details will be added before checkout is activated.' },
+    1: { title: 'The Word Is My Mirror Hoodie', desc: 'A daily reminder to see yourself the way God sees you. Let His Word reflect truth over your identity, replacing every lie with the promise of who you are in Christ.' },
     2: { title: 'Reign in the Spirit Daily Hoodie', desc: 'Wear the word of God as a declaration of spiritual authority. Featuring "REIGN IN THE SPIRIT DAILY" with Romans 5:17, this hoodie is a daily reminder that through Christ we reign in life and walk in the power of the Holy Spirit.' },
     3: { title: 'Reign in the Spirit Daily Flame Hoodie', desc: 'Carry the fire of the Spirit wherever you go. This flame-edition hoodie displays "REIGN IN THE SPIRIT DAILY" alongside Romans 5:17 with a bold flame graphic \u2014 a declaration of faith, passion, and the life-giving power of Christ.' },
     4: { title: 'Rooted in Christ Hoodie', desc: 'Your identity begins with your Creator. This tree-root design pairs "ROOTED IN CHRIST" with the declaration "My Identity Begins With My Creator" \u2014 a reminder to stay grounded in faith and anchored in who God says you are.' },
