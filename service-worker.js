@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'pxp-v77';
+const CACHE_VERSION = 'pxp-v78';
 const APP_SHELL_CACHE = `app-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 

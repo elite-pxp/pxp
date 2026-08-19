@@ -1835,7 +1835,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const entriesPromise = (async function () {
             try {
                 const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(channelId)}`;
-                const response = await fetch(rssUrl);
+                const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`);
                 if (!response.ok) {
                     return [];
                 }
@@ -2017,7 +2017,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         try {
             const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(channelId)}`;
-            const response = await fetch(rssUrl);
+            const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`);
             if (!response.ok) {
                 return null;
             }
@@ -2049,7 +2049,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         try {
             const rssUrl = `https://www.youtube.com/feeds/videos.xml?user=${encodeURIComponent(username)}`;
-            const response = await fetch(rssUrl);
+            const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`);
             if (!response.ok) {
                 return null;
             }
