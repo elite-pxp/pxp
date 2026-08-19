@@ -122,7 +122,7 @@
       <div class="section-heading light"><div><p class="kicker">Faith-filled resources</p><h2>Shop by Category</h2></div><a class="outline-button" href="https://go.poweredxprayers.com/shop" target="_blank" rel="noopener">View All Products</a></div>
       <div class="shop-grid">
         <article class="shop-category-trigger" data-shop-category="Apparel" data-shop-count="15" tabindex="0" role="button"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dec8a6a03cda067e5dc4.png" alt="Powered x Prayer apparel collection"><h3>Apparel</h3><a href="#apparel">View Apparel</a></article>
-        <article class="shop-category-coming-soon" aria-label="Trainings and Courses, coming soon"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591f762745222aad645.png" alt="Powered x Prayer training and courses"><h3>Trainings &amp; Courses</h3><span>Coming Soon</span></article>
+        <article class="shop-category-trigger" data-shop-category="Trainings &amp; Courses" data-shop-count="2" tabindex="0" role="button"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591f762745222aad645.png" alt="Powered x Prayer training and courses"><h3>Trainings &amp; Courses</h3><a href="#trainings">View Trainings</a></article>
         <article class="shop-category-trigger" data-shop-category="E-Books" data-shop-count="5" tabindex="0" role="button"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591f762745222aad65a.png" alt="Powered x Prayer eBooks"><h3>E-Books</h3><a href="#ebooks">View E-Books</a></article>
         <article class="shop-category-coming-soon" aria-label="Family Resources, coming soon"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591255b571c8e4470b6.png" alt="Powered x Prayer family resources"><h3>Family Resources</h3><span>Coming Soon</span></article>
         <article class="shop-category-coming-soon" id="wealth-resources" aria-label="Wealth Resources, coming soon"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591cf50f900f2858d78.png" alt="Powered x Prayer wealth resources"><h3>Wealth Resources</h3><span>Coming Soon</span></article>
@@ -196,7 +196,7 @@
       <blockquote>“I can do all this through Him who gives me strength.”<small>Philippians 4:13</small></blockquote>
     </div>
   </footer>
-  <script src="./app-v2.js?v=77"></script>
+  <script src="./app-v2.js?v=78"></script>
   <script type="module" src="./resources-dashboard-reader.js?v=6"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -262,8 +262,9 @@
         var displayCategory = isEbooks ? 'E-Book / Physical Book' : category;
         title.textContent = displayCategory;
         grid.innerHTML = Array.from({length: count}, function (_, index) {
-          var productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : isEbooks ? (ebooksProductImages[index] || ebooksProductImages[0]) : image;
-          var detail = isApparel ? apparelCardDetails[index] : isEbooks ? ebooksCardDetails[index] : null;
+          var isTrainings = category === 'Trainings & Courses';
+          var productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : isEbooks ? (ebooksProductImages[index] || ebooksProductImages[0]) : isTrainings ? (trainingsProductImages[index] || trainingsProductImages[0]) : image;
+          var detail = isApparel ? apparelCardDetails[index] : isEbooks ? ebooksCardDetails[index] : isTrainings ? trainingsCardDetails[index] : null;
           var productName = detail ? detail.title : ('Product ' + String(index + 1).padStart(2, '0'));
           var productDesc = detail ? detail.desc : 'Details coming soon';
           return '<article class="shop-template-card' + (isApparel ? ' is-apparel' : '') + '"><img src="' + productImage + '" alt="' + productName + '"><div><small>' + category + '</small><h3>' + productName + '</h3><span>' + productDesc + '</span></div></article>';'

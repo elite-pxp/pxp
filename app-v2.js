@@ -204,6 +204,14 @@ document.addEventListener('DOMContentLoaded', () => {
     3: { title: 'Faith Over Fear Study' },
     4: { title: 'Kingdom Builder Handbook' }
   };
+  const trainingsProductImages = [
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591f762745222aad645.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a7f1591f762745222aad645.png',
+  ];
+  const trainingsDetails = {
+    0: { title: 'Training Course 01' },
+    1: { title: 'Training Course 02' }
+  };
   let shopModalOpener = null;
   let productModalOpener = null;
 
@@ -269,12 +277,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const count = Number.parseInt(categoryCard.dataset.shopCount,10) || 5;
     const isApparel = category === 'Apparel';
     const isEbooks = category === 'E-Books';
+    const isTrainings = category === 'Trainings & Courses';
     const displayCategory = isEbooks ? 'E-Book / Physical Book' : category;
     const thumbnail = isApparel ? 'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png' : categoryCard.querySelector('img')?.src;
     shopModalTitle.textContent = displayCategory;
     shopModalGrid.innerHTML = Array.from({length:count},(_,index) => {
-      const productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : isEbooks ? (ebooksProductImages[index] || ebooksProductImages[0]) : thumbnail;
-      const detail = isApparel ? apparelDetails[index] : isEbooks ? ebooksDetails[index] : null;
+      const productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : isEbooks ? (ebooksProductImages[index] || ebooksProductImages[0]) : isTrainings ? (trainingsProductImages[index] || trainingsProductImages[0]) : thumbnail;
+      const detail = isApparel ? apparelDetails[index] : isEbooks ? ebooksDetails[index] : isTrainings ? trainingsDetails[index] : null;
       const productName = detail ? detail.title : `Product ${String(index + 1).padStart(2,'0')}`;
       return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${displayCategory}</small><h3>${productName}</h3><span>${isApparel ? 'View product details' : 'Details coming soon'}</span></div></button>`;
     }).join('');
