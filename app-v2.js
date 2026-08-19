@@ -182,6 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3dd07034adc2aac1e2.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3dd1abe28fc92d6d8f.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3d7998683b3c7443b8.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a859672d8b5c2f24d5df00f.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a859672cf3baae49e5b4cd3.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a859672d8b5c2f24d5deeb9.png',
   ];
   let shopModalOpener = null;
   let productModalOpener = null;
@@ -227,7 +230,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const apparelDetails = {
     2: { title: 'Reign in the Spirit Daily Hoodie', desc: 'Wear the word of God as a declaration of spiritual authority. Featuring "REIGN IN THE SPIRIT DAILY" with Romans 5:17, this hoodie is a daily reminder that through Christ we reign in life and walk in the power of the Holy Spirit.' },
     3: { title: 'Reign in the Spirit Daily Flame Hoodie', desc: 'Carry the fire of the Spirit wherever you go. This flame-edition hoodie displays "REIGN IN THE SPIRIT DAILY" alongside Romans 5:17 with a bold flame graphic \u2014 a declaration of faith, passion, and the life-giving power of Christ.' },
-    4: { title: 'Rooted in Christ Hoodie', desc: 'Your identity begins with your Creator. This tree-root design pairs "ROOTED IN CHRIST" with the declaration "My Identity Begins With My Creator" \u2014 a reminder to stay grounded in faith and anchored in who God says you are.' }
+    4: { title: 'Rooted in Christ Hoodie', desc: 'Your identity begins with your Creator. This tree-root design pairs "ROOTED IN CHRIST" with the declaration "My Identity Begins With My Creator" \u2014 a reminder to stay grounded in faith and anchored in who God says you are.' ,
+    8: { title: 'Let Me Pray About It Hoodie', desc: 'A reminder to take it to God first. The Let Me Pray About It Hoodie represents a lifestyle of prayer, faith, and seeking God before making your next move.' },
+    9: { title: 'Let Me Pray About It Crewneck', desc: 'Before the answer, the decision, or the response, pray about it. This Powered X Prayer crewneck is a simple reminder to seek God first and let prayer lead the way.' },
+    10: { title: 'God, I Trust You Crewneck', desc: 'A statement of faith for every season. The God, I Trust You Crewneck is inspired by Psalm 56:3 and reminds us to place our trust in God when fear and uncertainty try to take over.' }
   };
 
   const openShopModal = categoryCard => {
