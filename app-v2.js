@@ -337,6 +337,17 @@ document.addEventListener('DOMContentLoaded', () => {
           '<h3>T-SHIRTS</h3>' +
           '<span>' + tshirtImages.length + ' Products</span>' +
         '</button>' +
+        '<div class="apparel-subcategory-card coming-soon">' +
+          '<div class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png" alt="Joggers"></div>' +
+          '<h3>JOGGERS</h3>' +
+          '<span>Coming Soon</span>' +
+        '</div>' +
+        '<div class="apparel-subcategory-card coming-soon">' +
+          '<div class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb949d6f49c33b7805.png" alt="Hats"></div>' +
+          '<h3>HATS</h3>' +
+          '<span>Coming Soon</span>' +
+        '</div>' +
+      '</div>';
       '</div>';
       shopModalGrid.querySelectorAll('.apparel-subcategory-card').forEach(card => {
         card.addEventListener('click', () => openApparelSubcategory(card.dataset.subcat));
