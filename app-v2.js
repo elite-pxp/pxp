@@ -360,12 +360,12 @@ document.addEventListener('DOMContentLoaded', () => {
           '<div><h3>T-SHIRTS</h3><span>' + tshirtImages.length + ' Products</span></div>' +
         '</button>' +
         '<div class="apparel-subcategory-card coming-soon">' +
-          '<img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png" alt="Joggers">' +
-          '<div><h3>JOGGERS</h3><span>Coming Soon</span></div>' +
+          '<div class="coming-soon-icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="8" width="48" height="48" rx="8" stroke="#b48129" stroke-width="2"/><path d="M20 24h24v4H20zM20 32h24v4H20zM20 40h16v4H20z" fill="#b48129" opacity=".5"/></svg></div>' +
+          '<div><h3>Coming Soon</h3></div>' +
         '</div>' +
         '<div class="apparel-subcategory-card coming-soon">' +
-          '<img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb949d6f49c33b7805.png" alt="Hats">' +
-          '<div><h3>HATS</h3><span>Coming Soon</span></div>' +
+          '<div class="coming-soon-icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="24" stroke="#b48129" stroke-width="2"/><path d="M24 28c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#b48129" stroke-width="2"/><path d="M22 38h20" stroke="#b48129" stroke-width="2" opacity=".5"/></svg></div>' +
+          '<div><h3>Coming Soon</h3></div>' +
         '</div>' +
       '</div>';
       '</div>';
