@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const apparelProductImages = [
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8389c1a6a03cda06aead34.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dec8a6a03cda067e5dc4.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a875a044219e7772eb0807d.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a84532296d2b224d32e0555.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a845322d07034adc2b19e8e.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3dd07034adc2aac1e2.png',
@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isApparel) {
       shopModalGrid.innerHTML = '<div class="apparel-subcategory-grid">' +
         '<button class="apparel-subcategory-card" type="button" data-subcat="Hoodies">' +
-          '<img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dec8a6a03cda067e5dc4.png" alt="Hoodies">' +
+          '<img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a875a044219e7772eb0807d.png" alt="Hoodies">' +
           '<div><h3>HOODIES</h3><span>' + hoodieImages.length + ' Products</span></div>' +
         '</button>' +
         '<button class="apparel-subcategory-card" type="button" data-subcat="T-Shirts">' +
