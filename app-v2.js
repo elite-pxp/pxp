@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Hoodie indices (0-10) and T-Shirt indices (11-14) in the apparelProductImages array
   const hoodieIndices = [0,1,2,3,4,5,6,7,8,9,10];
-  const tshirtIndices = [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+  const tshirtIndices = [12,14,15,16,17,18,19,20,21,22,23,24,25];
   const hoodieImages = hoodieIndices.map(i => apparelProductImages[i]);
   const tshirtImages = tshirtIndices.map(i => apparelProductImages[i]);
   const hoodieDetails = {};
