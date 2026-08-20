@@ -352,24 +352,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isApparel) {
       shopModalGrid.innerHTML = '<div class="apparel-subcategory-grid">' +
         '<button class="apparel-subcategory-card" type="button" data-subcat="Hoodies">' +
-          '<div class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dec8a6a03cda067e5dc4.png" alt="Hoodies"></div>' +
-          '<h3>HOODIES</h3>' +
-          '<span>' + hoodieImages.length + ' Products</span>' +
+          '<img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dec8a6a03cda067e5dc4.png" alt="Hoodies">' +
+          '<div><h3>HOODIES</h3><span>' + hoodieImages.length + ' Products</span></div>' +
         '</button>' +
         '<button class="apparel-subcategory-card" type="button" data-subcat="T-Shirts">' +
-          '<div class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a23cdd4b797a31d0a61.png" alt="T-Shirts"></div>' +
-          '<h3>T-SHIRTS</h3>' +
-          '<span>' + tshirtImages.length + ' Products</span>' +
+          '<img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a23cdd4b797a31d0a61.png" alt="T-Shirts">' +
+          '<div><h3>T-SHIRTS</h3><span>' + tshirtImages.length + ' Products</span></div>' +
         '</button>' +
         '<div class="apparel-subcategory-card coming-soon">' +
-          '<div class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png" alt="Joggers"></div>' +
-          '<h3>JOGGERS</h3>' +
-          '<span>Coming Soon</span>' +
+          '<img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png" alt="Joggers">' +
+          '<div><h3>JOGGERS</h3><span>Coming Soon</span></div>' +
         '</div>' +
         '<div class="apparel-subcategory-card coming-soon">' +
-          '<div class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb949d6f49c33b7805.png" alt="Hats"></div>' +
-          '<h3>HATS</h3>' +
-          '<span>Coming Soon</span>' +
+          '<img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb949d6f49c33b7805.png" alt="Hats">' +
+          '<div><h3>HATS</h3><span>Coming Soon</span></div>' +
         '</div>' +
       '</div>';
       '</div>';
