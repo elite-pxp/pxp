@@ -322,24 +322,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const isEbooks = category === 'E-Books';
     const isTrainings = category === 'Trainings & Courses';
     const displayCategory = isEbooks ? 'E-Book / Physical Book' : category;
-    const thumbnail = isApparel ? 'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png' : categoryCard.querySelector('img')?.src;
     shopModalTitle.textContent = displayCategory;
-    shopModalGrid.innerHTML = Array.from({length:count},(_,index) => {
-      const productImage = isApparel ? (apparelProductImages[index] || apparelProductImages[0]) : isEbooks ? (ebooksProductImages[index] || ebooksProductImages[0]) : isTrainings ? (trainingsProductImages[index] || trainingsProductImages[0]) : thumbnail;
-      const detail = isApparel ? apparelDetails[index] : isEbooks ? ebooksDetails[index] : isTrainings ? trainingsDetails[index] : null;
-      const productLink = detail?.link || null;
-      const productType = detail?.type || null;
-      const cardLabel = isEbooks ? (productType === 'both' ? 'E-Book / Physical Book' : 'E-Book') : displayCategory;
-      const productName = detail ? detail.title : `Product ${String(index + 1).padStart(2,'0')}`;
-      return `<button class="shop-template-card${isApparel ? ' is-apparel' : ''}" type="button" data-product-index="${index}" data-product-image="${productImage}"${productLink ? ` data-product-link="${productLink}"` : ''}><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${isEbooks ? cardLabel : displayCategory}</small><h3>${productName}</h3><span>${isApparel ? 'View product details' : productLink ? 'Get Your Copy' : 'Details coming soon'}</span></div></button>`;
-    }).join('');
-    shopModalGrid.querySelectorAll('.shop-template-card').forEach(card => {
-      if (isApparel) card.addEventListener('click',() => openProductModal(card));
-      else {
+    const backBtn = shopModal.querySelector('.apparel-back-btn');
+    if (backBtn) backBtn.style.display = 'none';
+    if (isApparel) {
+      shopModalGrid.innerHTML = '<div class="apparel-subcategory-grid">' +
+        '<button class="apparel-subcategory-card" type="button" data-subcat="Hoodies">' +
+          '<div class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a84532afcf70e5609352a0d.png" alt="Hoodies"></div>' +
+          '<h3>HOODIES</h3>' +
+          '<span>' + hoodieImages.length + ' Products</span>' +
+        '</button>' +
+        '<button class="apparel-subcategory-card" type="button" data-subcat="T-Shirts">' +
+          '<div class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb13371323040c8786.png" alt="T-Shirts"></div>' +
+          '<h3>T-SHIRTS</h3>' +
+          '<span>' + tshirtImages.length + ' Products</span>' +
+        '</button>' +
+      '</div>';
+      shopModalGrid.querySelectorAll('.apparel-subcategory-card').forEach(card => {
+        card.addEventListener('click', () => openApparelSubcategory(card.dataset.subcat));
+      });
+    } else {
+      const thumbnail = categoryCard.querySelector('img')?.src;
+      shopModalGrid.innerHTML = Array.from({length:count},(_,index) => {
+        const productImage = isEbooks ? (ebooksProductImages[index] || ebooksProductImages[0]) : isTrainings ? (trainingsProductImages[index] || trainingsProductImages[0]) : thumbnail;
+        const detail = isEbooks ? ebooksDetails[index] : isTrainings ? trainingsDetails[index] : null;
+        const productLink = detail?.link || null;
+        const productType = detail?.type || null;
+        const cardLabel = isEbooks ? (productType === 'both' ? 'E-Book / Physical Book' : 'E-Book') : displayCategory;
+        const productName = detail ? detail.title : `Product ${String(index + 1).padStart(2,'0')}`;
+        return `<button class="shop-template-card" type="button" data-product-index="${index}" data-product-image="${productImage}"${productLink ? ` data-product-link="${productLink}"` : ''}><img src="${productImage}" alt="${productName}" loading="lazy"><div><small>${isEbooks ? cardLabel : displayCategory}</small><h3>${productName}</h3><span>${productLink ? 'Get Your Copy' : 'Details coming soon'}</span></div></button>`;
+      }).join('');
+      shopModalGrid.querySelectorAll('.shop-template-card').forEach(card => {
         const link = card.dataset.productLink;
         if (link) card.addEventListener('click', () => window.open(link, '_blank'));
-      }
-    });
+      });
+    }
+    apparelSubcatOpener = isApparel ? categoryCard : apparelSubcatOpener;
     shopModalOpener = categoryCard;
     shopModal.hidden = false;
     document.body.classList.add('series-modal-open');
