@@ -5,10 +5,13 @@ const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 const APP_SHELL_FILES = [
   './',
   './index.html',
+  './page-2.html',
   './styles.css?v=31',
+  './page-2.css?v=3',
+  './app.js?v=77',
+  './app-v2.js?v=3',
   './three-day-fasting-prayer.html',
   './Cultivate%20Your%20Eden.html',
-  './app.js?v=77',
   './site.webmanifest?v=4',
   './images/icons/favicon-32x32.png?v=3',
   './images/icons/apple-touch-icon.png?v=3',
@@ -31,9 +34,7 @@ self.addEventListener('activate', (event) => {
       .keys()
       .then((keys) =>
         Promise.all(
-          keys
-            .filter((key) => ![APP_SHELL_CACHE, RUNTIME_CACHE].includes(key))
-            .map((key) => caches.delete(key))
+          keys.map((key) => caches.delete(key))
         )
       )
       .then(() => self.clients.claim())
