@@ -276,27 +276,26 @@ document.addEventListener('DOMContentLoaded', () => {
     7: { title: 'Faith Sees Beyond the Visible Hoodie', desc: 'See with the eyes of faith. The Faith Sees Beyond the Visible Hoodie is a declaration that what God has spoken over your life is greater than what your eyes can see.' },
     8: { title: 'Let Me Pray About It Hoodie', desc: 'A reminder to take it to God first. The Let Me Pray About It Hoodie represents a lifestyle of prayer, faith, and seeking God before making your next move.' },
     9: { title: 'Let Me Pray About It Crewneck', desc: 'Before the answer, the decision, or the response, pray about it. This Powered X Prayer crewneck is a simple reminder to seek God first and let prayer lead the way.' },
-    10: { title: 'God, I Trust You Crewneck', desc: 'A statement of faith for every season. The God, I Trust You Crewneck is inspired by Psalm 56:3 and reminds us to place our trust in God when fear and uncertainty try to take over.' },
-    11: { title: 'Let Me Pray About It Hoodie', desc: 'Wear your purpose with boldness. The Let Me Pray About It Hoodie is a declaration that your faith drives every step, every decision, and every season of your life.' },
-    12: { title: 'Let Me Pray About It T-Shirt', desc: 'Carry the message of spiritual authority. This Let Me Pray About It T-Shirt declares that through Christ, you reign in life every single day.' },
-    13: { title: 'Let Me Pray About It Hoodie Black', desc: 'See beyond what the eyes can show. This black Let Me Pray About It Hoodie reminds us to look through the lens of faith and trust what God has spoken over your future.' },
-    14: { title: 'The Word Is My Mirror T-Shirt', desc: 'A daily reminder to see yourself the way God sees you. Let His Word reflect truth over your identity and replace every lie with who you are in Christ.' },
-    15: { title: 'Restored by Jesus T-Shirt', desc: 'Wear the message of restoration. This tee is a bold declaration that God restores what life tried to destroy and makes all things new.' },
-    16: { title: 'Driven T-Shirt', desc: 'Purpose meets faith. The Driven T-Shirt declares that your steps are ordered by God and every move is fueled by faith, prayer, and divine purpose.' },
-    17: { title: 'Faith Over Fear T-Shirt', desc: 'Choose faith over fear every single day. This tee is a reminder that God has not given us a spirit of fear but of power, love, and a sound mind.' },
-    18: { title: 'Priceless T-Shirt', desc: 'Your identity in Christ is priceless. This tee declares that you are chosen, redeemed, and valued beyond measure by the King of Kings.' },
-    19: { title: 'Not My Power But His Power T-Shirt', desc: 'It is not by might nor by power, but by my Spirit, says the Lord. This tee is a declaration that everything you do flows from His strength.' },
-    20: { title: 'Build T-Shirt', desc: 'Build your life on the solid rock. This tee is a call to kingdom builders who trust God\u2019s plan and build with faith, wisdom, and purpose.' },
-    21: { title: 'Pray T-Shirt', desc: 'Prayer changes everything. This tee is a bold reminder to bring every situation to God and let faith lead the way.' },
-    22: { title: 'Rooted in Christ T-Shirt', desc: 'Stay grounded in faith. This tree-root design pairs \u2018ROOTED IN CHRIST\u2019 with the declaration that your identity begins with your Creator.' },
-    23: { title: 'Reign in the Spirit Daily T-Shirt', desc: 'Walk in spiritual authority every day. Featuring \u2018REIGN IN THE SPIRIT DAILY\u2019 with Romans 5:17, this tee declares that through Christ we reign in life.' },
-    24: { title: 'Faith Sees Beyond T-Shirt', desc: 'See with the eyes of faith. What God has spoken over your life is greater than what your eyes can see. This tee is a declaration of supernatural vision.' },
-    25: { title: 'Reign in the Spirit Daily Black T-Shirt', desc: 'Carry the fire of spiritual authority. This black edition displays \u2018REIGN IN THE SPIRIT DAILY\u2019 with Romans 5:17 — a declaration of faith and the life-giving power of Christ.' }
+    10: { title: 'Let Me Pray About It Hoodie', desc: 'Wear your purpose with boldness. The Let Me Pray About It Hoodie is a declaration that your faith drives every step, every decision, and every season of your life.' },
+    11: { title: 'Let Me Pray About It T-Shirt', desc: 'Carry the message of spiritual authority. This Let Me Pray About It T-Shirt declares that through Christ, you reign in life every single day.' },
+    12: { title: 'Let Me Pray About It Hoodie Black', desc: 'See beyond what the eyes can show. This black Let Me Pray About It Hoodie reminds us to look through the lens of faith and trust what God has spoken over your future.' },
+    13: { title: 'The Word Is My Mirror T-Shirt', desc: 'A daily reminder to see yourself the way God sees you. Let His Word reflect truth over your identity and replace every lie with who you are in Christ.' },
+    14: { title: 'Restored by Jesus T-Shirt', desc: 'Wear the message of restoration. This tee is a bold declaration that God restores what life tried to destroy and makes all things new.' },
+    15: { title: 'Driven T-Shirt', desc: 'Purpose meets faith. The Driven T-Shirt declares that your steps are ordered by God and every move is fueled by faith, prayer, and divine purpose.' },
+    16: { title: 'Faith Over Fear T-Shirt', desc: 'Choose faith over fear every single day. This tee is a reminder that God has not given us a spirit of fear but of power, love, and a sound mind.' },
+    17: { title: 'Priceless T-Shirt', desc: 'Your identity in Christ is priceless. This tee declares that you are chosen, redeemed, and valued beyond measure by the King of Kings.' },
+    18: { title: 'Not My Power But His Power T-Shirt', desc: 'It is not by might nor by power, but by my Spirit, says the Lord. This tee is a declaration that everything you do flows from His strength.' },
+    19: { title: 'Build T-Shirt', desc: 'Build your life on the solid rock. This tee is a call to kingdom builders who trust God\u2019s plan and build with faith, wisdom, and purpose.' },
+    20: { title: 'Pray T-Shirt', desc: 'Prayer changes everything. This tee is a bold reminder to bring every situation to God and let faith lead the way.' },
+    21: { title: 'Rooted in Christ T-Shirt', desc: 'Stay grounded in faith. This tree-root design pairs \u2018ROOTED IN CHRIST\u2019 with the declaration that your identity begins with your Creator.' },
+    22: { title: 'Reign in the Spirit Daily T-Shirt', desc: 'Walk in spiritual authority every day. Featuring \u2018REIGN IN THE SPIRIT DAILY\u2019 with Romans 5:17, this tee declares that through Christ we reign in life.' },
+    23: { title: 'Faith Sees Beyond T-Shirt', desc: 'See with the eyes of faith. What God has spoken over your life is greater than what your eyes can see. This tee is a declaration of supernatural vision.' },
+    24: { title: 'Reign in the Spirit Daily Black T-Shirt', desc: 'Carry the fire of spiritual authority. This black edition displays \u2018REIGN IN THE SPIRIT DAILY\u2019 with Romans 5:17 — a declaration of faith and the life-giving power of Christ.' }
   }
 
   // Hoodie indices (0-10) and T-Shirt indices (11-14) in the apparelProductImages array
-  const hoodieIndices = [0,1,2,3,4,5,6,7,8,9,10];
-  const tshirtIndices = [12,14,15,16,17,18,19,20,21,22,23,24,25];
+  const hoodieIndices = [0,1,2,3,4,5,6,7,8,9];
+  const tshirtIndices = [11,13,14,15,16,17,18,19,20,21,22,23,24];
   const hoodieImages = hoodieIndices.map(i => apparelProductImages[i]);
   const tshirtImages = tshirtIndices.map(i => apparelProductImages[i]);
   const hoodieDetails = {};
