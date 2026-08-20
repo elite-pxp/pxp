@@ -272,6 +272,48 @@ document.addEventListener('DOMContentLoaded', () => {
     14: { title: 'Let Me Pray About It T-Shirt Black', desc: 'Prayer changes everything. This black Let Me Pray About It T-Shirt is a bold reminder to bring every situation to God and let faith lead the way.' }
   };
 
+  // Hoodie indices (0-10) and T-Shirt indices (11-14) in the apparelProductImages array
+  const hoodieIndices = [0,1,2,3,4,5,6,7,8,9,10];
+  const tshirtIndices = [11,12,13,14];
+  const hoodieImages = hoodieIndices.map(i => apparelProductImages[i]);
+  const tshirtImages = tshirtIndices.map(i => apparelProductImages[i]);
+  const hoodieDetails = {};
+  hoodieIndices.forEach((orig, newIdx) => { hoodieDetails[newIdx] = apparelDetails[orig]; });
+  const tshirtDetails = {};
+  tshirtIndices.forEach((orig, newIdx) => { tshirtDetails[newIdx] = apparelDetails[orig]; });
+
+  // Apparel subcategory selection
+  let apparelSubcatOpener = null;
+
+  const openApparelSubcategory = (subcat) => {
+    if (!shopModal || !shopModalTitle || !shopModalGrid) return;
+    const isHoodies = subcat === 'Hoodies';
+    const images = isHoodies ? hoodieImages : tshirtImages;
+    const details = isHoodies ? hoodieDetails : tshirtDetails;
+    const catLabel = isHoodies ? 'Hoodies' : 'T-Shirts';
+    shopModalTitle.textContent = catLabel;
+    // Add back button
+    let backBtn = shopModal.querySelector('.apparel-back-btn');
+    if (!backBtn) {
+      backBtn = document.createElement('button');
+      backBtn.className = 'apparel-back-btn';
+      backBtn.innerHTML = '\u2190 Back to Apparel';
+      backBtn.addEventListener('click', () => {
+        openShopModal(apparelSubcatOpener);
+      });
+      shopModalGrid.parentNode.insertBefore(backBtn, shopModalGrid);
+    }
+    backBtn.style.display = 'block';
+    shopModalGrid.innerHTML = images.map((img, index) => {
+      const detail = details[index];
+      const productName = detail ? detail.title : 'Product ' + String(index + 1).padStart(2, '0');
+      return '<button class="shop-template-card is-apparel" type="button" data-product-index="' + index + '" data-product-image="' + img + '"><img src="' + img + '" alt="' + productName + '" loading="lazy"><div><small>' + catLabel + '</small><h3>' + productName + '</h3><span>View product details</span></div></button>';
+    }).join('');
+    shopModalGrid.querySelectorAll('.shop-template-card').forEach(card => {
+      card.addEventListener('click', () => openProductModal(card));
+    });
+  };
+
   const openShopModal = categoryCard => {
     if (!shopModal || !shopModalTitle || !shopModalGrid) return;
     const category = categoryCard.dataset.shopCategory;

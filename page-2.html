@@ -212,7 +212,7 @@
       <blockquote>“I can do all this through Him who gives me strength.”<small>Philippians 4:13</small></blockquote>
     </div>
   </footer>
-  <script src="./app-v2.js?v=90"></script>
+  <script src="./app-v2.js?v=1755600001"></script>
   <script type="module" src="./resources-dashboard-reader.js?v=6"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -255,6 +255,37 @@
         13: { title: 'Let Me Pray About It Hoodie Black', desc: 'See beyond what the eyes can show. This black Let Me Pray About It Hoodie reminds us to look through the lens of faith and trust what God has spoken over your future.' },
         14: { title: 'Let Me Pray About It T-Shirt Black', desc: 'Prayer changes everything. This black Let Me Pray About It T-Shirt is a bold reminder to bring every situation to God and let faith lead the way.' }
       };
+      // Hoodie indices (0-10) and T-Shirt indices (11-14)
+      var hoodieIndices = [0,1,2,3,4,5,6,7,8,9,10];
+      var tshirtIndices = [11,12,13,14];
+      var hoodieImages = hoodieIndices.map(function(i) { return apparelProductImages[i]; });
+      var tshirtImages = tshirtIndices.map(function(i) { return apparelProductImages[i]; });
+      var hoodieDetails = {};
+      hoodieIndices.forEach(function(orig, newIdx) { hoodieDetails[newIdx] = apparelCardDetails[orig]; });
+      var tshirtDetails = {};
+      tshirtIndices.forEach(function(orig, newIdx) { tshirtDetails[newIdx] = apparelCardDetails[orig]; });
+      var apparelSubcatOpener = null;
+      function openApparelSubcategory(subcat) {
+        var isHoodies = subcat === 'Hoodies';
+        var images = isHoodies ? hoodieImages : tshirtImages;
+        var details = isHoodies ? hoodieDetails : tshirtDetails;
+        var catLabel = isHoodies ? 'Hoodies' : 'T-Shirts';
+        title.textContent = catLabel;
+        var backBtn = modal.querySelector('.apparel-back-btn');
+        if (!backBtn) {
+          backBtn = document.createElement('button');
+          backBtn.className = 'apparel-back-btn';
+          backBtn.innerHTML = '\u2190 Back to Apparel';
+          backBtn.addEventListener('click', function() { openShop(apparelSubcatOpener); });
+          grid.parentNode.insertBefore(backBtn, grid);
+        }
+        backBtn.style.display = 'block';
+        grid.innerHTML = images.map(function(img, index) {
+          var detail = details[index];
+          var productName = detail ? detail.title : ('Product ' + String(index + 1).padStart(2, '0'));
+          return '<article class="shop-template-card is-apparel" data-product-index="' + index + '" data-product-image="' + img + '"><img src="' + img + '" alt="' + productName + '"><div><small>' + catLabel + '</small><h3>' + productName + '</h3><span>View product details</span></div></article>';
+        }).join('');
+      }
       var ebooksProductImages = [
         'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c1447bf72d964f602.png',
         'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c949d6f49c3238903.png',
