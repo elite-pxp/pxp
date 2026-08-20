@@ -266,6 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const apparelDetails = {
+
     0: { title: 'Restored by Jesus Hoodie', desc: 'A faith-forward hoodie created as a wearable reminder that God restores what life tried to destroy. Final fabric, fit, and care details will be added before checkout is activated.' },
     1: { title: 'The Word Is My Mirror Hoodie', desc: 'A daily reminder to see yourself the way God sees you. Let His Word reflect truth over your identity, replacing every lie with the promise of who you are in Christ.' },
     2: { title: 'Reign in the Spirit Daily Hoodie', desc: 'Wear the word of God as a declaration of spiritual authority. Featuring "REIGN IN THE SPIRIT DAILY" with Romans 5:17, this hoodie is a daily reminder that through Christ we reign in life and walk in the power of the Holy Spirit.' },
@@ -280,7 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
     11: { title: 'Hoodie 12', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
     12: { title: 'Hoodie 13', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
     13: { title: 'Hoodie 14', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
-    12: { title: 'Let Me Pray About It Hoodie Black', desc: 'See beyond what the eyes can show. This black Let Me Pray About It Hoodie reminds us to look through the lens of faith and trust what God has spoken over your future.' },
     15: { title: 'Driven T-Shirt', desc: 'Purpose meets faith. The Driven T-Shirt declares that your steps are ordered by God and every move is fueled by faith, prayer, and divine purpose.' },
     16: { title: 'Faith Over Fear T-Shirt', desc: 'Choose faith over fear every single day. This tee is a reminder that God has not given us a spirit of fear but of power, love, and a sound mind.' },
     17: { title: 'Priceless T-Shirt', desc: 'Your identity in Christ is priceless. This tee declares that you are chosen, redeemed, and valued beyond measure by the King of Kings.' },
@@ -291,10 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
     22: { title: 'Reign in the Spirit Daily T-Shirt', desc: 'Walk in spiritual authority every day. Featuring \u2018REIGN IN THE SPIRIT DAILY\u2019 with Romans 5:17, this tee declares that through Christ we reign in life.' },
     23: { title: 'Faith Sees Beyond T-Shirt', desc: 'See with the eyes of faith. What God has spoken over your life is greater than what your eyes can see. This tee is a declaration of supernatural vision.' },
     24: { title: 'Reign in the Spirit Daily Black T-Shirt', desc: 'Carry the fire of spiritual authority. This black edition displays \u2018REIGN IN THE SPIRIT DAILY\u2019 with Romans 5:17 — a declaration of faith and the life-giving power of Christ.' },
-    10: { title: 'Hoodie 11', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
-    11: { title: 'Hoodie 12', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
-    12: { title: 'Hoodie 13', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
-    13: { title: 'Hoodie 14', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
   };
 
   const openShopModal = categoryCard => {
