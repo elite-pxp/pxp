@@ -226,6 +226,59 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   let shopModalOpener = null;
   let productModalOpener = null;
+  let apparelSubcatOpener = null;
+
+  const hoodieIndices = [0,1,2,3,4,5,6,7,8,9];
+  const tshirtIndices = [15,16,17,18,19,20,21,22,23,24];
+  const hoodieImages = hoodieIndices.map(i => apparelProductImages[i]);
+  const tshirtImages = tshirtIndices.map(i => apparelProductImages[i]);
+
+  const openApparelSubcategory = (subcat) => {
+    if (!shopModalGrid) return;
+    const isHoodies = subcat === 'Hoodies';
+    const images = isHoodies ? hoodieImages : tshirtImages;
+    const labels = isHoodies ? hoodieIndices : tshirtIndices;
+    shopModalTitle.textContent = subcat;
+    // Show back button
+    const backBtn = shopModal.querySelector('.apparel-back-btn');
+    if (backBtn) backBtn.style.display = '';
+    shopModalGrid.innerHTML = '<div class="apparel-subcategory-grid">' +
+      images.map((img, i) => {
+        const idx = labels[i];
+        const detail = apparelDetails[idx];
+        const productName = detail ? detail.title : 'Product ' + String(idx + 1).padStart(2, '0');
+        const productDesc = detail ? detail.desc : 'Details coming soon';
+        return '<article class="shop-template-card" data-product-index="' + idx + '" data-product-image="' + img + '" onclick="openProductFromCard(this)">' +
+          '<img src="' + img + '" alt="' + productName + '" loading="lazy">' +
+          '<div><small>' + subcat + '</small><h3>' + productName + '</h3><span>View product details</span></div>' +
+        '</article>';
+      }).join('') + '</div>';
+    shopModalGrid.querySelectorAll('.shop-template-card').forEach(card => {
+      card.addEventListener('click', () => openProductFromCard(card));
+    });
+  };
+
+  const openProductFromCard = (card) => {
+    const idx = Number.parseInt(card.dataset.productIndex, 10);
+    const img = card.dataset.productImage;
+    const detail = apparelDetails[idx];
+    const productName = detail ? detail.title : 'Product ' + String(idx + 1).padStart(2, '0');
+    const productDesc = detail ? detail.desc : 'Details coming soon';
+    if (productModal && productModalTitle) {
+      productModalTitle.textContent = productName;
+      const productKicker = productModal.querySelector('.product-detail-copy .kicker');
+      if (productKicker) productKicker.textContent = 'Powered X Prayer Apparel';
+      const productDescEl = productModal.querySelector('.product-description');
+      if (productDescEl) productDescEl.textContent = productDesc;
+      const productImage = productModal.querySelector('.product-detail-media img');
+      if (productImage) { productImage.src = img; productImage.alt = productName; }
+      productModalOpener = card;
+      productModal.hidden = false;
+      document.body.classList.add('series-modal-open');
+      productModal.querySelector('.product-modal-panel')?.focus();
+    }
+  };
+
 
   const closeProductModal = () => {
     if (!productModal || productModal.hidden) return;
@@ -321,7 +374,6 @@ document.addEventListener('DOMContentLoaded', () => {
           '<div class="coming-soon-icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="24" stroke="#b48129" stroke-width="2"/><path d="M24 28c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#b48129" stroke-width="2"/><path d="M22 38h20" stroke="#b48129" stroke-width="2" opacity=".5"/></svg></div>' +
           '<div><h3>Coming Soon</h3></div>' +
         '</div>' +
-      '</div>';
       '</div>';
       shopModalGrid.querySelectorAll('.apparel-subcategory-card').forEach(card => {
         card.addEventListener('click', () => openApparelSubcategory(card.dataset.subcat));

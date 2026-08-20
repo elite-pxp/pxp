@@ -276,6 +276,11 @@
         23: { title: 'Faith Sees Beyond T-Shirt', desc: 'See with the eyes of faith. What God has spoken over your life is greater than what your eyes can see. This tee is a declaration of supernatural vision.' },
         24: { title: 'Reign in the Spirit Daily Black T-Shirt', desc: 'Carry the fire of spiritual authority. This black edition displays \u2018REIGN IN THE SPIRIT DAILY\u2019 with Romans 5:17 — a declaration of faith and the life-giving power of Christ.' },
       };
+
+      var hoodieIndices = [0,1,2,3,4,5,6,7,8,9];
+      var tshirtIndices = [15,16,17,18,19,20,21,22,23,24];
+      var hoodieImages = hoodieIndices.map(function(i) { return apparelProductImages[i]; });
+      var tshirtImages = tshirtIndices.map(function(i) { return apparelProductImages[i]; });
       var trainingsProductImages = [
         'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/699cc567d0716b216f4ad50b.png',
         'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/699cc39ad0716b76214a3d3e.png'
@@ -284,6 +289,48 @@
         0: { title: 'A Guide to Launching Your Childcare Center', desc: 'Launch your dream childcare center with confidence and clarity.', link: 'https://go.poweredxprayers.com/product-details/product/aguidetolaunchingyourchildcarecenter' },
         1: { title: 'The Wealth Room Next Level Now!', desc: 'Build, scale, and position to exit. Your roadmap to financial growth.', link: 'https://go.poweredxprayers.com/product-details/product/thewealthroom' }
       };
+
+      function openApparelSubcategory(subcat) {
+        var isHoodies = subcat === 'Hoodies';
+        var images = isHoodies ? hoodieImages : tshirtImages;
+        var labels = isHoodies ? hoodieIndices : tshirtIndices;
+        title.textContent = subcat;
+        var backBtn = modal.querySelector('.apparel-back-btn');
+        if (backBtn) backBtn.style.display = '';
+        grid.innerHTML = '<div class="apparel-subcategory-grid">' +
+          images.map(function(img, i) {
+            var idx = labels[i];
+            var detail = apparelCardDetails[idx];
+            var productName = detail ? detail.title : 'Product ' + String(idx + 1).padStart(2, '0');
+            var productDesc = detail ? detail.desc : 'Details coming soon';
+            return '<article class="shop-template-card" data-product-index="' + idx + '" data-product-image="' + img + '">' +
+              '<img src="' + img + '" alt="' + productName + '" loading="lazy">' +
+              '<div><small>' + subcat + '</small><h3>' + productName + '</h3><span>View product details</span></div>' +
+            '</article>';
+          }).join('') + '</div>';
+        grid.querySelectorAll('.shop-template-card').forEach(function(card) {
+          card.addEventListener('click', function() { openProductFromCard(card); });
+        });
+      }
+
+      function openProductFromCard(card) {
+        var idx = parseInt(card.dataset.productIndex, 10);
+        var img = card.dataset.productImage;
+        var detail = apparelCardDetails[idx];
+        var productName = detail ? detail.title : 'Product ' + String(idx + 1).padStart(2, '0');
+        var productDesc = detail ? detail.desc : 'Details coming soon';
+        var productModal2 = document.querySelector('#product-modal');
+        if (productModal2) {
+          var pTitle = productModal2.querySelector('.product-detail-copy h2');
+          var pDesc = productModal2.querySelector('.product-description');
+          var pImg = productModal2.querySelector('.product-detail-media img');
+          if (pTitle) pTitle.textContent = productName;
+          if (pDesc) pDesc.textContent = productDesc;
+          if (pImg) { pImg.src = img; pImg.alt = productName; }
+          productModal2.hidden = false;
+          document.body.classList.add('series-modal-open');
+        }
+      }
       function openShop(card) {
         var category = card.dataset.shopCategory;
         var count = parseInt(card.dataset.shopCount, 10) || 5;
@@ -311,7 +358,6 @@
               '<div class="coming-soon-icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="24" stroke="#b48129" stroke-width="2"/><path d="M24 28c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#b48129" stroke-width="2"/><path d="M22 38h20" stroke="#b48129" stroke-width="2" opacity=".5"/></svg></div>' +
               '<div><h3>Coming Soon</h3></div>' +
             '</div>' +
-          '</div>';
           '</div>';
           grid.querySelectorAll('.apparel-subcategory-card').forEach(function(c) {
             c.addEventListener('click', function() { openApparelSubcategory(c.dataset.subcat); });
