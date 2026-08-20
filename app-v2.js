@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const apparelProductImages = [
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8389c1a6a03cda06aead34.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a84532afcf70e5609352a0d.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dec8a6a03cda067e5dc4.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a84532296d2b224d32e0555.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a845322d07034adc2b19e8e.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3dd07034adc2aac1e2.png',
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabbb3a1bcf4faa7fce6.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb949d6f49c33b7805.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb4627440f8a00434d.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb13371323040c8786.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a23cdd4b797a31d0a61.png',
   ];
   const ebooksProductImages = [
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c1447bf72d964f602.png',
@@ -328,12 +328,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isApparel) {
       shopModalGrid.innerHTML = '<div class="apparel-subcategory-grid">' +
         '<button class="apparel-subcategory-card" type="button" data-subcat="Hoodies">' +
-          '<div class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a84532afcf70e5609352a0d.png" alt="Hoodies"></div>' +
+          '<div class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dec8a6a03cda067e5dc4.png" alt="Hoodies"></div>' +
           '<h3>HOODIES</h3>' +
           '<span>' + hoodieImages.length + ' Products</span>' +
         '</button>' +
         '<button class="apparel-subcategory-card" type="button" data-subcat="T-Shirts">' +
-          '<div class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb13371323040c8786.png" alt="T-Shirts"></div>' +
+          '<div class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a23cdd4b797a31d0a61.png" alt="T-Shirts"></div>' +
           '<h3>T-SHIRTS</h3>' +
           '<span>' + tshirtImages.length + ' Products</span>' +
         '</button>' +
