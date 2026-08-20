@@ -277,10 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     8: { title: 'Let Me Pray About It Hoodie', desc: 'A reminder to take it to God first. The Let Me Pray About It Hoodie represents a lifestyle of prayer, faith, and seeking God before making your next move.' },
     9: { title: 'Let Me Pray About It Crewneck', desc: 'Before the answer, the decision, or the response, pray about it. This Powered X Prayer crewneck is a simple reminder to seek God first and let prayer lead the way.' },
     10: { title: 'Let Me Pray About It Hoodie', desc: 'Wear your purpose with boldness. The Let Me Pray About It Hoodie is a declaration that your faith drives every step, every decision, and every season of your life.' },
-    11: { title: 'Let Me Pray About It T-Shirt', desc: 'Carry the message of spiritual authority. This Let Me Pray About It T-Shirt declares that through Christ, you reign in life every single day.' },
     12: { title: 'Let Me Pray About It Hoodie Black', desc: 'See beyond what the eyes can show. This black Let Me Pray About It Hoodie reminds us to look through the lens of faith and trust what God has spoken over your future.' },
-    13: { title: 'The Word Is My Mirror T-Shirt', desc: 'A daily reminder to see yourself the way God sees you. Let His Word reflect truth over your identity and replace every lie with who you are in Christ.' },
-    14: { title: 'Restored by Jesus T-Shirt', desc: 'Wear the message of restoration. This tee is a bold declaration that God restores what life tried to destroy and makes all things new.' },
     15: { title: 'Driven T-Shirt', desc: 'Purpose meets faith. The Driven T-Shirt declares that your steps are ordered by God and every move is fueled by faith, prayer, and divine purpose.' },
     16: { title: 'Faith Over Fear T-Shirt', desc: 'Choose faith over fear every single day. This tee is a reminder that God has not given us a spirit of fear but of power, love, and a sound mind.' },
     17: { title: 'Priceless T-Shirt', desc: 'Your identity in Christ is priceless. This tee declares that you are chosen, redeemed, and valued beyond measure by the King of Kings.' },
@@ -295,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Hoodie indices (0-10) and T-Shirt indices (11-14) in the apparelProductImages array
   const hoodieIndices = [0,1,2,3,4,5,6,7,8,9];
-  const tshirtIndices = [11,13,14,15,16,17,18,19,20,21,22,23,24];
+  const tshirtIndices = [15,16,17,18,19,20,21,22,23,24];
   const hoodieImages = hoodieIndices.map(i => apparelProductImages[i]);
   const tshirtImages = tshirtIndices.map(i => apparelProductImages[i]);
   const hoodieDetails = {};
