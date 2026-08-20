@@ -190,6 +190,18 @@ document.addEventListener('DOMContentLoaded', () => {
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb949d6f49c33b7805.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb4627440f8a00434d.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a23cdd4b797a31d0a61.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a230f27290fb067770e.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a228f3f0ab510ca4faf.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a21e6501a9518e56c48.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a21994ded095acc7a8f.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a21cdd4b797a31cfb85.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1fe6501a9518e565c9.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1f8f3f0ab510ca441b.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ce6501a9518e55796.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ccdd4b797a31cf334.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ccdd4b797a31cf33e.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1a8f3f0ab510ca2c2b.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1aad59e6cfed27ebd7.png',
   ];
   const ebooksProductImages = [
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c1447bf72d964f602.png',
@@ -208,18 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const trainingsProductImages = [
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/699cc567d0716b216f4ad50b.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/699cc39ad0716b76214a3d3e.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a230f27290fb067770e.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a228f3f0ab510ca4faf.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a21e6501a9518e56c48.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a21994ded095acc7a8f.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a21cdd4b797a31cfb85.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1fe6501a9518e565c9.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1f8f3f0ab510ca441b.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ce6501a9518e55796.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ccdd4b797a31cf334.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ccdd4b797a31cf33e.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1a8f3f0ab510ca2c2b.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1aad59e6cfed27ebd7.png',
   ];
   const trainingsDetails = {
     0: { title: 'A Guide to Launching Your Childcare Center', desc: 'Launch your dream childcare center with confidence and clarity. This comprehensive guide walks you through every step from planning to opening.', link: 'https://go.poweredxprayers.com/product-details/product/aguidetolaunchingyourchildcarecenter' },
