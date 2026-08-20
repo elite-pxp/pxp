@@ -175,16 +175,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const productModal = document.querySelector('#apparel-product-modal');
   const productModalTitle = productModal?.querySelector('#product-modal-title');
   const apparelProductImages = [
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8389c1a6a03cda06aead34.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8760d4ad59e6cfed695ad5.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a875e2ecdd4b797a35ee536.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a875a044219e7772eb0807d.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a84532296d2b224d32e0555.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a845322d07034adc2b19e8e.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3dd07034adc2aac1e2.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3dd1abe28fc92d6d8f.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a844d3d7998683b3c7443b8.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a859672d8b5c2f24d5df00f.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a859672cf3baae49e5b4cd3.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a875a04cdd4b797a3574ccf.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a875a03ad59e6cfed5d1f04.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a875a038f3f0ab510ff44e1.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a875a02e6501a951823f627.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a875a02ad59e6cfed5d1ed8.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a875a00e6501a951823f5f3.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8759ff22c06f5dae84d1d5.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cab7b3a1bcf4faa7fc8f.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabbb3a1bcf4faa7fce6.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85cabb949d6f49c33b7805.png',
@@ -276,7 +276,10 @@ document.addEventListener('DOMContentLoaded', () => {
     7: { title: 'Faith Sees Beyond the Visible Hoodie', desc: 'See with the eyes of faith. The Faith Sees Beyond the Visible Hoodie is a declaration that what God has spoken over your life is greater than what your eyes can see.' },
     8: { title: 'Let Me Pray About It Hoodie', desc: 'A reminder to take it to God first. The Let Me Pray About It Hoodie represents a lifestyle of prayer, faith, and seeking God before making your next move.' },
     9: { title: 'Let Me Pray About It Crewneck', desc: 'Before the answer, the decision, or the response, pray about it. This Powered X Prayer crewneck is a simple reminder to seek God first and let prayer lead the way.' },
-    10: { title: 'Let Me Pray About It Hoodie', desc: 'Wear your purpose with boldness. The Let Me Pray About It Hoodie is a declaration that your faith drives every step, every decision, and every season of your life.' },
+    10: { title: 'Hoodie 11', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
+    11: { title: 'Hoodie 12', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
+    12: { title: 'Hoodie 13', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
+    13: { title: 'Hoodie 14', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
     12: { title: 'Let Me Pray About It Hoodie Black', desc: 'See beyond what the eyes can show. This black Let Me Pray About It Hoodie reminds us to look through the lens of faith and trust what God has spoken over your future.' },
     15: { title: 'Driven T-Shirt', desc: 'Purpose meets faith. The Driven T-Shirt declares that your steps are ordered by God and every move is fueled by faith, prayer, and divine purpose.' },
     16: { title: 'Faith Over Fear T-Shirt', desc: 'Choose faith over fear every single day. This tee is a reminder that God has not given us a spirit of fear but of power, love, and a sound mind.' },
@@ -287,49 +290,11 @@ document.addEventListener('DOMContentLoaded', () => {
     21: { title: 'Rooted in Christ T-Shirt', desc: 'Stay grounded in faith. This tree-root design pairs \u2018ROOTED IN CHRIST\u2019 with the declaration that your identity begins with your Creator.' },
     22: { title: 'Reign in the Spirit Daily T-Shirt', desc: 'Walk in spiritual authority every day. Featuring \u2018REIGN IN THE SPIRIT DAILY\u2019 with Romans 5:17, this tee declares that through Christ we reign in life.' },
     23: { title: 'Faith Sees Beyond T-Shirt', desc: 'See with the eyes of faith. What God has spoken over your life is greater than what your eyes can see. This tee is a declaration of supernatural vision.' },
-    24: { title: 'Reign in the Spirit Daily Black T-Shirt', desc: 'Carry the fire of spiritual authority. This black edition displays \u2018REIGN IN THE SPIRIT DAILY\u2019 with Romans 5:17 — a declaration of faith and the life-giving power of Christ.' }
-  }
-
-  // Hoodie indices (0-10) and T-Shirt indices (11-14) in the apparelProductImages array
-  const hoodieIndices = [0,1,2,3,4,5,6,7,8,9];
-  const tshirtIndices = [15,16,17,18,19,20,21,22,23,24];
-  const hoodieImages = hoodieIndices.map(i => apparelProductImages[i]);
-  const tshirtImages = tshirtIndices.map(i => apparelProductImages[i]);
-  const hoodieDetails = {};
-  hoodieIndices.forEach((orig, newIdx) => { hoodieDetails[newIdx] = apparelDetails[orig]; });
-  const tshirtDetails = {};
-  tshirtIndices.forEach((orig, newIdx) => { tshirtDetails[newIdx] = apparelDetails[orig]; });
-
-  // Apparel subcategory selection
-  let apparelSubcatOpener = null;
-
-  const openApparelSubcategory = (subcat) => {
-    if (!shopModal || !shopModalTitle || !shopModalGrid) return;
-    const isHoodies = subcat === 'Hoodies';
-    const images = isHoodies ? hoodieImages : tshirtImages;
-    const details = isHoodies ? hoodieDetails : tshirtDetails;
-    const catLabel = isHoodies ? 'Hoodies' : 'T-Shirts';
-    shopModalTitle.textContent = catLabel;
-    // Add back button
-    let backBtn = shopModal.querySelector('.apparel-back-btn');
-    if (!backBtn) {
-      backBtn = document.createElement('button');
-      backBtn.className = 'apparel-back-btn';
-      backBtn.innerHTML = '\u2190 Back to Apparel';
-      backBtn.addEventListener('click', () => {
-        openShopModal(apparelSubcatOpener);
-      });
-      shopModalGrid.parentNode.insertBefore(backBtn, shopModalGrid);
-    }
-    backBtn.style.display = 'block';
-    shopModalGrid.innerHTML = images.map((img, index) => {
-      const detail = details[index];
-      const productName = detail ? detail.title : 'Product ' + String(index + 1).padStart(2, '0');
-      return '<button class="shop-template-card is-apparel" type="button" data-product-index="' + index + '" data-product-image="' + img + '"><img src="' + img + '" alt="' + productName + '" loading="lazy"><div><small>' + catLabel + '</small><h3>' + productName + '</h3><span>View product details</span></div></button>';
-    }).join('');
-    shopModalGrid.querySelectorAll('.shop-template-card').forEach(card => {
-      card.addEventListener('click', () => openProductModal(card));
-    });
+    24: { title: 'Reign in the Spirit Daily Black T-Shirt', desc: 'Carry the fire of spiritual authority. This black edition displays \u2018REIGN IN THE SPIRIT DAILY\u2019 with Romans 5:17 — a declaration of faith and the life-giving power of Christ.' },
+    10: { title: 'Hoodie 11', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
+    11: { title: 'Hoodie 12', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
+    12: { title: 'Hoodie 13', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
+    13: { title: 'Hoodie 14', desc: 'A faith-forward hoodie from the Powered X Prayer collection.' },
   };
 
   const openShopModal = categoryCard => {
