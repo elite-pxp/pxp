@@ -70,24 +70,24 @@ document.addEventListener('DOMContentLoaded', () => {
     january: { name:'January', series:'RESET', theme:'Start Fresh. Begin Again.', videos:[
       ['-O99Y4kILG8','Reset, Realign, Go Forth with Shantal Long','January 6, 2026','Release old patterns, pray with confidence, and move forward with spiritual clarity.'],
       ['1oi5xAgYyu4','Wednesday Session: Building a Consistent Prayer Life','January 13, 2026','Learn simple, scriptural habits that help you stay rooted in daily prayer.'],
-      ['MlWYBkHROXc',"Thursday Session: Discovering God's Purpose Through Scripture",'January 20, 2026',"Explore biblical insight that helps you discern purpose and live aligned with God's calling."],
+      ['MlWYBkHROXc',"Thursday Session: Discovering God\u2019s Purpose Through Scripture",'January 20, 2026',"Explore biblical insight that helps you discern purpose and live aligned with God\u2019s calling."],
       ['frqOolLffs8','Friday Session: Strengthening Spiritual Resilience','January 27, 2026','Receive biblical encouragement to stand firm in faith through pressure and uncertainty.'] ]},
     february: { name:'February', series:'RELEASE', theme:'Let Go. Move Forward.', videos:[
       ['Hu5gbtZsbcg','BREATHE AGAIN','February 3, 2026','Reflect on the grace of God through prayer, biblical truth, and renewed devotion.'],
-      ['jSADhcPqGpQ','Releasing Authority with Shantal Long','February 10, 2026',"Enter the week refreshed through worship, thankful prayer, and God's presence."],
+      ['jSADhcPqGpQ','Releasing Authority with Shantal Long','February 10, 2026',"Enter the week refreshed through worship, thankful prayer, and God\u2019s presence."],
       ['PlCeqAbGN9U','Release the Old Identity with Shantal Long','February 17, 2026','Release old labels and build a steady, gratitude-centered life of faith.'],
       ['mYiw0rO3qSo','Guard Your Release with Shantal Long','February 24, 2026','Discover how prayer, unity, and Christian community keep believers grounded in truth.'] ]},
     march: { name:'March', series:'REFOCUS', theme:'Realign Your Eyes on God.', videos:[
-      ['aG4eU8LVzVU','WHO IS YOUR SOURCE?','March 3, 2026',"Strengthen your confidence in prayer by standing on God's promises."],
-      ['MZAiZZcdrZ4','Stop Looking In The Wrong Places.','March 10, 2026',"Return to peace through God's Word and steady prayer."],
+      ['aG4eU8LVzVU','WHO IS YOUR SOURCE?','March 3, 2026',"Strengthen your confidence in prayer by standing on God\u2019s promises."],
+      ['MZAiZZcdrZ4','Stop Looking In The Wrong Places.','March 10, 2026',"Return to peace through God\u2019s Word and steady prayer."],
       ['QOqeESjDzmA','Refocus: Live From the Throne','March 17, 2026','Remain steady through uncertainty with biblical perspective and spiritual strength.'],
-      ['t2BAf6_z_zk','The Activation Moment - Decree & Move','March 25, 2026',"Release burdens, celebrate God's goodness, and move forward in faith."],
-      ['ZBJrPorLCyc','He Thought He Had Me... But Heaven Was Already There','March 31, 2026',"Settle anxious thoughts and restore quiet confidence in God's care."] ]},
+      ['t2BAf6_z_zk','The Activation Moment - Decree & Move','March 25, 2026',"Release burdens, celebrate God\u2019s goodness, and move forward in faith."],
+      ['ZBJrPorLCyc','He Thought He Had Me... But Heaven Was Already There','March 31, 2026',"Settle anxious thoughts and restore quiet confidence in God\u2019s care."] ]},
     april: { name:'April', series:'REALIGN', theme:'Get Back in Divine Position.', videos:[
-      ['I7DZerTI9hg','Preparing Your Life to Walk in the Supernatural','April 7, 2026',"Align your decisions, attitude, and focus with God's wisdom."],
+      ['I7DZerTI9hg','Preparing Your Life to Walk in the Supernatural','April 7, 2026',"Align your decisions, attitude, and focus with God\u2019s wisdom."],
       ['CGpM9zMOX50','WHAT ARE YOU BUILDING ON?','April 14, 2026','Build spiritual resilience by anchoring your heart in scripture.'],
       ['7zyTup1sU2U',"IT'S TIME. I AM DOING A NEW THING - STEP OUT OF THE WINEPRESS",'April 21, 2026','Grow deeper in faith through shared prayer, worship, and truth.'],
-      ['aDlh_6UYVWY',"Victory Lap: Closing The Realignment Series With Joseph's Story",'April 28, 2026',"Reflect on God's mercy and grace with humility, gratitude, and trust."] ]},
+      ['aDlh_6UYVWY',"Victory Lap: Closing The Realignment Series With Joseph's Story",'April 28, 2026',"Reflect on God\u2019s mercy and grace with humility, gratitude, and trust."] ]},
     may: { name:'May', series:'REBUILD', theme:'Build Strong. Build Right.', videos:[
       ['Jva-mSBFc9k','R E B U I L D | A Series on Purpose, Process & the Build God Assigned','May 5, 2026','Move from burden to action through lessons from Nehemiah 1–2.'],
       ['Zv4tzmP2OfI','Did You Count the Cost?','May 12, 2026','A timely biblical word and a call to count the cost in your walk with God.'],
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ['6z2EkeMtUyg','The Serpent Is Under Your Feet','July 21, 2026','Recognize the enemy’s tactics and walk in the authority Christ has given you.'],
       ['Vy6zqh8eZIc','Reign in the Spirit','July 28, 2026','Let the Holy Spirit lead, sharpen your discernment, and teach you to reign through Christ.'] ]},
     august: { name:'August', series:'REFLECT', theme:'See Clearly. Live Intentionally.', videos:[
-      ['fDxOYQK8YJg','The Mirror, Seeing Yourself the Way God Sees You','August 4, 2026',"Look into the mirror of God's Word and allow the Holy Spirit to transform your heart."],
+      ['fDxOYQK8YJg','The Mirror, Seeing Yourself the Way God Sees You','August 4, 2026',"Look into the mirror of God\u2019s Word and allow the Holy Spirit to transform your heart."],
       ['cs00kGDEXew','REFLECT Week 2: REVEAL — Who Am I Really?','August 11, 2026',"Replace earthly labels with Heaven's language and receive your identity in Christ."],
       ['ZukSJ5lNPkQ','Every Stage Is Preparing You','August 18, 2026',"The Weight of His Glory is a call to look at the process differently. The pressure, the pain, the waiting, and the hidden places are not wasted when God is forming something eternal in you."] ]}
   };
@@ -208,6 +208,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const trainingsProductImages = [
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/699cc567d0716b216f4ad50b.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/699cc39ad0716b76214a3d3e.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a230f27290fb067770e.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a228f3f0ab510ca4faf.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a21e6501a9518e56c48.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a21994ded095acc7a8f.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a21cdd4b797a31cfb85.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1fe6501a9518e565c9.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1f8f3f0ab510ca441b.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ce6501a9518e55796.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ccdd4b797a31cf334.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ccdd4b797a31cf33e.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1a8f3f0ab510ca2c2b.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1aad59e6cfed27ebd7.png',
   ];
   const trainingsDetails = {
     0: { title: 'A Guide to Launching Your Childcare Center', desc: 'Launch your dream childcare center with confidence and clarity. This comprehensive guide walks you through every step from planning to opening.', link: 'https://go.poweredxprayers.com/product-details/product/aguidetolaunchingyourchildcarecenter' },
@@ -269,12 +281,24 @@ document.addEventListener('DOMContentLoaded', () => {
     11: { title: 'Let Me Pray About It Hoodie', desc: 'Wear your purpose with boldness. The Let Me Pray About It Hoodie is a declaration that your faith drives every step, every decision, and every season of your life.' },
     12: { title: 'Let Me Pray About It T-Shirt', desc: 'Carry the message of spiritual authority. This Let Me Pray About It T-Shirt declares that through Christ, you reign in life every single day.' },
     13: { title: 'Let Me Pray About It Hoodie Black', desc: 'See beyond what the eyes can show. This black Let Me Pray About It Hoodie reminds us to look through the lens of faith and trust what God has spoken over your future.' },
-    14: { title: 'Let Me Pray About It T-Shirt Black', desc: 'Prayer changes everything. This black Let Me Pray About It T-Shirt is a bold reminder to bring every situation to God and let faith lead the way.' }
-  };
+    14: { title: 'Let Me Pray About It T-Shirt Black', desc: 'Prayer changes everything. This black Let Me Pray About It T-Shirt is a bold reminder to bring every situation to God and let faith lead the way.' },
+    15: { title: 'The Word Is My Mirror T-Shirt', desc: 'A daily reminder to see yourself the way God sees you. Let His Word reflect truth over your identity and replace every lie with who you are in Christ.' },
+    16: { title: 'Restored by Jesus T-Shirt', desc: 'Wear the message of restoration. This tee is a bold declaration that God restores what life tried to destroy and makes all things new.' },
+    17: { title: 'Driven T-Shirt', desc: 'Purpose meets faith. The Driven T-Shirt declares that your steps are ordered by God and every move is fueled by faith, prayer, and divine purpose.' },
+    18: { title: 'Faith Over Fear T-Shirt', desc: 'Choose faith over fear every single day. This tee is a reminder that God has not given us a spirit of fear but of power, love, and a sound mind.' },
+    19: { title: 'Priceless T-Shirt', desc: 'Your identity in Christ is priceless. This tee declares that you are chosen, redeemed, and valued beyond measure by the King of Kings.' },
+    20: { title: 'Not My Power But His Power T-Shirt', desc: 'It is not by might nor by power, but by my Spirit, says the Lord. This tee is a declaration that everything you do flows from His strength.' },
+    21: { title: 'Build T-Shirt', desc: 'Build your life on the solid rock. This tee is a call to kingdom builders who trust God\u2019s plan and build with faith, wisdom, and purpose.' },
+    22: { title: 'Pray T-Shirt', desc: 'Prayer changes everything. This tee is a bold reminder to bring every situation to God and let faith lead the way.' },
+    23: { title: 'Rooted in Christ T-Shirt', desc: 'Stay grounded in faith. This tree-root design pairs \u2018ROOTED IN CHRIST\u2019 with the declaration that your identity begins with your Creator.' },
+    24: { title: 'Reign in the Spirit Daily T-Shirt', desc: 'Walk in spiritual authority every day. Featuring \u2018REIGN IN THE SPIRIT DAILY\u2019 with Romans 5:17, this tee declares that through Christ we reign in life.' },
+    25: { title: 'Faith Sees Beyond T-Shirt', desc: 'See with the eyes of faith. What God has spoken over your life is greater than what your eyes can see. This tee is a declaration of supernatural vision.' },
+    26: { title: 'Reign in the Spirit Daily Black T-Shirt', desc: 'Carry the fire of spiritual authority. This black edition displays \u2018REIGN IN THE SPIRIT DAILY\u2019 with Romans 5:17 — a declaration of faith and the life-giving power of Christ.' }
+  }
 
   // Hoodie indices (0-10) and T-Shirt indices (11-14) in the apparelProductImages array
   const hoodieIndices = [0,1,2,3,4,5,6,7,8,9,10];
-  const tshirtIndices = [11,12,13,14];
+  const tshirtIndices = [11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26];
   const hoodieImages = hoodieIndices.map(i => apparelProductImages[i]);
   const tshirtImages = tshirtIndices.map(i => apparelProductImages[i]);
   const hoodieDetails = {};
@@ -425,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ['February','February 10, 2026','Releasing Authority with Shantal Long','https://drive.google.com/uc?export=download&id=1GBv-a-P-rjiCHT0pmwAdJ5MzwHELHnl3'],
     ['February','February 3, 2026','BREATHE AGAIN','https://drive.google.com/uc?export=download&id=1I5AvwxAb0mNBzNNh4hiTCE29BLIAvkrb'],
     ['January','January 27, 2026','Friday Session: Strengthening Spiritual Resilience','https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
-    ['January','January 20, 2026',"Thursday Session: Discovering God's Purpose Through Scripture",'https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
+    ['January','January 20, 2026',"Thursday Session: Discovering God\u2019s Purpose Through Scripture",'https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
     ['January','January 13, 2026','Wednesday Session: Building a Consistent Prayer Life','https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
     ['January','January 6, 2026','Reset, Realign, Go Forth with Shantal Long','https://drive.google.com/uc?export=download&id=1LyHUPEO-xrRe6R-xDYBQ5IZMPZiYJdc4']
   ];
