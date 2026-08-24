@@ -374,10 +374,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('[data-shop-modal-close]').forEach(control => control.addEventListener('click', closeShopModal));
   document.querySelectorAll('[data-product-modal-close]').forEach(control => control.addEventListener('click', closeProductModal));
+
+  const shopLaunchModal = document.querySelector('#shop-launch-modal');
+  let shopLaunchOpener = null;
+  const closeShopLaunchModal = () => {
+    if (!shopLaunchModal || shopLaunchModal.hidden) return;
+    shopLaunchModal.hidden = true;
+    document.body.classList.remove('series-modal-open');
+    shopLaunchOpener?.focus();
+    shopLaunchOpener = null;
+  };
+  document.querySelectorAll('[data-shop-launch]').forEach(trigger => trigger.addEventListener('click', event => {
+    if (!shopLaunchModal) return;
+    event.preventDefault();
+    shopLaunchOpener = trigger;
+    shopLaunchModal.hidden = false;
+    document.body.classList.add('series-modal-open');
+    shopLaunchModal.querySelector('.shop-launch-panel')?.focus();
+  }));
+  shopLaunchModal?.querySelectorAll('[data-shop-launch-close]').forEach(control => control.addEventListener('click', closeShopLaunchModal));
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
     if (productModal && !productModal.hidden) closeProductModal();
     else if (shopModal && !shopModal.hidden) closeShopModal();
+    else if (shopLaunchModal && !shopLaunchModal.hidden) closeShopLaunchModal();
   });
 
   const studyNotes = [

@@ -46,19 +46,75 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabs = [...document.querySelectorAll('[data-category]')];
   const previous = document.querySelector('[data-carousel-prev]');
   const next = document.querySelector('[data-carousel-next]');
+  const searchToggle = document.querySelector('.search-toggle');
+  const searchForm = document.querySelector('.shop-search');
+  const searchInput = document.querySelector('#product-search');
+  const searchClear = document.querySelector('.search-clear');
+  const searchSuggestions = document.querySelector('.search-suggestions');
   let active = 'hoodies';
+  let searchTerm = '';
+
+  const searchMatches = () => {
+    const normalizedTerm = searchTerm.trim().toLowerCase();
+    return Object.entries(collections).flatMap(([category, products]) => products
+      .filter(item => `${item.title} ${item.kind}`.toLowerCase().includes(normalizedTerm))
+      .map(item => ({ ...item, category })));
+  };
+
+  const renderSuggestions = () => {
+    const term = searchTerm.trim();
+    if (!term) {
+      searchSuggestions.hidden = true;
+      searchSuggestions.innerHTML = '';
+      return;
+    }
+    const matches = searchMatches();
+    const visibleMatches = matches.slice(0, 6);
+    const categories = [...new Set(matches.map(item => item.category))];
+    const category = categories.length === 1 ? categories[0] : null;
+    const moreLabel = category ? `Show all ${labels[category]}` : `Show all ${matches.length} results`;
+    searchSuggestions.hidden = false;
+    searchSuggestions.innerHTML = visibleMatches.length
+      ? `<p class="search-results-label">${matches.length} matching product${matches.length === 1 ? '' : 's'}</p>${visibleMatches.map(item => `<a href="${item.link}" target="_blank" rel="noopener noreferrer"><span>${item.kind}</span><strong>${item.title}</strong></a>`).join('')}<button class="search-show-more" type="button" data-search-category="${category || ''}">${moreLabel} →</button>`
+      : `<p class="search-no-results">No products found for “${term}”. Try hoodie, T-shirt, book, or training.</p>`;
+    searchSuggestions.querySelector('.search-show-more')?.addEventListener('click', event => {
+      const categoryKey = event.currentTarget.dataset.searchCategory;
+      if (categoryKey) {
+        active = categoryKey;
+        searchTerm = '';
+        searchInput.value = '';
+      }
+      render();
+      renderSuggestions();
+      searchForm.hidden = true;
+      searchToggle.setAttribute('aria-expanded', 'false');
+      document.querySelector('#shop')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
 
   const render = (direction = 'next') => {
     track.classList.remove('slide-next', 'slide-prev');
     void track.offsetWidth;
-    track.innerHTML = collections[active].map(item => `<article class="shop-product-card"><img src="${item.image}" alt="${item.title}" loading="lazy"><div><small>${item.kind}</small><h3>${item.title}</h3><a href="${item.link}" target="_blank" rel="noopener noreferrer">View product</a></div></article>`).join('');
+    const products = searchTerm.trim() ? searchMatches() : collections[active];
+    track.innerHTML = products.length
+      ? products.map(item => `<article class="shop-product-card"><img src="${item.image}" alt="${item.title}" loading="lazy"><div><small>${item.kind}</small><h3>${item.title}</h3><a href="${item.link}" target="_blank" rel="noopener noreferrer">View product</a></div></article>`).join('')
+      : `<p class="search-empty">No products found for “${searchTerm.trim()}”. Try hoodie, T-shirt, book, or training.</p>`;
     track.classList.add(direction === 'prev' ? 'slide-prev' : 'slide-next');
-    title.textContent = labels[active];
-    tabs.forEach(tab => { const selected = tab.dataset.category === active; tab.classList.toggle('selected', selected); tab.setAttribute('aria-selected', String(selected)); });
+    title.textContent = searchTerm.trim() ? `Search results for “${searchTerm.trim()}”` : labels[active];
+    tabs.forEach(tab => { const selected = !searchTerm.trim() && tab.dataset.category === active; tab.classList.toggle('selected', selected); tab.setAttribute('aria-selected', String(selected)); });
     track.scrollTo({ left: 0, behavior: 'auto' });
   };
-  tabs.forEach(tab => tab.addEventListener('click', () => { if (tab.dataset.category !== active) { active = tab.dataset.category; render(); } }));
+  tabs.forEach(tab => tab.addEventListener('click', () => { active = tab.dataset.category; searchTerm = ''; searchInput.value = ''; render(); }));
   previous.addEventListener('click', () => track.scrollBy({ left: -Math.max(260, track.clientWidth * .82), behavior: 'smooth' }));
   next.addEventListener('click', () => track.scrollBy({ left: Math.max(260, track.clientWidth * .82), behavior: 'smooth' }));
+  searchToggle.addEventListener('click', () => {
+    const isOpen = !searchForm.hidden;
+    searchForm.hidden = isOpen;
+    searchToggle.setAttribute('aria-expanded', String(!isOpen));
+    if (!isOpen) searchInput.focus();
+  });
+  searchForm.addEventListener('submit', event => event.preventDefault());
+  searchInput.addEventListener('input', () => { searchTerm = searchInput.value; renderSuggestions(); });
+  searchClear.addEventListener('click', () => { searchInput.value = ''; searchTerm = ''; renderSuggestions(); searchInput.focus(); });
   render();
 });
