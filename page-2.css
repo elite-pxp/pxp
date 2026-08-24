@@ -885,3 +885,4 @@ html{scroll-behavior:smooth}
 .events-empty p{margin:0 0 8px;color:#667265;font-size:15px;line-height:1.5}
 .events-empty-note{color:#b48129;font-style:italic;font-size:13px!important;margin-top:16px!important}
 @media(max-width:620px){.apparel-subcategory-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;grid-column:1/-1}}
+.product-checkout-link{display:inline-grid;min-width:160px;min-height:50px;place-items:center;border-radius:7px;background:#063d2d;color:#fff;font:700 13px var(--sans);text-decoration:none}.product-checkout-link[aria-disabled="true"]{pointer-events:none;cursor:not-allowed;opacity:.55}

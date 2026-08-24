@@ -273,6 +273,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (productDescEl) productDescEl.textContent = productDesc;
       const productImage = productModal.querySelector('.product-detail-media img');
       if (productImage) { productImage.src = img; productImage.alt = productName; }
+      const checkoutLink = productModal.querySelector('[data-product-shop-link]');
+      if (checkoutLink) {
+        const productLink = detail?.link || '';
+        checkoutLink.href = productLink;
+        checkoutLink.toggleAttribute('aria-disabled', !productLink);
+        checkoutLink.textContent = productLink ? 'Add to Cart' : 'Coming Soon';
+      }
       productModalOpener = card;
       productModal.hidden = false;
       document.body.classList.add('series-modal-open');
@@ -320,16 +327,16 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
     const apparelDetails = {
-    0: { title: 'Pray Hoodie', desc: 'A faith-forward hoodie created as a wearable reminder that God restores what life tried to destroy. Final fabric, fit, and care details will be added before checkout is activated.' },
-    1: { title: 'Build Hoodie', desc: 'A daily reminder to see yourself the way God sees you. Let His Word reflect truth over your identity, replacing every lie with the promise of who you are in Christ.' },
-    2: { title: 'Restored by Jesus Hoodie', desc: 'Wear the word of God as a declaration of spiritual authority. Featuring "REIGN IN THE SPIRIT DAILY" with Romans 5:17, this hoodie is a daily reminder that through Christ we reign in life and walk in the power of the Holy Spirit.' },
-    3: { title: 'The Word Is My Mirror Hoodie', desc: 'Carry the fire of the Spirit wherever you go. This flame-edition hoodie displays "REIGN IN THE SPIRIT DAILY" alongside Romans 5:17 with a bold flame graphic \u2014 a declaration of faith, passion, and the life-giving power of Christ.' },
-    4: { title: 'Not My Power But His Power Hoodie', desc: 'Your identity begins with your Creator. This tree-root design pairs "ROOTED IN CHRIST" with the declaration "My Identity Begins With My Creator" \u2014 a reminder to stay grounded in faith and anchored in who God says you are.' },
-    5: { title: 'Pray Hoodie — Black & White', desc: 'Purpose meets faith. The Driven Hoodie is a bold declaration that your steps are ordered by God and every move is fueled by faith, prayer, and divine purpose.' },
-    6: { title: 'Reign in the Spirit Daily Hoodie', desc: 'Walk in spiritual authority every day. This hoodie displays \"REIGN IN THE SPIRIT DAILY\" with Romans 5:17 \u2014 a reminder that through Christ we reign in life.' },
-    7: { title: 'Faith Sees Beyond the Visible Hoodie', desc: 'See with the eyes of faith. The Faith Sees Beyond the Visible Hoodie is a declaration that what God has spoken over your life is greater than what your eyes can see.' },
-    8: { title: 'Cultivated Hoodie', desc: 'A reminder to take it to God first. The Let Me Pray About It Hoodie represents a lifestyle of prayer, faith, and seeking God before making your next move.' },
-    9: { title: 'Rooted in Christ Hoodie', desc: 'Before the answer, the decision, or the response, pray about it. This Powered X Prayer crewneck is a simple reminder to seek God first and let prayer lead the way.' },
+    0: { title: 'Pray Hoodie', desc: 'A faith-forward hoodie created as a wearable reminder that God restores what life tried to destroy. Final fabric, fit, and care details will be added before checkout is activated.', link: 'https://go.poweredxprayers.com/product-details/product/6a874c8628fb07750d30a3f1' },
+    1: { title: 'Build Hoodie', desc: 'A daily reminder to see yourself the way God sees you. Let His Word reflect truth over your identity, replacing every lie with the promise of who you are in Christ.', link: 'https://go.poweredxprayers.com/product-details/product/6a8765afdc2a3afc942b823c' },
+    2: { title: 'Restored by Jesus Hoodie', desc: 'Wear the word of God as a declaration of spiritual authority. Featuring "REIGN IN THE SPIRIT DAILY" with Romans 5:17, this hoodie is a daily reminder that through Christ we reign in life and walk in the power of the Holy Spirit.', link: 'https://go.poweredxprayers.com/product-details/product/6a8751d258536b67d4f1bac4' },
+    3: { title: 'The Word Is My Mirror Hoodie', desc: 'Carry the fire of the Spirit wherever you go. This flame-edition hoodie displays "REIGN IN THE SPIRIT DAILY" alongside Romans 5:17 with a bold flame graphic \u2014 a declaration of faith, passion, and the life-giving power of Christ.', link: 'https://go.poweredxprayers.com/product-details/product/6a875471722ac3e8e84b0244' },
+    4: { title: 'Not My Power But His Power Hoodie', desc: 'Your identity begins with your Creator. This tree-root design pairs "ROOTED IN CHRIST" with the declaration "My Identity Begins With My Creator" \u2014 a reminder to stay grounded in faith and anchored in who God says you are.', link: 'https://go.poweredxprayers.com/product-details/product/6a8751b3867fdcb3218cd550' },
+    5: { title: 'Pray Hoodie — Black & White', desc: 'Purpose meets faith. The Driven Hoodie is a bold declaration that your steps are ordered by God and every move is fueled by faith, prayer, and divine purpose.', link: 'https://go.poweredxprayers.com/product-details/product/6a874b7dd377ef4abb0e09b8' },
+    6: { title: 'Reign in the Spirit Daily Hoodie', desc: 'Walk in spiritual authority every day. This hoodie displays \"REIGN IN THE SPIRIT DAILY\" with Romans 5:17 \u2014 a reminder that through Christ we reign in life.', link: 'https://go.poweredxprayers.com/product-details/product/6a87518233e47869c69adbb1' },
+    7: { title: 'Faith Sees Beyond the Visible Hoodie', desc: 'See with the eyes of faith. The Faith Sees Beyond the Visible Hoodie is a declaration that what God has spoken over your life is greater than what your eyes can see.', link: 'https://go.poweredxprayers.com/product-details/product/6a8751403d596796d0ad1b29' },
+    8: { title: 'Cultivated Hoodie', desc: 'A reminder to take it to God first. The Let Me Pray About It Hoodie represents a lifestyle of prayer, faith, and seeking God before making your next move.', link: 'https://go.poweredxprayers.com/product-details/product/6a875241d93e1268080cf4c5' },
+    9: { title: 'Rooted in Christ Hoodie', desc: 'Before the answer, the decision, or the response, pray about it. This Powered X Prayer crewneck is a simple reminder to seek God first and let prayer lead the way.', link: 'https://go.poweredxprayers.com/product-details/product/6a8752244c7762db1b0c26ee' },
     10: { title: 'Let Me Pray About It Hoodie Black', desc: 'A bold black edition of the Let Me Pray About It Hoodie. A lifestyle of prayer, faith, and seeking God before making your next move.' },
     11: { title: 'Reign in the Spirit Daily Hoodie Cream', desc: 'Walk in spiritual authority with this cream-colored edition. Featuring REIGN IN THE SPIRIT DAILY with Romans 5:17.' },
     12: { title: 'Reign in the Spirit Daily Hoodie Grey', desc: 'A grey edition declaring REIGN IN THE SPIRIT DAILY with Romans 5:17. A daily reminder that through Christ we reign in life.' },
@@ -346,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
     23: { title: 'The Word Is My Mirror T-Shirt — Burgundy', desc: 'See with the eyes of faith. What God has spoken over your life is greater than what your eyes can see. This tee is a declaration of supernatural vision.' },
     24: { title: 'Faith Sees Beyond the Visible T-Shirt', desc: 'Carry the fire of spiritual authority. This black edition displays REIGN IN THE SPIRIT DAILY with Romans 5:17.' },
     25: { title: 'Faith Over Fear Black T-Shirt', desc: 'Choose faith over fear every day. This black edition is a reminder that God has not given us a spirit of fear' },
-    26: { title: 'Prayer Room Hoodie', desc: 'A faith-forward hoodie created for those who meet with God in the secret place and carry a life of prayer everywhere they go.' },
+    26: { title: 'Prayer Room Hoodie', desc: 'A faith-forward hoodie created for those who meet with God in the secret place and carry a life of prayer everywhere they go.', link: 'https://go.poweredxprayers.com/product-details/product/6a87525da9904c4e9a45d9b1' },
   };
 
   const openShopModal = categoryCard => {
