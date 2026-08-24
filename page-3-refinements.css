@@ -67,16 +67,22 @@
 
 .site-header { position: relative; }
 .search-toggle,
-.cart-link { animation: none !important; box-shadow: none !important; }
+.cart-link { box-shadow: none !important; }
 .header-actions { align-items: center; }
 .header-actions .cart-link {
-  display: grid;
-  width: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 34px;
   height: 34px;
-  place-items: center;
   color: #fff;
   font-size: 22px;
+  white-space: nowrap;
+  animation: cart-nudge 9s ease-in-out infinite !important;
 }
+.header-actions .cart-link::after { content: "View cart"; color: #ead7ad; font: 700 10px var(--body); letter-spacing: .04em; text-transform: uppercase; }
+@keyframes cart-nudge { 0%, 88%, 100% { transform: translateY(0); } 91% { transform: translateY(-2px); } 94% { transform: translateY(0); } 97% { transform: translateY(-1px); } }
 .shop-search {
   position: absolute;
   z-index: 20;
@@ -193,6 +199,7 @@ button,
 
 @media (prefers-reduced-motion: reduce) {
   button,
+  .header-actions .cart-link,
   .donate,
   .product-grid a,
   .feature-grid a,
