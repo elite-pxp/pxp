@@ -410,13 +410,47 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     };
 
+    const syncFreeJournalPopupLayout = function () {
+        const popupBaseId = `popup-${FREE_JOURNAL_FORM_ID}`;
+        const setImportantStyle = function (element, property, value) {
+            if (!element || (element.style.getPropertyValue(property) === value && element.style.getPropertyPriority(property) === 'important')) {
+                return;
+            }
+            element.style.setProperty(property, value, 'important');
+        };
+
+        document.querySelectorAll(`.ep-overlay[id^="${popupBaseId}"]`).forEach(function (overlay) {
+            const container = overlay.querySelector('.ep-iFrameContainer');
+            const wrapper = overlay.querySelector('.ep-wrapper');
+            const header = overlay.querySelector('.ep-header');
+            const frame = overlay.querySelector(`iframe[id^="${popupBaseId}"]`);
+
+            setImportantStyle(overlay, 'align-items', 'center');
+            setImportantStyle(overlay, 'justify-content', 'center');
+            setImportantStyle(container, 'align-self', 'center');
+            setImportantStyle(container, 'width', 'min(94vw, 720px)');
+            setImportantStyle(container, 'max-width', 'min(94vw, 720px)');
+            setImportantStyle(container, 'height', 'min(88dvh, 760px)');
+            setImportantStyle(container, 'max-height', 'calc(100dvh - 3rem)');
+            setImportantStyle(container, 'margin', '0');
+            setImportantStyle(wrapper, 'width', '100%');
+            setImportantStyle(wrapper, 'height', '100%');
+            setImportantStyle(header, 'width', '100%');
+            setImportantStyle(frame, 'width', '100%');
+            setImportantStyle(frame, 'height', 'calc(100% - 26px)');
+        });
+    };
+
     const watchFreeJournalPopupCleanup = function () {
         if (!document.body) {
             return;
         }
 
         const observer = new MutationObserver(function () {
-            window.requestAnimationFrame(cleanupClosedFreeJournalPopup);
+            window.requestAnimationFrame(function () {
+                syncFreeJournalPopupLayout();
+                cleanupClosedFreeJournalPopup();
+            });
         });
         observer.observe(document.body, {
             attributes: true,
@@ -425,6 +459,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             subtree: true,
         });
         window.addEventListener('message', function () {
+            syncFreeJournalPopupLayout();
             window.setTimeout(cleanupClosedFreeJournalPopup, 100);
         });
     };

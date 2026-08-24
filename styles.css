@@ -55,24 +55,63 @@ img {
 }
 
 body:has(iframe[id^="popup-Ed7R0udrrYcJrtyRNIZz"]) {
-    overflow: auto !important;
+    overflow: hidden !important;
 }
 
 .ep-overlay[id^="popup-Ed7R0udrrYcJrtyRNIZz"] {
     align-items: center !important;
-    background: rgba(49, 78, 40, 0.34) !important;
+    background: rgba(6, 61, 45, 0.48) !important;
     display: flex !important;
     justify-content: center !important;
     padding: 1.5rem !important;
 }
 
+.ep-overlay[id^="popup-Ed7R0udrrYcJrtyRNIZz"] .ep-iFrameContainer {
+    align-self: center !important;
+    box-sizing: border-box !important;
+    height: min(88dvh, 760px) !important;
+    margin: 0 !important;
+    max-height: calc(100dvh - 3rem) !important;
+    max-width: min(94vw, 720px) !important;
+    width: min(94vw, 720px) !important;
+}
+
+.ep-overlay[id^="popup-Ed7R0udrrYcJrtyRNIZz"] .ep-wrapper,
+.ep-overlay[id^="popup-Ed7R0udrrYcJrtyRNIZz"] .ep-header {
+    width: 100% !important;
+}
+
+.ep-overlay[id^="popup-Ed7R0udrrYcJrtyRNIZz"] .ep-wrapper {
+    height: 100% !important;
+}
+
 .ep-overlay[id^="popup-Ed7R0udrrYcJrtyRNIZz"] iframe[id^="popup-Ed7R0udrrYcJrtyRNIZz"] {
     border-radius: 14px !important;
     box-shadow: 0 22px 70px rgba(18, 32, 15, 0.24) !important;
-    height: min(90vh, 900px) !important;
-    max-height: 900px !important;
-    max-width: 720px !important;
-    width: min(94vw, 720px) !important;
+    height: calc(100% - 26px) !important;
+    max-height: none !important;
+    max-width: none !important;
+    width: 100% !important;
+}
+
+/* The fasting page intentionally shares the public site's current forest-and-cream palette. */
+body.fasting-page {
+    background: linear-gradient(180deg, #f8f1df 0%, #fffaf0 48%, #f8f1df 100%);
+}
+
+body.fasting-page .header {
+    background-color: rgba(6, 61, 45, 0.97);
+    border-bottom-color: rgba(207, 157, 59, 0.42);
+}
+
+body.fasting-page .focus-hero {
+    background:
+        radial-gradient(circle at 78% 24%, rgba(207, 157, 59, 0.16), transparent 31%),
+        linear-gradient(180deg, #fffaf0 0%, #f8f1df 100%);
+}
+
+body.fasting-page .focus-section.alt {
+    background: linear-gradient(180deg, rgba(10, 81, 61, 0.13) 0%, #f8f1df 100%);
 }
 
 button,
