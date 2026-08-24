@@ -107,14 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
   tabs.forEach(tab => tab.addEventListener('click', () => { active = tab.dataset.category; searchTerm = ''; searchInput.value = ''; render(); }));
   previous.addEventListener('click', () => track.scrollBy({ left: -Math.max(260, track.clientWidth * .82), behavior: 'smooth' }));
   next.addEventListener('click', () => track.scrollBy({ left: Math.max(260, track.clientWidth * .82), behavior: 'smooth' }));
-  searchToggle.addEventListener('click', () => {
-    const isOpen = !searchForm.hidden;
-    searchForm.hidden = isOpen;
-    searchToggle.setAttribute('aria-expanded', String(!isOpen));
-    if (!isOpen) searchInput.focus();
-  });
-  searchForm.addEventListener('submit', event => event.preventDefault());
-  searchInput.addEventListener('input', () => { searchTerm = searchInput.value; renderSuggestions(); });
-  searchClear.addEventListener('click', () => { searchInput.value = ''; searchTerm = ''; renderSuggestions(); searchInput.focus(); });
+  if (searchToggle && searchForm && searchInput && searchClear && searchSuggestions) {
+    searchToggle.addEventListener('click', () => {
+      const isOpen = !searchForm.hidden;
+      searchForm.hidden = isOpen;
+      searchToggle.setAttribute('aria-expanded', String(!isOpen));
+      if (!isOpen) searchInput.focus();
+    });
+    searchForm.addEventListener('submit', event => event.preventDefault());
+    searchInput.addEventListener('input', () => { searchTerm = searchInput.value; renderSuggestions(); });
+    searchClear.addEventListener('click', () => { searchInput.value = ''; searchTerm = ''; renderSuggestions(); searchInput.focus(); });
+  }
   render();
 });
