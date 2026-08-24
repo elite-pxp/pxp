@@ -18,14 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     ],
     tshirts: [
       product('Restore by Jesus T-Shirt', '6a873a228f3f0ab510ca4faf.png', checkout('6a872e64d93e1268080acdbf'), 'T-Shirt'),
-      product('The Word Is My Mirror T-Shirt', '6a873a21e6501a9518e56c48.png', checkout('6a872e1633e47869c698814a'), 'T-Shirt'),
+      product('The Word Is My Mirror T-Shirt', '6a873a21e6501a9518e56c48.png', checkout('6a872e3fdc2a3afc94281676'), 'T-Shirt'),
       product('Restore by Jesus T-Shirt — White', '6a873a21994ded095acc7a8f.png', checkout('6a872dc1d377ef4abb0c60cc'), 'T-Shirt'),
       product('Prayer Room T-Shirt', '6a873a21cdd4b797a31cfb85.png', checkout('6a872d75eba69a757e525654'), 'T-Shirt'),
       product('Prayer Led T-Shirt', '6a873a1fe6501a9518e565c9.png', checkout('6a872ccb58536b67d4ef61bc'), 'T-Shirt'),
       product('Build T-Shirt', '6a873a1f8f3f0ab510ca441b.png', 'https://go.poweredxprayers.com/shop', 'T-Shirt'),
       product('Pray T-Shirt', '6a873a1ce6501a9518e55796.png', checkout('6a872b8f04c3021571006b94'), 'T-Shirt'),
       product('Rooted T-Shirt', '6a873a1ccdd4b797a31cf334.png', checkout('6a872d3aef79b113e57c86e6'), 'T-Shirt'),
-      product('The Word Is My Mirror T-Shirt', '6a8c54c9cdd4b797a32eb2ba.png', checkout('6a872e1633e47869c698814a'), 'T-Shirt'),
+      product('The Word Is My Mirror T-Shirt', '6a8c54c9cdd4b797a32eb2ba.png', checkout('6a872e3fdc2a3afc94281676'), 'T-Shirt'),
       product('Faith Sees T-Shirt', '6a873a1a8f3f0ab510ca2c2b.png', checkout('6a872ca9d6701e5bc25cb1d1'), 'T-Shirt')
     ],
     books: [
