@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const detail = apparelDetails[idx];
         const productName = detail ? detail.title : 'Product ' + String(idx + 1).padStart(2, '0');
         const productDesc = detail ? detail.desc : 'Details coming soon';
-        return '<article class="shop-template-card" data-product-index="' + idx + '" data-product-image="' + img + '" onclick="openProductFromCard(this)">' +
+        return '<article class="shop-template-card is-apparel" data-product-index="' + idx + '" data-product-image="' + img + '" onclick="openProductFromCard(this)">' +
           '<img src="' + img + '" alt="' + productName + '" loading="lazy">' +
           '<div><small>' + subcat + '</small><h3>' + productName + '</h3><span>View product details</span></div>' +
         '</article>';
