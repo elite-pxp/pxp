@@ -74,6 +74,13 @@
   text-transform: uppercase;
 }
 
+/* Keep the donation message to a balanced three lines on desktop widths. */
+@media (min-width: 561px) {
+  .hero-copy > p:not(.crown) {
+    max-width: 580px;
+  }
+}
+
 .feature-grid h3 {
   min-height: 42px;
 }
@@ -199,6 +206,11 @@
 }
 
 @media (min-width: 1025px) {
+  .hero-copy {
+    width: min(55%, 760px);
+    padding-inline: clamp(38px, 4.5vw, 64px);
+  }
+
   .hero-image img {
     transform: scale(1.07);
     transform-origin: right bottom;
