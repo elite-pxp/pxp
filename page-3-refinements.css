@@ -66,7 +66,8 @@
 .social-links a:hover { background: rgba(188, 141, 46, .28); }
 
 .site-header { position: relative; }
-.search-toggle { animation: none !important; box-shadow: none !important; }
+.search-toggle,
+.cart-link { animation: none !important; box-shadow: none !important; }
 .header-actions { align-items: center; }
 .header-actions .cart-link {
   display: grid;
