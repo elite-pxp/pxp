@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1f8f3f0ab510ca441b.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ce6501a9518e55796.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ccdd4b797a31cf334.png',
-    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ccdd4b797a31cf33e.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8c54c9cdd4b797a32eb2ba.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1a8f3f0ab510ca2c2b.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1aad59e6cfed27ebd7.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8c2535ad59e6cfede2d7c2.png',
