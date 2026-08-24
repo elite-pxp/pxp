@@ -201,6 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1ccdd4b797a31cf33e.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1a8f3f0ab510ca2c2b.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1aad59e6cfed27ebd7.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8c2535ad59e6cfede2d7c2.png',
   ];
   const ebooksProductImages = [
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c1447bf72d964f602.png',
@@ -228,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let productModalOpener = null;
   let apparelSubcatOpener = null;
 
-  const hoodieIndices = [0,1,2,3,4,5,6,7,8,9];
+  const hoodieIndices = [0,1,2,3,4,5,6,7,8,9,26];
   const tshirtIndices = [15,16,17,18,19,20,21,22,23,24];
   const hoodieImages = hoodieIndices.map(i => apparelProductImages[i]);
   const tshirtImages = tshirtIndices.map(i => apparelProductImages[i]);
@@ -345,6 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
     23: { title: 'Faith Sees Beyond T-Shirt', desc: 'See with the eyes of faith. What God has spoken over your life is greater than what your eyes can see. This tee is a declaration of supernatural vision.' },
     24: { title: 'Reign in the Spirit Daily Black T-Shirt', desc: 'Carry the fire of spiritual authority. This black edition displays REIGN IN THE SPIRIT DAILY with Romans 5:17.' },
     25: { title: 'Faith Over Fear Black T-Shirt', desc: 'Choose faith over fear every day. This black edition is a reminder that God has not given us a spirit of fear' },
+    26: { title: 'New Hoodie', desc: 'A new faith-forward hoodie addition to the Powered X Prayer collection.' },
   };
 
   const openShopModal = categoryCard => {
