@@ -205,6 +205,23 @@
   }
 }
 
+/* Ultra-wide displays: keep the campaign copy and artwork in one centered
+   composition instead of pinning them to opposite viewport edges. */
+@media (min-width: 1441px) {
+  .hero {
+    --hero-wide-gutter: max(0px, calc((100vw - 1800px) / 2));
+  }
+
+  .hero-copy {
+    margin-left: var(--hero-wide-gutter);
+  }
+
+  .hero-image {
+    right: var(--hero-wide-gutter);
+    width: min(59%, 720px);
+  }
+}
+
 /* Shop landing-page category carousel. Featured Bestsellers remains independent and unchanged. */
 .tabs button {
   appearance: none;
