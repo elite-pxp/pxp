@@ -25,6 +25,7 @@
 }
 
 .brand b { color: var(--gold); }
+.nav-home { padding-inline: 4px; font-size: 22px; line-height: 1; }
 
 .footer-wordmark {
   display: inline-flex;
