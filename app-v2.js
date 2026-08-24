@@ -361,11 +361,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isApparel) {
       shopModalGrid.innerHTML = '<div class="apparel-subcategory-grid">' +
         '<button class="apparel-subcategory-card" type="button" data-subcat="Hoodies">' +
-          '<img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a875a044219e7772eb0807d.png" alt="Hoodies">' +
+          '<span class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a82dd84a6a03cda067ac87d.png" alt="Hoodies"></span>' +
           '<div><h3>HOODIES</h3><span>' + hoodieImages.length + ' Products</span></div>' +
         '</button>' +
         '<button class="apparel-subcategory-card" type="button" data-subcat="T-Shirts">' +
-          '<img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a23cdd4b797a31d0a61.png" alt="T-Shirts">' +
+          '<span class="apparel-subcategory-img"><img src="https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a23cdd4b797a31d0a61.png" alt="T-Shirts"></span>' +
           '<div><h3>T-SHIRTS</h3><span>' + tshirtImages.length + ' Products</span></div>' +
         '</button>' +
         '<div class="apparel-subcategory-card coming-soon">' +
