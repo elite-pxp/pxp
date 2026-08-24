@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
     23: { title: 'Faith Sees Beyond T-Shirt', desc: 'See with the eyes of faith. What God has spoken over your life is greater than what your eyes can see. This tee is a declaration of supernatural vision.' },
     24: { title: 'Reign in the Spirit Daily Black T-Shirt', desc: 'Carry the fire of spiritual authority. This black edition displays REIGN IN THE SPIRIT DAILY with Romans 5:17.' },
     25: { title: 'Faith Over Fear Black T-Shirt', desc: 'Choose faith over fear every day. This black edition is a reminder that God has not given us a spirit of fear' },
-    26: { title: 'New Hoodie', desc: 'A new faith-forward hoodie addition to the Powered X Prayer collection.' },
+    26: { title: 'Prayer Room Hoodie', desc: 'A faith-forward hoodie created for those who meet with God in the secret place and carry a life of prayer everywhere they go.' },
   };
 
   const openShopModal = categoryCard => {
