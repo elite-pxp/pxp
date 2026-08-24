@@ -1,0 +1,219 @@
+/* Final proportional adjustments based on the supplied reference. */
+.product-grid h3,
+.feature-grid h3 {
+  font-size: 17px;
+  line-height: 1.08;
+  min-height: 38px;
+}
+
+.brand-short { display: none; }
+
+/* Page 1-inspired Powered X Prayer wordmark. */
+.brand {
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: .015em;
+  text-transform: none;
+}
+
+.brand img {
+  width: 31px;
+  height: 31px;
+  filter: none;
+  object-fit: contain;
+}
+
+.brand b { color: var(--gold); }
+
+.footer-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--display);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: .015em;
+}
+
+.footer-wordmark img {
+  width: 30px;
+  height: 30px;
+  filter: none;
+  object-fit: contain;
+}
+
+.footer-wordmark b { color: var(--gold); }
+
+.footer-brand .social-links {
+  display: flex;
+  gap: 11px;
+  margin-top: 12px;
+}
+
+.social-links a {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border: 1px solid rgba(226, 179, 76, .72);
+  border-radius: 50%;
+  color: #f5ead2;
+  font: 700 14px var(--body);
+}
+
+.social-links a:hover { background: rgba(188, 141, 46, .28); }
+
+/* Editorial, high-contrast serif treatment matching the supplied reference. */
+.hero h1 {
+  font-family: "Times New Roman MT Condensed", "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(42px, 4.35vw, 58px);
+  font-weight: 500;
+  line-height: .89;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+}
+
+.feature-grid h3 {
+  min-height: 42px;
+}
+
+@media (max-width: 560px) {
+  .product-grid h3,
+  .feature-grid h3 {
+    font-size: 16px;
+  }
+}
+
+/* Use the supplied campaign image as a full hero cover, with a readable text area. */
+.hero {
+  display: block;
+  position: relative;
+  min-height: 416px;
+  background: #181711;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(17, 17, 12, 0.98) 0%, rgba(24, 22, 14, 0.92) 38%, rgba(24, 20, 12, 0.34) 63%, rgba(20, 17, 10, 0.06) 100%);
+  pointer-events: none;
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 46%;
+  transform: translateX(-3%);
+  z-index: 0;
+  display: block;
+  min-height: 0;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: contain;
+  object-position: right bottom;
+  filter: none;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  min-height: 416px;
+  width: min(47%, 610px);
+}
+
+@media (max-width: 850px) {
+  .hero-copy { width: min(60%, 560px); }
+  .hero-image { left: 42%; }
+}
+
+@media (max-width: 560px) {
+  .brand-full { display: none; }
+  .brand-short { display: inline; font: 700 16px var(--display); letter-spacing: .08em; }
+  .hero { display: flex; min-height: 0; flex-direction: column; }
+  .hero::after { display: none; }
+  .hero-copy { width: 100%; min-height: 0; padding: 38px 20px 42px; background: linear-gradient(120deg, #171711, #292315); }
+  .hero-image { display: none; }
+  .hero h1 { font-size: clamp(39px, 11vw, 48px); }
+
+  .mission-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+    padding: 13px 8px;
+  }
+
+  .mission-strip p {
+    min-width: 0;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0;
+    white-space: nowrap;
+  }
+
+  .mission-strip span { font-size: 27px; }
+  .mission-strip p::after { font-size: 10px; font-weight: 700; letter-spacing: .02em; }
+  .mission-strip p:nth-child(1)::after { content: "APPAREL"; }
+  .mission-strip p:nth-child(2)::after { content: "EMPOWER"; }
+  .mission-strip p:nth-child(3)::after { content: "MISSION"; }
+}
+
+/* Keep the desktop hero composition stable as the viewport stretches. */
+@media (min-width: 561px) {
+  .hero-copy {
+    width: min(48%, 600px);
+  }
+
+  .hero-image {
+    left: auto;
+    right: clamp(0px, 2vw, 30px);
+    width: min(59%, 680px);
+    transform: none;
+  }
+}
+
+/* At tablet widths the campaign image becomes an enlarged backdrop, not a small side card. */
+@media (min-width: 561px) and (max-width: 1024px) {
+  .hero-image {
+    inset: 0;
+    width: auto;
+    transform: none;
+  }
+
+  .hero-image img {
+    object-fit: contain;
+    object-position: right bottom;
+    transform: none;
+  }
+
+  .hero-copy {
+    width: min(67%, 510px);
+  }
+}
+
+@media (min-width: 1025px) {
+  .hero-image img {
+    transform: scale(1.07);
+    transform-origin: right bottom;
+  }
+}
+
+@media (min-width: 561px) and (max-width: 850px) {
+  .site-header {
+    padding-inline: 16px;
+    gap: 10px;
+  }
+
+  .brand { font-size: 19px; }
+  .brand img { width: 25px; height: 25px; }
+  .site-header nav { gap: 12px; font-size: 11px; }
+  .header-actions { gap: 6px; }
+  .header-actions button { font-size: 19px; }
+}
