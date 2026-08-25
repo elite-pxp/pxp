@@ -104,7 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
     tabs.forEach(tab => { const selected = !searchTerm.trim() && tab.dataset.category === active; tab.classList.toggle('selected', selected); tab.setAttribute('aria-selected', String(selected)); });
     track.scrollTo({ left: 0, behavior: 'auto' });
   };
-  tabs.forEach(tab => tab.addEventListener('click', () => { active = tab.dataset.category; searchTerm = ''; searchInput.value = ''; render(); }));
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    active = tab.dataset.category;
+    searchTerm = '';
+    if (searchInput) searchInput.value = '';
+    render();
+  }));
   previous.addEventListener('click', () => track.scrollBy({ left: -Math.max(260, track.clientWidth * .82), behavior: 'smooth' }));
   next.addEventListener('click', () => track.scrollBy({ left: Math.max(260, track.clientWidth * .82), behavior: 'smooth' }));
   if (searchToggle && searchForm && searchInput && searchClear && searchSuggestions) {
