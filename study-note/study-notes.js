@@ -1,5 +1,5 @@
 (() => {
-  const accessCodes = new Set(['12345','PXP-RESET-614','PXP-RELEASE-827','PXP-REFOCUS-319','PXP-REALIGN-542','PXP-REBUILD-761','PXP-RESTORE-284','PXP-REIGN-936','PXP-REFLECT-475','PXP-FAN-618','PXP-FAN-853']);
+  const accessCodes = new Set(['12345','AMBER','ANGEL','APRIL','BRIAN','CHRIS','DAVID','GRACE','JAMES','KAREN','MARIA']);
   const gate = document.querySelector('#access-gate');
   const unlock = () => { document.body.classList.remove('access-locked'); gate.hidden = true; };
   document.body.classList.add('access-locked');
