@@ -3,8 +3,7 @@
   const gate = document.querySelector('#access-gate');
   const unlock = () => { document.body.classList.remove('access-locked'); gate.hidden = true; };
   document.body.classList.add('access-locked');
-  if (sessionStorage.getItem('pxp-study-access') === 'granted') unlock();
-  document.querySelector('#access-gate-form').addEventListener('submit', event => { event.preventDefault(); const code = document.querySelector('#access-code').value.trim().toUpperCase(); if (accessCodes.has(code)) { sessionStorage.setItem('pxp-study-access','granted'); unlock(); } else document.querySelector('#access-gate-error').hidden = false; });
+  document.querySelector('#access-gate-form').addEventListener('submit', event => { event.preventDefault(); const code = document.querySelector('#access-code').value.trim().toUpperCase(); if (accessCodes.has(code)) { unlock(); } else document.querySelector('#access-gate-error').hidden = false; });
   const bookIcon = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v16H6.5A2.5 2.5 0 0 0 4 21Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H12v16h5.5A2.5 2.5 0 0 1 20 21Z"/></svg>';
   const lockIcon = '<svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>';
   const months = [
