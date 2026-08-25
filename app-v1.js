@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async function () {
-    const ADMIN_PASSWORD = 'xx99';
+    const ADMIN_PASSWORD = '12345';
     const ADMIN_STORAGE_KEY = 'pxpAdminContent';
     const ADMIN_SESSION_KEY = 'pxpAdminUnlocked';
     const ADMIN_CONTENT_URL = './content/admin-content.json';
