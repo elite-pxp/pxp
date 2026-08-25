@@ -1,7 +1,7 @@
 (() => {
   const accessCodes = new Set(['12345','AMBER','ANGEL','APRIL','BRIAN','CHRIS','DAVID','GRACE','JAMES','KAREN','MARIA']);
   const gate = document.querySelector('#access-gate');
-  const unlock = () => { document.body.classList.remove('access-locked'); gate.hidden = true; };
+  const unlock = () => { document.body.classList.remove('access-locked'); gate.hidden = true; gate.style.display = 'none'; };
   document.body.classList.add('access-locked');
   document.querySelector('#access-gate-form').addEventListener('submit', event => { event.preventDefault(); const code = document.querySelector('#access-code').value.trim().toUpperCase().replace(/\s/g, ''); if (accessCodes.has(code)) { unlock(); } else document.querySelector('#access-gate-error').hidden = false; });
   const bookIcon = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v16H6.5A2.5 2.5 0 0 0 4 21Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H12v16h5.5A2.5 2.5 0 0 1 20 21Z"/></svg>';
