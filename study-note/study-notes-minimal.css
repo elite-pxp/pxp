@@ -17,3 +17,4 @@
 .month-card.is-coming .month-count{display:none}
 @media(max-width:760px){.study-page{width:min(100% - 36px,620px);padding-top:58px}.study-hero h1{font-size:clamp(45px,12vw,65px)}.month-grid{margin-top:44px}}
 @media(max-width:480px){.study-page{width:min(100% - 30px,480px);padding-top:44px;padding-bottom:58px}.study-hero .eyebrow{letter-spacing:2.6px}.study-hero>p:last-child{font-size:13px}.month-grid{gap:10px;margin-top:36px}.month-card{min-height:106px;padding:19px}.month-name{font-size:29px}}
+.study-nav{display:flex;align-items:center;gap:22px}.study-nav .home-link{padding-inline:0;border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent}.study-nav .home-link:hover,.study-nav .home-link:focus-visible{border-color:var(--gold);background:transparent}@media(max-width:480px){.study-nav{gap:15px}.study-nav .home-link{font-size:10px;letter-spacing:1px}}
