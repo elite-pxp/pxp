@@ -26,7 +26,7 @@
 </head>
 <body>
   <section class="access-gate" id="access-gate" aria-labelledby="access-gate-title">
-    <form class="access-gate-card" id="access-gate-form">
+    <form class="access-gate-card" id="access-gate-form" onsubmit="var code=this.elements['access-code'].value.toUpperCase().replace(/\s/g,'');if(['12345','AMBER','ANGEL','APRIL','BRIAN','CHRIS','DAVID','GRACE','JAMES','KAREN','MARIA'].includes(code)){document.body.classList.remove('access-locked');document.getElementById('access-gate').style.display='none';return false;}document.getElementById('access-gate-error').hidden=false;return false;">
       <p class="eyebrow">Superfan Access</p>
       <h1 id="access-gate-title">365 Days of R’s<br><span>Transformation</span></h1>
       <p>Enter your private access code to open the Study Notes Archive.</p>
