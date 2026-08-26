@@ -1,5 +1,5 @@
 (() => {
-  const accessCodes = new Set(['12345']);
+  const accessCodes = new Set(['12345','AMBER','ANGEL','APRIL','BRIAN','CHRIS','DAVID','GRACE','JAMES','KAREN','LEI','MARIA','SHANTAL','WILL']);
   const gate = document.querySelector('#access-gate');
   const unlock = () => { document.body.classList.remove('access-locked'); gate.hidden = true; gate.style.display = 'none'; };
   document.body.classList.add('access-locked');
