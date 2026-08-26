@@ -149,6 +149,11 @@ document.addEventListener('DOMContentLoaded', () => {
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1a8f3f0ab510ca2c2b.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a873a1aad59e6cfed27ebd7.png',
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8c2535ad59e6cfede2d7c2.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8f48ccd1afbd2cbcbc515f.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8f43647ac084b112561560.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8f4364d6548da0f1365403.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8f4364d6548da0f13653fa.png',
+    'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a8f4364d1afbd2cbcbbac82.png',
   ];
   const ebooksProductImages = [
     'https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6a85b91c1447bf72d964f602.png',
@@ -176,8 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let productModalOpener = null;
   let apparelSubcatOpener = null;
 
-  const hoodieIndices = [0,1,2,3,4,5,6,7,8,9,26];
-  const tshirtIndices = [15,16,17,18,19,20,21,22,23,24];
+  const hoodieIndices = [0,1,2,3,4,5,6,7,8,9,26,27,28,29];
+  const tshirtIndices = [15,16,17,18,19,20,21,22,23,24,30,31];
   const hoodieImages = hoodieIndices.map(i => apparelProductImages[i]);
   const tshirtImages = tshirtIndices.map(i => apparelProductImages[i]);
 
@@ -301,6 +306,11 @@ document.addEventListener('DOMContentLoaded', () => {
     24: { title: 'Unisex Faith Sees tee', desc: 'Carry the fire of spiritual authority. This black edition displays REIGN IN THE SPIRIT DAILY with Romans 5:17.', link: 'https://go.poweredxprayers.com/product-details/product/6a872ca9d6701e5bc25cb1d1' },
     25: { title: 'Faith Over Fear Black T-Shirt', desc: 'Choose faith over fear every day. This black edition is a reminder that God has not given us a spirit of fear' },
     26: { title: 'Prayer Room Hoodie', desc: 'A faith-forward hoodie created for those who meet with God in the secret place and carry a life of prayer everywhere they go.', link: 'https://go.poweredxprayers.com/product-details/product/6a87525da9904c4e9a45d9b1' },
+    27: { title: 'Let Me Pray About It Hoodie', desc: 'A bold reminder to seek God first. This hoodie reflects a lifestyle of prayer, faith, and trusting God with every next step.', link: 'https://go.poweredxprayers.com/product-details/product/696f74f654a83c2f1f667333/?variant=696f74f7de80749128a9d754' },
+    28: { title: 'Let Me Pray About It Hoodie', desc: 'A bold reminder to seek God first. This hoodie reflects a lifestyle of prayer, faith, and trusting God with every next step.', link: 'https://go.poweredxprayers.com/product-details/product/694ec5e05e05770f35ba0ab2/?variant=694ec5e327c8a01b4a24c6e3' },
+    29: { title: 'Let Me Pray About It Hoodie', desc: 'A bold reminder to seek God first. This hoodie reflects a lifestyle of prayer, faith, and trusting God with every next step.', link: 'https://go.poweredxprayers.com/product-details/product/694ec5df331225e454e7212d/?variant=694ec5dfd7c4b71eadf7e1ed' },
+    30: { title: 'Let Me Pray About It T-Shirt', desc: 'A simple reminder to seek God first and let prayer lead the way.', link: 'https://go.poweredxprayers.com/product-details/product/6939c334fef256859f06db0c/?variant=6939c335ccecbd7511b1c66d' },
+    31: { title: 'Let Me Pray About It T-Shirt', desc: 'A simple reminder to seek God first and let prayer lead the way.', link: 'https://go.poweredxprayers.com/product-details/product/6939c336a53d0941060fe842/?variant=6939c337d0aaf6b6dabc14f4' },
   };
 
   const openShopModal = categoryCard => {
