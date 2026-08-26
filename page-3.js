@@ -14,7 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
       product('Faith Sees Beyond the Visible Hoodie', '6a875a02ad59e6cfed5d1ed8.png', checkout('6a8751403d596796d0ad1b29'), 'Hoodie'),
       product('Cultivated Hoodie', '6a875a00e6501a951823f5f3.png', checkout('6a875241d93e1268080cf4c5'), 'Hoodie'),
       product('Rooted in Christ Hoodie', '6a8759ff22c06f5dae84d1d5.png', checkout('6a8752244c7762db1b0c26ee'), 'Hoodie'),
-      product('Prayer Room Hoodie', '6a8c2535ad59e6cfede2d7c2.png', checkout('6a87525da9904c4e9a45d9b1'), 'Hoodie')
+      product('Prayer Room Hoodie', '6a8c2535ad59e6cfede2d7c2.png', checkout('6a87525da9904c4e9a45d9b1'), 'Hoodie'),
+      product('Let Me Pray About It Hoodie', '6a8f43647ac084b112561560.png', 'https://go.poweredxprayers.com/product-details/product/694ec5e05e05770f35ba0ab2/?variant=694ec5e327c8a01b4a24c6e3', 'Hoodie'),
+      product('Let Me Pray About It Hoodie', '6a8f4364d6548da0f1365403.png', 'https://go.poweredxprayers.com/product-details/product/694ec5df331225e454e7212d/?variant=694ec5dfd7c4b71eadf7e1ed', 'Hoodie'),
+      product('Let Me Pray About It Hoodie', '6a8f48ccd1afbd2cbcbc515f.png', 'https://go.poweredxprayers.com/product-details/product/696f74f654a83c2f1f667333/?variant=696f74f7de80749128a9d754', 'Hoodie')
     ],
     tshirts: [
       product('Restore by Jesus T-Shirt', '6a873a228f3f0ab510ca4faf.png', checkout('6a872e64d93e1268080acdbf'), 'T-Shirt'),
@@ -26,7 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
       product('Pray T-Shirt', '6a873a1ce6501a9518e55796.png', checkout('6a872b8f04c3021571006b94'), 'T-Shirt'),
       product('Rooted T-Shirt', '6a873a1ccdd4b797a31cf334.png', checkout('6a872d3aef79b113e57c86e6'), 'T-Shirt'),
       product('The Word Is My Mirror T-Shirt', '6a8c54c9cdd4b797a32eb2ba.png', checkout('6a872e3fdc2a3afc94281676'), 'T-Shirt'),
-      product('Faith Sees T-Shirt', '6a873a1a8f3f0ab510ca2c2b.png', checkout('6a872ca9d6701e5bc25cb1d1'), 'T-Shirt')
+      product('Faith Sees T-Shirt', '6a873a1a8f3f0ab510ca2c2b.png', checkout('6a872ca9d6701e5bc25cb1d1'), 'T-Shirt'),
+      product('Let Me Pray About It T-Shirt', '6a8f4364d6548da0f13653fa.png', 'https://go.poweredxprayers.com/product-details/product/6939c334fef256859f06db0c/?variant=6939c335ccecbd7511b1c66d', 'T-Shirt'),
+      product('Let Me Pray About It T-Shirt', '6a8f4364d1afbd2cbcbbac82.png', 'https://go.poweredxprayers.com/product-details/product/6939c336a53d0941060fe842/?variant=6939c337d0aaf6b6dabc14f4', 'T-Shirt')
     ],
     books: [
       product('The Process', '6a85b91c1447bf72d964f602.png', checkout('theprocess'), 'E-Book'),
