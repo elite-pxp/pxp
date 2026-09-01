@@ -53,7 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
     august: { name:'August', series:'REFLECT', theme:'See Clearly. Live Intentionally.', videos:[
       ['fDxOYQK8YJg','The Mirror, Seeing Yourself the Way God Sees You','August 4, 2026',"Look into the mirror of God\u2019s Word and allow the Holy Spirit to transform your heart."],
       ['cs00kGDEXew','REFLECT Week 2: REVEAL — Who Am I Really?','August 11, 2026',"Replace earthly labels with Heaven's language and receive your identity in Christ."],
-      ['ZukSJ5lNPkQ','Every Stage Is Preparing You','August 18, 2026',"The Weight of His Glory is a call to look at the process differently. The pressure, the pain, the waiting, and the hidden places are not wasted when God is forming something eternal in you."] ]}
+      ['ZukSJ5lNPkQ','Every Stage Is Preparing You','August 18, 2026',"The Weight of His Glory is a call to look at the process differently. The pressure, the pain, the waiting, and the hidden places are not wasted when God is forming something eternal in you."],
+      ['8-37F-5YOIQ','From Reflection to Representation','August 25, 2026',"Join us for the final week of the REFLECT Series as we move from seeing who God says we are to living like who we have become."] ]}
   };
   let activeSeriesModal = null;
   let seriesModalOpener = null;
@@ -411,6 +412,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const studyNotes = [
+    ['August','August 25, 2026','From Reflection to Representation','https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
+    ['August','August 18, 2026','Every Stage Is Preparing You','#'],
     ['August','August 11, 2026','REFLECT Week 2: REVEAL — Who Am I Really?','https://drive.google.com/file/d/1TJTP-IK-wGJQOzXS4IqQY9BlSdrWgM3Y/view?usp=sharing'],
     ['August','August 4, 2026','The Mirror, Seeing Yourself the Way God Sees You','https://drive.google.com/file/d/1YodpipZeqqhbV_l5WMWSmVbvOJJ0jk1F/view?usp=sharing'],
     ['July','July 28, 2026','Reign in the Spirit','https://drive.google.com/file/d/1FYj0DpvOhXgV7advKmaU78ND6MDeZP5g/view?usp=sharing'],
