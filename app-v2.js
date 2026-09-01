@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
       ['JLywR5fLXGI','Reign From the Source','July 14, 2026','Remain planted, drink deep from God’s presence, and reign daily.'],
       ['6z2EkeMtUyg','The Serpent Is Under Your Feet','July 21, 2026','Recognize the enemy’s tactics and walk in the authority Christ has given you.'],
       ['Vy6zqh8eZIc','Reign in the Spirit','July 28, 2026','Let the Holy Spirit lead, sharpen your discernment, and teach you to reign through Christ.'] ]},
+    september: { name:'September', series:'RECOGNIZED', theme:'Know Who You Are in Christ.', videos:[
+      ['vS9xvaB029s','Recognize the Battle: What Is Really Operating?','September 1, 2026',"Recognize the spiritual battle and stand firm in your identity in Christ."] ]},
     august: { name:'August', series:'REFLECT', theme:'See Clearly. Live Intentionally.', videos:[
       ['fDxOYQK8YJg','The Mirror, Seeing Yourself the Way God Sees You','August 4, 2026',"Look into the mirror of God\u2019s Word and allow the Holy Spirit to transform your heart."],
       ['cs00kGDEXew','REFLECT Week 2: REVEAL — Who Am I Really?','August 11, 2026',"Replace earthly labels with Heaven's language and receive your identity in Christ."],
@@ -412,6 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const studyNotes = [
+    ['September','September 1, 2026','Recognize the Battle: What Is Really Operating?','#'],
     ['August','August 25, 2026','From Reflection to Representation','https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
     ['August','August 18, 2026','Every Stage Is Preparing You','#'],
     ['August','August 11, 2026','REFLECT Week 2: REVEAL — Who Am I Really?','https://drive.google.com/file/d/1TJTP-IK-wGJQOzXS4IqQY9BlSdrWgM3Y/view?usp=sharing'],
