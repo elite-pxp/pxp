@@ -11,6 +11,30 @@ document.addEventListener('DOMContentLoaded', () => {
     toggle?.setAttribute('aria-expanded', 'false');
   }));
 
+  const journalSignupModal = document.getElementById('journal-signup-modal');
+  let journalSignupOpener = null;
+  const closeJournalSignup = () => {
+    if (!journalSignupModal || journalSignupModal.hidden) return;
+    journalSignupModal.hidden = true;
+    document.body.classList.remove('journal-signup-open');
+    journalSignupOpener?.focus();
+    journalSignupOpener = null;
+  };
+  const openJournalSignup = () => {
+    if (!journalSignupModal || !journalSignupModal.hidden) return;
+    journalSignupOpener = document.activeElement;
+    journalSignupModal.hidden = false;
+    document.body.classList.add('journal-signup-open');
+    journalSignupModal.querySelector('.journal-signup-close')?.focus();
+  };
+  journalSignupModal?.querySelectorAll('[data-journal-signup-close]').forEach(control => {
+    control.addEventListener('click', closeJournalSignup);
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeJournalSignup();
+  });
+  window.setTimeout(openJournalSignup, 3000);
+
   const seriesModalTriggers = document.querySelectorAll('[data-series-modal]');
   let openStudyNotePreview = () => {};
   const monthlySeries = {
