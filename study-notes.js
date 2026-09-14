@@ -14,7 +14,8 @@
     '98230082f839009847accf1951207a6e013893dafce8b438b7ce1704dff88db7',
     'cb5bc7ecb5b167b47215e3619b799d8a1df3838256b90fa4a2e788925d1673fe',
     '798f635fbe70288d809c752d490970440b911a15f7cd762ed827e7305c8bfee2',
-    'f92a6832341ec1a1624d75896e20fa081f9d5f476c9a1050f63f28fba3bb8f3c'
+    'f92a6832341ec1a1624d75896e20fa081f9d5f476c9a1050f63f28fba3bb8f3c',
+    '0a49b88b9478b2cdad1e6aeeec3d78c4795ff10594f3656e9b7fd4632a2f67b9'
   ]);
   const encodeHex = bytes => [...new Uint8Array(bytes)].map(byte => byte.toString(16).padStart(2, '0')).join('');
   const deriveAccessCode = async code => {
