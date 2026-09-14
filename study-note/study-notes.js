@@ -1,9 +1,44 @@
 (() => {
-  const accessCodes = new Set(['12345','AMBER','ANGEL','APRIL','BRIAN','CHANTAL','CHRIS','DAVID','GRACE','JAMES','KAREN','LAY','LEI','MARIA','SHANTAL','WILL']);
+  // The allowed access codes are deliberately stored as slow, salted derived values
+  // rather than readable text. This avoids exposing them in the deployed source.
+  const accessCodeSalt = 'pxp-study-notes-v1-5f9c2e8d';
+  const accessCodeHashes = new Set([
+    '0ec6b7b6445db7a08da8a904b565fb2bde876a8c66ad8dd206b4326a07639ecf',
+    'c89f2dce50e7d908078f24870f1a937ad4f37050bf789e2938442ebd1f1c4606',
+    '08ce642850b66cbeed8002586fae958162129b620bfa16577fd91a1d769b57e4',
+    '06d666b70f0ae6ef9e113f822206daf205b8576bdb0688dd3050b08aa75ea13c',
+    '1c2bc7b47fe2f19f107accb6ed1499a27fc91478bb5f6958330ff6498d009149',
+    '6ac8d42467e74598b3b0f9a12bc52a69a9ecb254bb64e9a49bd4d074d3e81488',
+    '180364ad41315f27ff719e6c1e6a9dfc06f9fe4ae24f5c83921bd9bbb260ba3b',
+    'be76e8977d4538b7216829c40b7bc03231912de00258a88374565771e97267ef',
+    '98230082f839009847accf1951207a6e013893dafce8b438b7ce1704dff88db7',
+    'cb5bc7ecb5b167b47215e3619b799d8a1df3838256b90fa4a2e788925d1673fe',
+    '798f635fbe70288d809c752d490970440b911a15f7cd762ed827e7305c8bfee2',
+    'f92a6832341ec1a1624d75896e20fa081f9d5f476c9a1050f63f28fba3bb8f3c'
+  ]);
+  const encodeHex = bytes => [...new Uint8Array(bytes)].map(byte => byte.toString(16).padStart(2, '0')).join('');
+  const deriveAccessCode = async code => {
+    const keyMaterial = await crypto.subtle.importKey('raw', new TextEncoder().encode(code), 'PBKDF2', false, ['deriveBits']);
+    return encodeHex(await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: new TextEncoder().encode(accessCodeSalt), iterations: 250000, hash: 'SHA-256' }, keyMaterial, 256));
+  };
   const gate = document.querySelector('#access-gate');
   const unlock = () => { document.body.classList.remove('access-locked'); gate.hidden = true; gate.style.display = 'none'; };
   document.body.classList.add('access-locked');
-  document.querySelector('#access-gate-form').addEventListener('submit', event => { event.preventDefault(); const code = document.querySelector('#access-code').value.trim().toUpperCase().replace(/\s/g, ''); if (accessCodes.has(code)) { unlock(); } else document.querySelector('#access-gate-error').hidden = false; });
+  document.querySelector('#access-gate-form').addEventListener('submit', async event => {
+    event.preventDefault();
+    const code = document.querySelector('#access-code').value.trim().toUpperCase().replace(/\s/g, '');
+    const error = document.querySelector('#access-gate-error');
+    try {
+      if (accessCodeHashes.has(await deriveAccessCode(code))) {
+        unlock();
+      } else {
+        error.hidden = false;
+      }
+    } catch {
+      error.textContent = 'Unable to verify the access code. Please refresh and try again.';
+      error.hidden = false;
+    }
+  });
   const bookIcon = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v16H6.5A2.5 2.5 0 0 0 4 21Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H12v16h5.5A2.5 2.5 0 0 1 20 21Z"/></svg>';
   const lockIcon = '<svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>';
   const months = [
