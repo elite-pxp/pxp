@@ -77,7 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
     september: { name:'September', series:'RECOGNIZED', theme:'Know Who You Are in Christ.', videos:[
       ['vS9xvaB029s','Recognize the Battle: What Is Really Operating?','September 1, 2026',"Recognize the spiritual battle and stand firm in your identity in Christ."],
       ['ScQ8JHiAB-w','What you keep reacting to may only be the fruit. God wants to show you the root.','September 8, 2026',"Look beneath the visible reaction and let God reveal the deeper root so you can respond from truth, healing, and your identity in Christ."],
-      ['IXsXKhZGepE','RECOGNIZE Week 3: Renounce & Resist | Break the Agreement, Take Your Stand','September 15, 2026',"Renounce agreements that oppose God’s truth, resist the enemy, and take your stand in the authority and identity you have in Christ."] ]},
+      ['IXsXKhZGepE','RECOGNIZE Week 3: Renounce & Resist | Break the Agreement, Take Your Stand','September 15, 2026',"Renounce agreements that oppose God’s truth, resist the enemy, and take your stand in the authority and identity you have in Christ."],
+      ['ea95cJ3sMbw','RECOGNIZED Week 4','September 22, 2026',"Continue discovering and walking in your identity in Christ."] ]},
     august: { name:'August', series:'REFLECT', theme:'See Clearly. Live Intentionally.', videos:[
       ['fDxOYQK8YJg','The Mirror, Seeing Yourself the Way God Sees You','August 4, 2026',"Look into the mirror of God\u2019s Word and allow the Holy Spirit to transform your heart."],
       ['cs00kGDEXew','REFLECT Week 2: REVEAL — Who Am I Really?','August 11, 2026',"Replace earthly labels with Heaven's language and receive your identity in Christ."],
