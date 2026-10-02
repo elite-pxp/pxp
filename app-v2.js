@@ -78,7 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
       ['vS9xvaB029s','Recognize the Battle: What Is Really Operating?','September 1, 2026',"Recognize the spiritual battle and stand firm in your identity in Christ."],
       ['ScQ8JHiAB-w','What you keep reacting to may only be the fruit. God wants to show you the root.','September 8, 2026',"Look beneath the visible reaction and let God reveal the deeper root so you can respond from truth, healing, and your identity in Christ."],
       ['IXsXKhZGepE','RECOGNIZE Week 3: Renounce & Resist | Break the Agreement, Take Your Stand','September 15, 2026',"Renounce agreements that oppose God’s truth, resist the enemy, and take your stand in the authority and identity you have in Christ."],
-      ['ea95cJ3sMbw','RECOGNIZE HIS PRESENCE','September 22, 2026',"Continue discovering and walking in your identity in Christ."] ]},
+      ['ea95cJ3sMbw','RECOGNIZE HIS PRESENCE','September 22, 2026',"Continue discovering and walking in your identity in Christ."],
+      ['aRaA3B6UaPU','Recognize, Then Respond','September 29, 2026',"Recognize what God is revealing and respond in faith, truth, and confidence in Christ."] ]},
+    october: { name:'October', series:'RESPOND', theme:'Coming Soon.', comingSoon:true, sessions:['October 6, 2026','October 13, 2026','October 20, 2026','October 27, 2026'], videos:[] },
     august: { name:'August', series:'REFLECT', theme:'See Clearly. Live Intentionally.', videos:[
       ['fDxOYQK8YJg','The Mirror, Seeing Yourself the Way God Sees You','August 4, 2026',"Look into the mirror of God\u2019s Word and allow the Holy Spirit to transform your heart."],
       ['cs00kGDEXew','REFLECT Week 2: REVEAL — Who Am I Really?','August 11, 2026',"Replace earthly labels with Heaven's language and receive your identity in Christ."],
@@ -115,15 +117,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       modal.querySelector('.series-modal-header .kicker').textContent = `365 Days of Transformation · ${month.name}`;
       modal.querySelector('.series-modal-header h2').textContent = `${month.series}: ${month.theme}`;
-      modal.querySelector('.series-modal-header div>p:last-child').textContent = `Watch every ${month.name} live session in the ${month.series} series.`;
-      modal.querySelector('.series-live-grid').innerHTML = month.videos.map(([id,title,date,description]) => {
+      modal.querySelector('.series-modal-header div>p:last-child').textContent = month.comingSoon
+        ? `${month.name} RESPOND sessions are coming soon.`
+        : `Watch every ${month.name} live session in the ${month.series} series.`;
+      const seriesCards = month.comingSoon
+        ? month.sessions.map(date => `<article class="series-live-card is-coming-soon"><div class="series-live-placeholder" aria-hidden="true">Coming Soon</div><div><h3>Coming Soon</h3><p class="series-live-date">${date}</p><p>The RESPOND session for this week will be available soon.</p></div></article>`)
+        : month.videos.map(([id,title,date,description]) => {
         const noteIndex = studyNotes.findIndex(note => note[1] === date);
         const note = studyNotes[noteIndex];
         const noteAction = note
           ? `<button class="series-study-notes" type="button" data-note-index="${noteIndex}">Preview Study Notes</button>`
           : '<span class="series-study-notes-unavailable">Study notes unavailable</span>';
         return `<article class="series-live-card"><iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p></div></article>`;
-      }).join('');
+      });
+      modal.querySelector('.series-live-grid').innerHTML = seriesCards.join('');
       modal.querySelectorAll('.series-study-notes').forEach(button => button.addEventListener('click', () => {
         const note = studyNotes[Number(button.dataset.noteIndex)];
         if (!note) return;
@@ -441,6 +448,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const studyNotes = [
+    ['September','September 29, 2026','Recognize, Then Respond','https://drive.google.com/file/d/1sbL0elMvs6I9-3Dkrmva4RnH-cWHHtQB/view?usp=drive_link'],
     ['September','September 1, 2026','Recognize the Battle: What Is Really Operating?','#'],
     ['August','August 25, 2026','From Reflection to Representation','https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
     ['August','August 18, 2026','Every Stage Is Preparing You','#'],
@@ -491,7 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
     libraryModal.querySelector('#reader-title').textContent = note[2];
     libraryModal.querySelector('.flipbook-date').textContent = note[1];
     const openLink = libraryModal.querySelector('.flipbook-open');
-    openLink.href = communityStudyNotesUrl;
+    openLink.href = note[3] && note[3] !== '#' ? note[3] : communityStudyNotesUrl;
     openLink.textContent = 'Open Study Notes';
     openLink.classList.remove('is-disabled');
     libraryGrid.querySelectorAll('.library-card').forEach(card => card.classList.toggle('active',Number(card.dataset.noteIndex) === studyNotes.indexOf(note)));
