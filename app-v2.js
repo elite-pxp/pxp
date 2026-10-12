@@ -40,9 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const monthlySeries = {
     january: { name:'January', series:'RESET', theme:'Start Fresh. Begin Again.', videos:[
       ['-O99Y4kILG8','Reset, Realign, Go Forth with Shantal Long','January 6, 2026','Release old patterns, pray with confidence, and move forward with spiritual clarity.'],
-      ['1oi5xAgYyu4','Wednesday Session: Building a Consistent Prayer Life','January 13, 2026','Learn simple, scriptural habits that help you stay rooted in daily prayer.'],
-      ['MlWYBkHROXc',"Thursday Session: Discovering God\u2019s Purpose Through Scripture",'January 20, 2026',"Explore biblical insight that helps you discern purpose and live aligned with God\u2019s calling."],
-      ['frqOolLffs8','Friday Session: Strengthening Spiritual Resilience','January 27, 2026','Receive biblical encouragement to stand firm in faith through pressure and uncertainty.'] ]},
+      ['1oi5xAgYyu4','Tuesday Session: Building a Consistent Prayer Life','January 13, 2026','Learn simple, scriptural habits that help you stay rooted in daily prayer.'],
+      ['MlWYBkHROXc',"Tuesday Session: Discovering God\u2019s Purpose Through Scripture",'January 20, 2026',"Explore biblical insight that helps you discern purpose and live aligned with God\u2019s calling."],
+      ['frqOolLffs8','Tuesday Session: Strengthening Spiritual Resilience','January 27, 2026','Receive biblical encouragement to stand firm in faith through pressure and uncertainty.'] ]},
     february: { name:'February', series:'RELEASE', theme:'Let Go. Move Forward.', videos:[
       ['Hu5gbtZsbcg','BREATHE AGAIN','February 3, 2026','Reflect on the grace of God through prayer, biblical truth, and renewed devotion.'],
       ['jSADhcPqGpQ','Releasing Authority with Shantal Long','February 10, 2026',"Enter the week refreshed through worship, thankful prayer, and God\u2019s presence."],
@@ -479,9 +479,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ['February','February 17, 2026','Release the Old Identity with Shantal Long','https://drive.google.com/uc?export=download&id=1pe_Aclxwe8HvvZAz_I9jZZ4ir0wKi3vr'],
     ['February','February 10, 2026','Releasing Authority with Shantal Long','https://drive.google.com/uc?export=download&id=1GBv-a-P-rjiCHT0pmwAdJ5MzwHELHnl3'],
     ['February','February 3, 2026','BREATHE AGAIN','https://drive.google.com/uc?export=download&id=1I5AvwxAb0mNBzNNh4hiTCE29BLIAvkrb'],
-    ['January','January 27, 2026','Friday Session: Strengthening Spiritual Resilience','https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
-    ['January','January 20, 2026',"Thursday Session: Discovering God\u2019s Purpose Through Scripture",'https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
-    ['January','January 13, 2026','Wednesday Session: Building a Consistent Prayer Life','https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
+    ['January','January 27, 2026','Tuesday Session: Strengthening Spiritual Resilience','https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
+    ['January','January 20, 2026',"Tuesday Session: Discovering God\u2019s Purpose Through Scripture",'https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
+    ['January','January 13, 2026','Tuesday Session: Building a Consistent Prayer Life','https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
     ['January','January 6, 2026','Reset, Realign, Go Forth with Shantal Long','https://drive.google.com/uc?export=download&id=1LyHUPEO-xrRe6R-xDYBQ5IZMPZiYJdc4']
   ];
   const libraryModal = document.querySelector('#study-notes-library');
