@@ -20,13 +20,13 @@ For a normal clickable preview, use the **Watch URL** instead. All 32 current vi
 
 ## January — RESET
 
-1. January 6, 2026 — Reset, Realign, Go Forth with Shantal Long  
+1. January 6, 2026 — Reset. Realign. Go Forth with Shantal Long #poweredbyprayer  
    ID: `-O99Y4kILG8` · Preview: https://www.youtube.com/embed/-O99Y4kILG8 · Watch: https://www.youtube.com/watch?v=-O99Y4kILG8
-2. January 13, 2026 — Tuesday Session: Building a Consistent Prayer Life  
+2. January 13, 2026 — Heaven is not our escape plan, y’all. It’s waiting on us to bring the Kingdom here. #tuesdaylive  
    ID: `1oi5xAgYyu4` · Preview: https://www.youtube.com/embed/1oi5xAgYyu4 · Watch: https://www.youtube.com/watch?v=1oi5xAgYyu4
-3. January 20, 2026 — Tuesday Session: Discovering God’s Purpose Through Scripture  
+3. January 20, 2026 — When the Spirit Aligns, Heaven Responds  
    ID: `MlWYBkHROXc` · Preview: https://www.youtube.com/embed/MlWYBkHROXc · Watch: https://www.youtube.com/watch?v=MlWYBkHROXc
-4. January 27, 2026 — Tuesday Session: Strengthening Spiritual Resilience  
+4. January 27, 2026 — Reset Your Mouth. Your Words Direct Your Life. P1  
    ID: `frqOolLffs8` · Preview: https://www.youtube.com/embed/frqOolLffs8 · Watch: https://www.youtube.com/watch?v=frqOolLffs8
 
 ## February — RELEASE
