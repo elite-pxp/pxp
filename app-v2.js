@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const libraryFilters = libraryModal?.querySelector('.library-filters');
   const libraryTrigger = document.querySelector('.study-library-trigger');
   const flipbookStage = libraryModal?.querySelector('.flipbook-stage');
-  const communityStudyNotesUrl = 'https://login.poweredxprayers.com/communities/groups/the-collective-prayer-room/home?invite=6a82d31338ca505fc7fade77';
+  const communityStudyNotesUrl = 'https://login.poweredxprayers.com/communities/groups/the-collective-prayer-room/about';
   let activeLibraryMonth = 'January';
   let selectedStudyNote = null;
 
@@ -505,8 +505,8 @@ document.addEventListener('DOMContentLoaded', () => {
     libraryModal.querySelector('#reader-title').textContent = note[2];
     libraryModal.querySelector('.flipbook-date').textContent = note[1];
     const openLink = libraryModal.querySelector('.flipbook-open');
-    openLink.href = note[3] && note[3] !== '#' ? note[3] : communityStudyNotesUrl;
-    openLink.textContent = 'Open Study Notes';
+    openLink.href = communityStudyNotesUrl;
+    openLink.textContent = 'Open in community';
     openLink.classList.remove('is-disabled');
     libraryGrid.querySelectorAll('.library-card').forEach(card => card.classList.toggle('active',Number(card.dataset.noteIndex) === studyNotes.indexOf(note)));
     window.dispatchEvent(new CustomEvent('pxp:study-note-selected',{detail:{month:note[0],date:note[1],title:note[2],source:note[3]}}));
@@ -519,7 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (collectionTitle) collectionTitle.textContent = `${activeLibraryMonth} Study Notes`;
     libraryGrid.innerHTML = filtered.map(note => {
       const index = studyNotes.indexOf(note);
-      return `<a class="library-card" href="${note[0] === 'October' ? note[3] : communityStudyNotesUrl}" target="_blank" rel="noopener noreferrer" data-note-index="${index}"><span class="library-card-cover"><small>Powered X Prayer</small><strong>${note[0]}</strong><em>Study Notes</em></span><span class="library-card-body"><h4>${note[2]}</h4><small>${note[1]}</small><span>${note[0] === 'October' ? 'Open Study Notes' : 'Open in community'}</span></span></a>`;
+      return `<a class="library-card" href="${communityStudyNotesUrl}" target="_blank" rel="noopener noreferrer" data-note-index="${index}"><span class="library-card-cover"><small>Powered X Prayer</small><strong>${note[0]}</strong><em>Study Notes</em></span><span class="library-card-body"><h4>${note[2]}</h4><small>${note[1]}</small><span>Open in community</span></span></a>`;
     }).join('');
     selectStudyNote(filtered[0] || studyNotes[0]);
   };
