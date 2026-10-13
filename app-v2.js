@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const noteAction = note
           ? `<button class="series-study-notes" type="button" data-note-index="${noteIndex}">Preview Study Notes</button>`
           : '<span class="series-study-notes-unavailable">Study notes unavailable</span>';
-        return `<article class="series-live-card"><iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p>${month.series === 'RESPOND' && note ? noteAction : ''}</div></article>`;
+        return `<article class="series-live-card"><iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p></div></article>`;
       });
       if (!month.comingSoon && month.sessions) {
         seriesCards.push(...month.sessions.map(date => `<article class="series-live-card is-coming-soon"><div class="series-live-placeholder" aria-hidden="true">Coming Soon</div><div><h3>Coming Soon</h3><p class="series-live-date">${date}</p><p>The RESPOND session for this week will be available soon.</p></div></article>`));
@@ -452,9 +452,10 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (shopLaunchModal && !shopLaunchModal.hidden) closeShopLaunchModal();
   });
 
+  // Public resources are a community directory. Direct document previews belong only in the passcode-protected Superfan vault.
   const studyNotes = [
     ['October','October 13, 2026',"RESPOND Week 2: Responding in Obedience by God's Grace",'https://login.poweredxprayers.com/communities/groups/the-collective-prayer-room/about'],
-    ['October','October 6, 2026','RESPOND Week One: Relationship Produces Obedience','https://drive.google.com/file/d/1rmxbU0w3XY06zQDu3CQd1ihmPnHekvGT/view?usp=sharing'],
+    ['October','October 6, 2026','RESPOND Week One: Relationship Produces Obedience','#'],
     ["September", "September 29, 2026", "Recognize, Then Respond", "#"],
     ["September", "September 22, 2026", "RECOGNIZE HIS PRESENCE", "#"],
     ["September", "September 15, 2026", "RECOGNIZE Week 3: Renounce & Resist | Break the Agreement, Take Your Stand", "#"],
@@ -513,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
     openLink.textContent = 'Open in community';
     openLink.classList.remove('is-disabled');
     libraryGrid.querySelectorAll('.library-card').forEach(card => card.classList.toggle('active',Number(card.dataset.noteIndex) === studyNotes.indexOf(note)));
-    window.dispatchEvent(new CustomEvent('pxp:study-note-selected',{detail:{month:note[0],date:note[1],title:note[2],source:note[3]}}));
+    window.dispatchEvent(new CustomEvent('pxp:study-note-selected',{detail:{month:note[0],date:note[1],title:note[2],source:communityStudyNotesUrl}}));
   };
 
   const renderStudyNotes = () => {
