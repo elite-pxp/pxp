@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const noteAction = note
           ? `<button class="series-study-notes" type="button" data-note-index="${noteIndex}">Preview Study Notes</button>`
           : '<span class="series-study-notes-unavailable">Study notes unavailable</span>';
-        return `<article class="series-live-card"><iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p>${month.series === 'RESPOND' ? `<a class="series-study-notes" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>` : ''}</div></article>`;
+        return `<article class="series-live-card"><iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p></div></article>`;
       });
       if (!month.comingSoon && month.sessions) {
         seriesCards.push(...month.sessions.map(date => `<article class="series-live-card is-coming-soon"><div class="series-live-placeholder" aria-hidden="true">Coming Soon</div><div><h3>Coming Soon</h3><p class="series-live-date">${date}</p><p>The RESPOND session for this week will be available soon.</p></div></article>`));
