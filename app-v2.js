@@ -454,8 +454,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const studyNotes = [
     ['October','October 6, 2026','RESPOND Week One: Relationship Produces Obedience','https://drive.google.com/file/d/1rmxbU0w3XY06zQDu3CQd1ihmPnHekvGT/view?usp=sharing'],
-    ['September','September 29, 2026','Recognize, Then Respond','https://drive.google.com/file/d/1sbL0elMvs6I9-3Dkrmva4RnH-cWHHtQB/view?usp=drive_link'],
-    ['September','September 1, 2026','Recognize the Battle: What Is Really Operating?','#'],
+    ["September", "September 29, 2026", "Recognize, Then Respond", "#"],
+    ["September", "September 22, 2026", "RECOGNIZE HIS PRESENCE", "#"],
+    ["September", "September 15, 2026", "RECOGNIZE Week 3: Renounce & Resist | Break the Agreement, Take Your Stand", "#"],
+    ["September", "September 8, 2026", "What you keep reacting to may only be the fruit. God wants to show you the root.", "#"],
+    ["September", "September 1, 2026", "Recognize the Battle: What Is Really Operating?", "#"],
     ['August','August 25, 2026','From Reflection to Representation','https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
     ['August','August 18, 2026','Every Stage Is Preparing You','#'],
     ['August','August 11, 2026','REFLECT Week 2: REVEAL — Who Am I Really?','https://drive.google.com/file/d/1TJTP-IK-wGJQOzXS4IqQY9BlSdrWgM3Y/view?usp=sharing'],
