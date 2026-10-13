@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const noteAction = note
           ? `<button class="series-study-notes" type="button" data-note-index="${noteIndex}">Preview Study Notes</button>`
           : '<span class="series-study-notes-unavailable">Study notes unavailable</span>';
-        return `<article class="series-live-card"><iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p></div></article>`;
+        return `<article class="series-live-card"><iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p>${month.series === 'RESPOND' && note ? noteAction : ''}</div></article>`;
       });
       if (!month.comingSoon && month.sessions) {
         seriesCards.push(...month.sessions.map(date => `<article class="series-live-card is-coming-soon"><div class="series-live-placeholder" aria-hidden="true">Coming Soon</div><div><h3>Coming Soon</h3><p class="series-live-date">${date}</p><p>The RESPOND session for this week will be available soon.</p></div></article>`));
@@ -453,6 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const studyNotes = [
+    ['October','October 6, 2026','RESPOND Week One: Relationship Produces Obedience','https://drive.google.com/file/d/1rmxbU0w3XY06zQDu3CQd1ihmPnHekvGT/view?usp=sharing'],
     ['September','September 29, 2026','Recognize, Then Respond','https://drive.google.com/file/d/1sbL0elMvs6I9-3Dkrmva4RnH-cWHHtQB/view?usp=drive_link'],
     ['September','September 1, 2026','Recognize the Battle: What Is Really Operating?','#'],
     ['August','August 25, 2026','From Reflection to Representation','https://drive.google.com/drive/folders/1s9LAyfQf4uSKVNu2kULm0DUGdhHjxtlN?usp=sharing'],
@@ -518,13 +519,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (collectionTitle) collectionTitle.textContent = `${activeLibraryMonth} Study Notes`;
     libraryGrid.innerHTML = filtered.map(note => {
       const index = studyNotes.indexOf(note);
-      return `<a class="library-card" href="${communityStudyNotesUrl}" target="_blank" rel="noopener noreferrer" data-note-index="${index}"><span class="library-card-cover"><small>Powered X Prayer</small><strong>${note[0]}</strong><em>Study Notes</em></span><span class="library-card-body"><h4>${note[2]}</h4><small>${note[1]}</small><span>Open in community</span></span></a>`;
+      return `<a class="library-card" href="${note[0] === 'October' ? note[3] : communityStudyNotesUrl}" target="_blank" rel="noopener noreferrer" data-note-index="${index}"><span class="library-card-cover"><small>Powered X Prayer</small><strong>${note[0]}</strong><em>Study Notes</em></span><span class="library-card-body"><h4>${note[2]}</h4><small>${note[1]}</small><span>${note[0] === 'October' ? 'Open Study Notes' : 'Open in community'}</span></span></a>`;
     }).join('');
     selectStudyNote(filtered[0] || studyNotes[0]);
   };
 
   if (libraryModal && libraryGrid && libraryFilters && libraryTrigger) {
-    ['January','February','March','April','May','June','July','August'].forEach(month => {
+    libraryModal.querySelectorAll('.library-stat strong').forEach(item => item.textContent = studyNotes.length);
+    const resourceCount = libraryModal.querySelector('.resource-type-study > span');
+    if (resourceCount) resourceCount.textContent = `${studyNotes.length} resources`;
+    [...new Set(studyNotes.map(note => note[0]))].reverse().forEach(month => {
       const button = document.createElement('button');
       button.type = 'button'; button.textContent = month; button.classList.toggle('active',month === activeLibraryMonth);
       button.addEventListener('click',() => { activeLibraryMonth = month; libraryFilters.querySelectorAll('button').forEach(item => item.classList.toggle('active',item === button)); renderStudyNotes(); });
@@ -537,6 +541,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const openLibrary = event => { event?.preventDefault(); showResourcesHome(); libraryModal.hidden = false; document.body.classList.add('series-modal-open'); libraryModal.querySelector('.library-shell').focus(); };
     const closeLibrary = () => { libraryModal.hidden = true; document.body.classList.remove('series-modal-open'); libraryTrigger.focus(); };
     openStudyNotePreview = note => {
+      activeLibraryMonth = note[0];
+      libraryFilters.querySelectorAll('button').forEach(button => button.classList.toggle('active', button.textContent === activeLibraryMonth));
       showStudyNotes();
       libraryModal.hidden = false;
       document.body.classList.add('series-modal-open');
