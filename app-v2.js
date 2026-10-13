@@ -453,6 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const studyNotes = [
+    ['October','October 13, 2026',"RESPOND Week 2: Responding in Obedience by God's Grace",'https://login.poweredxprayers.com/communities/groups/the-collective-prayer-room/about'],
     ['October','October 6, 2026','RESPOND Week One: Relationship Produces Obedience','https://drive.google.com/file/d/1rmxbU0w3XY06zQDu3CQd1ihmPnHekvGT/view?usp=sharing'],
     ["September", "September 29, 2026", "Recognize, Then Respond", "#"],
     ["September", "September 22, 2026", "RECOGNIZE HIS PRESENCE", "#"],
