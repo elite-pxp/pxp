@@ -80,7 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
       ['IXsXKhZGepE','RECOGNIZE Week 3: Renounce & Resist | Break the Agreement, Take Your Stand','September 15, 2026',"Renounce agreements that oppose God’s truth, resist the enemy, and take your stand in the authority and identity you have in Christ."],
       ['ea95cJ3sMbw','RECOGNIZE HIS PRESENCE','September 22, 2026',"Continue discovering and walking in your identity in Christ."],
       ['aRaA3B6UaPU','Recognize, Then Respond','September 29, 2026',"Recognize what God is revealing and respond in faith, truth, and confidence in Christ."] ]},
-    october: { name:'October', series:'RESPOND', theme:'Coming Soon.', comingSoon:true, sessions:['October 6, 2026','October 13, 2026','October 20, 2026','October 27, 2026'], videos:[] },
+    october: { name:'October', series:'RESPOND', theme:'Relationship. Obedience. Grace.', sessions:['October 20, 2026','October 27, 2026'], videos:[
+      ['oV6RkHzKgyc','RESPOND Week One: Relationship Produces Obedience','October 6, 2026','Return to a humble, teachable, and trusting posture before God. Relationship produces trust, trust produces obedience, and obedience produces response.'],
+      ['ivAs9v0eivA',"🙏 Obedience isn't about your strength. It's about God's grace!",'October 13, 2026',"Join Shantal Long for RESPOND Week 2: Responding in Obedience by God's Grace, with Ephesians 2:8. Come ready to receive, grow, and respond to God's Word."] ]},
     august: { name:'August', series:'REFLECT', theme:'See Clearly. Live Intentionally.', videos:[
       ['fDxOYQK8YJg','The Mirror, Seeing Yourself the Way God Sees You','August 4, 2026',"Look into the mirror of God\u2019s Word and allow the Holy Spirit to transform your heart."],
       ['cs00kGDEXew','REFLECT Week 2: REVEAL — Who Am I Really?','August 11, 2026',"Replace earthly labels with Heaven's language and receive your identity in Christ."],
@@ -128,8 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const noteAction = note
           ? `<button class="series-study-notes" type="button" data-note-index="${noteIndex}">Preview Study Notes</button>`
           : '<span class="series-study-notes-unavailable">Study notes unavailable</span>';
-        return `<article class="series-live-card"><iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p></div></article>`;
+        return `<article class="series-live-card"><iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p>${month.series === 'RESPOND' ? `<a class="series-study-notes" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>` : ''}</div></article>`;
       });
+      if (!month.comingSoon && month.sessions) {
+        seriesCards.push(...month.sessions.map(date => `<article class="series-live-card is-coming-soon"><div class="series-live-placeholder" aria-hidden="true">Coming Soon</div><div><h3>Coming Soon</h3><p class="series-live-date">${date}</p><p>The RESPOND session for this week will be available soon.</p></div></article>`));
+      }
       modal.querySelector('.series-live-grid').innerHTML = seriesCards.join('');
       modal.querySelectorAll('.series-study-notes').forEach(button => button.addEventListener('click', () => {
         const note = studyNotes[Number(button.dataset.noteIndex)];
