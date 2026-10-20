@@ -80,9 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
       ['IXsXKhZGepE','RECOGNIZE Week 3: Renounce & Resist | Break the Agreement, Take Your Stand','September 15, 2026',"Renounce agreements that oppose God’s truth, resist the enemy, and take your stand in the authority and identity you have in Christ."],
       ['ea95cJ3sMbw','RECOGNIZE HIS PRESENCE','September 22, 2026',"Continue discovering and walking in your identity in Christ."],
       ['aRaA3B6UaPU','Recognize, Then Respond','September 29, 2026',"Recognize what God is revealing and respond in faith, truth, and confidence in Christ."] ]},
-    october: { name:'October', series:'RESPOND', theme:'Relationship. Obedience. Grace.', sessions:['October 20, 2026','October 27, 2026'], videos:[
+    october: { name:'October', series:'RESPOND', theme:'Relationship. Obedience. Grace.', sessions:['October 27, 2026'], videos:[
       ['oV6RkHzKgyc','RESPOND Week One: Relationship Produces Obedience','October 6, 2026','Return to a humble, teachable, and trusting posture before God. Relationship produces trust, trust produces obedience, and obedience produces response.'],
-      ['ivAs9v0eivA',"🙏 Obedience isn't about your strength. It's about God's grace!",'October 13, 2026',"Join Shantal Long for RESPOND Week 2: Responding in Obedience by God's Grace, with Ephesians 2:8. Come ready to receive, grow, and respond to God's Word."] ]},
+      ['ivAs9v0eivA',"🙏 Obedience isn't about your strength. It's about God's grace!",'October 13, 2026',"Join Shantal Long for RESPOND Week 2: Responding in Obedience by God's Grace, with Ephesians 2:8. Come ready to receive, grow, and respond to God's Word."],
+      ['Xh7ol13tc_I','Faith Under Pressure | RESPOND Week 3','October 20, 2026','Watch the October 20 session of the RESPOND series: Faith Under Pressure.'] ]},
     august: { name:'August', series:'REFLECT', theme:'See Clearly. Live Intentionally.', videos:[
       ['fDxOYQK8YJg','The Mirror, Seeing Yourself the Way God Sees You','August 4, 2026',"Look into the mirror of God\u2019s Word and allow the Holy Spirit to transform your heart."],
       ['cs00kGDEXew','REFLECT Week 2: REVEAL — Who Am I Really?','August 11, 2026',"Replace earthly labels with Heaven's language and receive your identity in Christ."],
@@ -454,6 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Public resources are a community directory. Direct document previews belong only in the passcode-protected Superfan vault.
   const studyNotes = [
+    ['October','October 20, 2026','Faith Under Pressure | RESPOND Week 3','#'],
     ['October','October 13, 2026',"RESPOND Week 2: Responding in Obedience by God's Grace",'https://login.poweredxprayers.com/communities/groups/the-collective-prayer-room/about'],
     ['October','October 6, 2026','RESPOND Week One: Relationship Produces Obedience','#'],
     ["September", "September 29, 2026", "Recognize, Then Respond", "#"],
