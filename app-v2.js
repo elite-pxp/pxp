@@ -80,10 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ['IXsXKhZGepE','RECOGNIZE Week 3: Renounce & Resist | Break the Agreement, Take Your Stand','September 15, 2026',"Renounce agreements that oppose God’s truth, resist the enemy, and take your stand in the authority and identity you have in Christ."],
       ['ea95cJ3sMbw','RECOGNIZE HIS PRESENCE','September 22, 2026',"Continue discovering and walking in your identity in Christ."],
       ['aRaA3B6UaPU','Recognize, Then Respond','September 29, 2026',"Recognize what God is revealing and respond in faith, truth, and confidence in Christ."] ]},
-    october: { name:'October', series:'RESPOND', theme:'Relationship. Obedience. Grace.', sessions:['October 27, 2026'], videos:[
+    october: { name:'October', series:'RESPOND', theme:'Relationship. Obedience. Grace.', sessions:[], videos:[
       ['oV6RkHzKgyc','RESPOND Week One: Relationship Produces Obedience','October 6, 2026','Return to a humble, teachable, and trusting posture before God. Relationship produces trust, trust produces obedience, and obedience produces response.'],
       ['ivAs9v0eivA',"🙏 Obedience isn't about your strength. It's about God's grace!",'October 13, 2026',"Join Shantal Long for RESPOND Week 2: Responding in Obedience by God's Grace, with Ephesians 2:8. Come ready to receive, grow, and respond to God's Word."],
-      ['Xh7ol13tc_I','Faith Under Pressure | RESPOND Week 3','October 20, 2026','Watch the October 20 session of the RESPOND series: Faith Under Pressure.'] ]},
+      ['Xh7ol13tc_I','Faith Under Pressure | RESPOND Week 3','October 20, 2026','Watch the October 20 session of the RESPOND series: Faith Under Pressure.'],
+      ['DSsOdmHxGEU','✨ GOD IS RESPONDING! ARE YOU READY? 🙏','October 27, 2026','Watch the October 27 session and close the RESPOND series ready to hear God and respond in faith.'] ]},
     august: { name:'August', series:'REFLECT', theme:'See Clearly. Live Intentionally.', videos:[
       ['fDxOYQK8YJg','The Mirror, Seeing Yourself the Way God Sees You','August 4, 2026',"Look into the mirror of God\u2019s Word and allow the Holy Spirit to transform your heart."],
       ['cs00kGDEXew','REFLECT Week 2: REVEAL — Who Am I Really?','August 11, 2026',"Replace earthly labels with Heaven's language and receive your identity in Christ."],
