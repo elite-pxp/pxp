@@ -4,6 +4,15 @@ This file is the human-readable history of user-requested website changes. Git r
 
 ## 2026-11-03
 
+### Replaced the November session video
+
+- Replaced only the November 3 main-series video with the supplied MP4, preserving its existing title, date, and description.
+- Visitor-facing location: November monthly-series modal on the main page.
+- Validation and deployment: JavaScript syntax and CSS diff validation passed; deployed and verified with a playable MP4 on the main page.
+- Files: `app-v2.js`, `page-2.css`, `index.html`, `CHANGELOG.md`
+
+## 2026-11-03
+
 ### Updated the December coming-soon cover
 
 - Replaced the December monthly-series card image with the supplied artwork while keeping the card unavailable.

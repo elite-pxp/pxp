@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ['Xh7ol13tc_I','Faith Under Pressure | RESPOND Week 3','October 20, 2026','Watch the October 20 session of the RESPOND series: Faith Under Pressure.'],
       ['DSsOdmHxGEU','✨ GOD IS RESPONDING! ARE YOU READY? 🙏','October 27, 2026','Watch the October 27 session and close the RESPOND series ready to hear God and respond in faith.'] ]},
     november: { name:'November', series:'NOVEMBER LIVE', theme:'Trust God while being still.', sessions:[], videos:[
-      ['crXPZAgC6bc','God is teaching us to trust Him while being still.','November 3, 2026','Watch the November 3 live session and grow in trust as you wait on God.'] ]},
+      ['https://assets.cdn.filesafe.space/CS4NGSgWYVqwkUR4I0Zh/media/6ae9e26ffb31f444f2fd4a24.mp4','God is teaching us to trust Him while being still.','November 3, 2026','Watch the November 3 live session and grow in trust as you wait on God.'] ]},
     august: { name:'August', series:'REFLECT', theme:'See Clearly. Live Intentionally.', videos:[
       ['fDxOYQK8YJg','The Mirror, Seeing Yourself the Way God Sees You','August 4, 2026',"Look into the mirror of God\u2019s Word and allow the Holy Spirit to transform your heart."],
       ['cs00kGDEXew','REFLECT Week 2: REVEAL — Who Am I Really?','August 11, 2026',"Replace earthly labels with Heaven's language and receive your identity in Christ."],
@@ -98,8 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const closeSeriesModal = () => {
     if (!activeSeriesModal) return;
-    activeSeriesModal.querySelectorAll('iframe').forEach(frame => {
-      frame.src = frame.src;
+    activeSeriesModal.querySelectorAll('iframe, video').forEach(media => {
+      if (media.tagName === 'VIDEO') media.pause();
+      else media.src = media.src;
     });
     activeSeriesModal.hidden = true;
     document.body.classList.remove('series-modal-open');
@@ -134,7 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const noteAction = note
           ? `<button class="series-study-notes" type="button" data-note-index="${noteIndex}">Preview Study Notes</button>`
           : '<span class="series-study-notes-unavailable">Study notes unavailable</span>';
-        return `<article class="series-live-card"><iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p></div></article>`;
+        const media = id.endsWith('.mp4') ? `<video controls playsinline preload="metadata" src="${id}"></video>` : `<iframe src="https://www.youtube.com/embed/${id}" title="${title.replace(/"/g,'&quot;')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+        return `<article class="series-live-card">${media}<div><h3>${title}</h3><p class="series-live-date">${date}</p><p>${description}</p></div></article>`;
       });
       if (!month.comingSoon && month.sessions) {
         seriesCards.push(...month.sessions.map(date => `<article class="series-live-card is-coming-soon"><div class="series-live-placeholder" aria-hidden="true">Coming Soon</div><div><h3>Coming Soon</h3><p class="series-live-date">${date}</p><p>The RESPOND session for this week will be available soon.</p></div></article>`));
