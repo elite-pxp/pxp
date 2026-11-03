@@ -2,6 +2,16 @@
 
 This file is the human-readable history of user-requested website changes. Git remains the complete technical history. New entries are added at the top and use Asia/Manila dates.
 
+## 2026-11-03
+
+### Opened November with its first live session
+
+- Replaced the November **Coming Soon** main-series card with the November 3 YouTube session, **God is teaching us to trust Him while being still.**
+- Opened November in the Superfan library and marked its study note as pending until the matching Google Drive link is supplied.
+- Updated cache versions for both visitor-facing pages.
+- Validation and deployment: JavaScript syntax validation passed; deployed and verified on the main series and Superfan pages.
+- Files: `app-v2.js`, `index.html`, `study-note/study-notes.js`, `study-note/index.html`, `CHANGELOG.md`
+
 ## 2026-10-27
 
 ### Established permanent edit logging

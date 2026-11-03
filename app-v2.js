@@ -85,6 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
       ['ivAs9v0eivA',"🙏 Obedience isn't about your strength. It's about God's grace!",'October 13, 2026',"Join Shantal Long for RESPOND Week 2: Responding in Obedience by God's Grace, with Ephesians 2:8. Come ready to receive, grow, and respond to God's Word."],
       ['Xh7ol13tc_I','Faith Under Pressure | RESPOND Week 3','October 20, 2026','Watch the October 20 session of the RESPOND series: Faith Under Pressure.'],
       ['DSsOdmHxGEU','✨ GOD IS RESPONDING! ARE YOU READY? 🙏','October 27, 2026','Watch the October 27 session and close the RESPOND series ready to hear God and respond in faith.'] ]},
+    november: { name:'November', series:'NOVEMBER LIVE', theme:'Trust God while being still.', sessions:[], videos:[
+      ['crXPZAgC6bc','God is teaching us to trust Him while being still.','November 3, 2026','Watch the November 3 live session and grow in trust as you wait on God.'] ]},
     august: { name:'August', series:'REFLECT', theme:'See Clearly. Live Intentionally.', videos:[
       ['fDxOYQK8YJg','The Mirror, Seeing Yourself the Way God Sees You','August 4, 2026',"Look into the mirror of God\u2019s Word and allow the Holy Spirit to transform your heart."],
       ['cs00kGDEXew','REFLECT Week 2: REVEAL — Who Am I Really?','August 11, 2026',"Replace earthly labels with Heaven's language and receive your identity in Christ."],
