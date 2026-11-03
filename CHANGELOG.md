@@ -4,6 +4,15 @@ This file is the human-readable history of user-requested website changes. Git r
 
 ## 2026-11-03
 
+### Replaced the November 3 Superfan study-note file
+
+- Replaced the November 3 study-note Google Drive link with the supplied replacement file.
+- Visitor-facing location: November session in the Superfan study-note library.
+- Validation and deployment: JavaScript syntax validation passed; Google Drive link reachable; deployed and verified in Superfan.
+- Files: `study-note/study-notes.js`, `study-note/index.html`, `CHANGELOG.md`
+
+## 2026-11-03
+
 ### Added November 3 Superfan study notes
 
 - Connected the November 3 study-note card to its supplied Google Drive preview and download file.
