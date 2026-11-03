@@ -4,6 +4,15 @@ This file is the human-readable history of user-requested website changes. Git r
 
 ## 2026-11-03
 
+### Updated the December coming-soon cover
+
+- Replaced the December monthly-series card image with the supplied artwork while keeping the card unavailable.
+- Visitor-facing location: monthly series carousel on the main page.
+- Validation and deployment: HTML diff validation passed; deployed and verified on the main page.
+- Files: `index.html`, `CHANGELOG.md`
+
+## 2026-11-03
+
 ### Updated the November series cover
 
 - Replaced the November main-series card image with the supplied cover artwork.
