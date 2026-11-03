@@ -4,6 +4,15 @@ This file is the human-readable history of user-requested website changes. Git r
 
 ## 2026-11-03
 
+### Replaced the Superfan November session video
+
+- Replaced the November 3 session video in Superfan with the supplied MP4 while preserving its label and pending study-note status.
+- Visitor-facing location: November session videos in the Superfan study-note library.
+- Validation and deployment: JavaScript syntax and CSS diff validation passed; deployed and verified in Superfan.
+- Files: `study-note/study-notes.js`, `study-note/index.html`, `study-note/study-notes.css`, `CHANGELOG.md`
+
+## 2026-11-03
+
 ### Replaced the November session video
 
 - Replaced only the November 3 main-series video with the supplied MP4, preserving its existing title, date, and description.
