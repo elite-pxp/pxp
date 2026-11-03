@@ -4,6 +4,15 @@ This file is the human-readable history of user-requested website changes. Git r
 
 ## 2026-11-03
 
+### Updated the November series cover
+
+- Replaced the November main-series card image with the supplied cover artwork.
+- Visitor-facing location: monthly series carousel on the main page.
+- Validation and deployment: HTML diff validation passed; deployed and verified on the main page.
+- Files: `index.html`, `CHANGELOG.md`
+
+## 2026-11-03
+
 ### Opened November with its first live session
 
 - Replaced the November **Coming Soon** main-series card with the November 3 YouTube session, **God is teaching us to trust Him while being still.**
